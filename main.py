@@ -7,4 +7,4 @@ from lib.StatusUtilites import *
 #shutdown("test-vm")
 #reboot("centos")
 
-print(state("t2ee-c1","centos"))
+print(destory("t2ee-c1","centos"))
