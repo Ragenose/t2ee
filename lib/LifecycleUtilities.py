@@ -1,14 +1,6 @@
 import libvirt
 from lib.ConnectionUtilities import openConnection
 
-STATE_MAP = {0: 'running',
-             1: 'running',
-             2: 'running',
-             3: 'paused',
-             4: 'shutdown',
-             5: 'shutdown',
-             6: 'crashed'}
-
 
 def start(host, vmName):
     conn = openConnection('qemu+ssh://root@'+host+'/system')
