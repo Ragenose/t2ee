@@ -1,10 +1,5 @@
 #!/usr/bin/python3
-import libvirt
-from lib.LifecycleUtilities import *
-from lib.StatusUtilites import *
+from lib.ConnectionUtilities import *
 
-#print(boot("centos"))
-#shutdown("test-vm")
-#reboot("centos")
 
-print(state("t2ee-c1","centos"))
+conn = create_connection_from_config()

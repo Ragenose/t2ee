@@ -1,0 +1,8 @@
+region_name: RegionOne
+auth:
+    auth_url: http://t2ee:5000/v3/
+    username: admin
+    password: t2ee
+    project_name: admin
+    user_domain_name: Default
+    project_domain_name: Default
