@@ -11,10 +11,12 @@ class Opts(object):
         self.project_name = data_loaded['auth']['project_name']
         self.user_domain_name = data_loaded['auth']['user_domain_name']
         self.project_domain_name = data_loaded['auth']['project_domain_name']
+        self.identity_api_version = data_loaded['auth']['identity_api_version']
+        self.image_api_version = data_loaded['auth']['image_api_version']
+        
         self.region_name = data_loaded['region_name']
         # Use identity v3 API for examples.
-        self.identity_api_version = '3'
-
+        
 
 def create_connection_from_config():
     opts = Opts()
@@ -26,5 +28,6 @@ def create_connection_from_config():
         region_name = opts.region_name,
         project_domain_name = opts.project_domain_name,
         user_domain_name = opts.user_domain_name,
-        identity_api_version = opts.identity_api_version
+        identity_api_version = opts.identity_api_version,
+        image_api_version = opts.image_api_version
     )
