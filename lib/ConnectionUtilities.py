@@ -1,7 +1,7 @@
 import openstack
 import yaml
 
-class Opts(object):
+class options(object):
     def __init__(self, debug=False):
         with open("config/openstack.yaml", 'r') as stream:
             data_loaded = yaml.safe_load(stream) 
@@ -18,8 +18,8 @@ class Opts(object):
         # Use identity v3 API for examples.
         
 
-def create_connection_from_config():
-    opts = Opts()
+def create_connection_from_config() -> openstack.connection:
+    opts = options()
     return openstack.connection.Connection(
         auth_url = opts.auth_url,
         username = opts.username,

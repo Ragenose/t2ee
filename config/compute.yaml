@@ -1,0 +1,8 @@
+image:
+  [CentOS7, Ubuntu16.04]
+
+flavor:
+  [small, medium, large]
+
+network:
+  [provider1]
