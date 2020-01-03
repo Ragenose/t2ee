@@ -2,6 +2,7 @@
 from lib.ConnectionUtilities import create_connection_from_config
 from lib.InstanceUtilities import *
 from lib.ImageUtilities import create_image_from_instance
+from lib.LifecycleUtilities import start_instance
 
 conn = create_connection_from_config()
 
@@ -9,5 +10,6 @@ conn = create_connection_from_config()
 #create_instance(conn, "CentOS7", "small", "provider1", "test")
 #delete_instance(conn, "test")
 
-create_image_from_instance(conn, "test", "test1", "Just for testing")
+#create_image_from_instance(conn, "test", "test1", "Just for testing")
 
+start_instance(conn, "test")
