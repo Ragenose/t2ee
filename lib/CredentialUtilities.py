@@ -1,4 +1,5 @@
 import openstack
+from lib.DatabaseUtilities import *
 
 '''
 Function: create_user
@@ -13,8 +14,10 @@ Return value:
     instance: openstack.compute.v2.server.Server object
 '''
 def create_user(conn, name, password, email):
-    return conn.identity.create_user(
+    user = conn.identity.create_user(
         name = name,
         password = password,
         email = email,
     )
+    create_user_document(user)
+    return user

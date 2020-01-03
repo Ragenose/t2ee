@@ -14,6 +14,7 @@ class test_user(unittest.TestCase):
 
         create_user(conn, "test_user", "test123", "test@123.com")
         user = conn.identity.find_user("test_user")
+        print(user.id)
         self.assertEqual(user.name, "test_user")
         self.assertEqual(user.email, "test@123.com")
 
