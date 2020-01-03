@@ -1,5 +1,5 @@
 import openstack
-from lib.DatabaseUtilities import *
+from lib.DatabaseUtilities import create_user_document
 
 '''
 Function: create_user

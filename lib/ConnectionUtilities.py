@@ -18,7 +18,7 @@ class options(object):
         # Use identity v3 API for examples.
         
 
-def create_connection_from_config() -> openstack.connection:
+def create_connection_from_config():
     opts = options()
     return openstack.connection.Connection(
         auth_url = opts.auth_url,
