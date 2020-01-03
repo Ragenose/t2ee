@@ -33,7 +33,6 @@ Return value:
 def create_image_from_instance(conn, instance_name, image_name, description):
     instance = conn.compute.find_server(instance_name)
     image = conn.compute.create_server_image(instance, image_name)
-    print(image)
     client = create_db_connection()
     db = client["t2ee"]
     image_col = db["image"]
