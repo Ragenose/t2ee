@@ -2,6 +2,24 @@ import openstack
 from lib.DatabaseUtilities import create_db_connection
 
 '''
+Function: check_image_name_available
+Date: 2020/01/03
+Purpose: Check if the image name is taken
+Parameters: 
+    conn: OpenStack connection
+    image_name: The image name that needs to be checked
+Return value: 
+    True: If it is not taken
+    False: If it is taken
+'''
+def check_image_name_available(conn, image_name):
+    image = conn.compute.find_image(image_name)
+    if(image == None):
+        return True
+    else:
+        return False
+
+'''
 Function: create_image_from_instance
 Date: 2020/01/03
 Purpose: Create image from instance
