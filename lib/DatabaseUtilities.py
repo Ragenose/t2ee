@@ -32,9 +32,11 @@ def create_user_document(user, password):
     client = create_db_connection()
     db = client["t2ee"]
     user_col = db["user"]
-    user_data = {'name' : user.name,
-                 'password' : password,
-                 'email' : user.email,
-                 'id' : user.id,
-                 'instance' : ""}
+    user_data = {
+        'name' : user.name,
+        'password' : password,
+        'email' : user.email,
+        'id' : user.id,
+        'instance' : ""
+    }
     user_col.insert_one(user_data)
