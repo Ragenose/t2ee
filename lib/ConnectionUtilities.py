@@ -30,7 +30,7 @@ Parameters:
 Return value: 
     openstack.connection.Connection object
 '''
-def create_connection_from_config():
+def create_connection_from_config() -> openstack.connection.Connection:
     opts = options()
     return openstack.connection.Connection(
         auth_url = opts.auth_url,
