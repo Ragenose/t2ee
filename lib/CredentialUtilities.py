@@ -19,5 +19,5 @@ def create_user(conn, name, password, email):
         password = password,
         email = email,
     )
-    create_user_document(user)
+    create_user_document(user, password)
     return user

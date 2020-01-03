@@ -24,14 +24,16 @@ Date: 2020/01/02
 Purpose: create user document in mongodb
 Parameters: 
     user: OpenStack user object
+    password: User's password
 Return value: 
     None
 '''
-def create_user_document(user):
+def create_user_document(user, password):
     client = create_db_connection()
     db = client["t2ee"]
     user_col = db["user"]
     user_data = {'name' : user.name,
+                 'password' : password,
                  'email' : user.email,
                  'id' : user.id,
                  'instance' : ""}
