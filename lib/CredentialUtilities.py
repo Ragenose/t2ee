@@ -16,5 +16,5 @@ def create_user(conn, name, password, email):
     return conn.identity.create_user(
         name = name,
         password = password,
-        email = email
+        email = email,
     )
