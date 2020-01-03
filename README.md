@@ -1,2 +1,2 @@
-# ENSE 400 Capstone Project
+# ENSE 400/477 Capstone Project
 Trello: https://trello.com/b/FHkfT7ZH/t2ee
