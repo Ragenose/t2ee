@@ -1,6 +1,4 @@
-lib/__pycache__/__init__.cpython-35.pyc
-lib/__pycache__/ConnectionUtilities.cpython-35.pyc
-preinstall/CentOS-7-x86_64-GenericCloud-1907.qcow2
-preinstall/xenial-server-cloudimg-amd64-disk1.img
-lib/__pycache__/ImageUtilities.cpython-35.pyc
+.gitignore
+lib/__pycache__/*
+test/__pycache__/*
 .vscode/settings.json
