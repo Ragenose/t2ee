@@ -43,3 +43,4 @@ def create_instance(conn, image_name, flavor_name, network_name, instance_name):
 
     instance = conn.compute.wait_for_server(instance)
     return instance
+
