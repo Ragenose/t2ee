@@ -23,10 +23,10 @@ def start_instance(conn, instance_name):
 # Function: shut_off_instance
 # Date: 2020/01/03
 # Purpose: Shut off instance
-# Parameters: 
+# Parameters:
 #     conn: OpenStack connection
 #     instance_name: The instance that needs to be shutted off
-# Return value: 
+# Return value:
 #     True: If it is SHUTOFF
 #     False: If it is not SHUTOFF
 

@@ -55,7 +55,6 @@ def create_image_from_instance(conn, instance_name, image_name, description):
 
 def delete_image(conn, image_name):
     image = conn.compute.find_image(image_name)
-    
     #Delete database record first
     client = create_db_connection()
     db = client["t2ee"]

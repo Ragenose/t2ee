@@ -44,13 +44,12 @@ def create_instance(conn, image_name, flavor_name, network_name, instance_name):
 # Function: delete_instance
 # Date: 2020/01/02
 # Purpose: Delete instance
-# Parameters: 
+# Parameters:
 #     conn: OpenStack connection
 #     instance_name: The name of instance
-# Return value: 
+# Return value:
 #     None
 
 def delete_instance(conn, instance_name):
     instance = conn.compute.find_server(instance_name)
-    conn.compute.delete_server(instance)
-    
+    conn.compute.delete_server(instance) 

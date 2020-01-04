@@ -24,7 +24,7 @@ def create_db_connection():
 # Parameters:
 #     user: OpenStack user object
 #     password: User's password
-# Return value: 
+# Return value:
 #     None
 
 def create_user_document(user, password):

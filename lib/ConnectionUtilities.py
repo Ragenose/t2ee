@@ -20,14 +20,14 @@ class options(object):
         self.image_api_version = data_loaded['auth']['image_api_version']
         
         self.region_name = data_loaded['region_name']
-     
+ 
 
 # Function: create_connection_from_config
 # Date: 2019/12/30
 # Purpose: Create OpenStack connection
-# Parameters: 
+# Parameters:
 #     None
-# Return value: 
+# Return value:
 #     openstack.connection.Connection object
 
 def create_connection_from_config():

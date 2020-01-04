@@ -9,7 +9,7 @@ from lib.DatabaseUtilities import create_user_document
 #     name: User name
 #     password: User password
 #     email: User email
-# Return value: 
+# Return value:
 #     instance: openstack.compute.v2.server.Server object
 
 def create_user(conn, name, password, email):
