@@ -2,7 +2,7 @@
 import unittest
 
 from lib.ConnectionUtilities import create_connection_from_config
-from lib.InstanceUtilities import *
+from lib.InstanceUtilities import create_instance, check_instance_name_available, delete_instance
 
 conn = create_connection_from_config()
 
