@@ -1,43 +1,39 @@
-import libvirt
-from lib.ConnectionUtilities import openConnection
+import openstack
 
 
-def start(host, vmName):
-    conn = openConnection('qemu+ssh://root@'+host+'/system')
-    try:
-        vm = conn.lookupByName(vmName)
-        #Start VM
-        vm.create()
+# Function: start_instance
+# Date: 2020/01/03
+# Purpose: Start instance
+# Parameters:
+#     conn: OpenStack connection
+#     instance_name: The instance that needs to be started
+# Return value:
+#     True: If it is ACTIVE
+#     False: If it is not ACTIVE
+
+def start_instance(conn, instance_name):
+    instance = conn.compute.find_server(instance_name)
+    conn.compute.start_server(instance)
+    if(instance.status == "ACTIVE"):
         return True
-    except:
+    else:
         return False
 
-def shutdown(host, vmName):
-    conn = openConnection('qemu+ssh://root@'+host+'/system')
-    try:
-        vm = conn.lookupByName(vmName)
-        #shutdown VM
-        vm.shutdown()
-        return True
-    except:
-        return False
 
-def destory(host, vmName):
-    conn = openConnection('qemu+ssh://root@'+host+'/system')
-    try:
-        vm = conn.lookupByName(vmName)
-        #Force off VM
-        vm.destroy()
-        return True
-    except:
-        return False
+# Function: shut_off_instance
+# Date: 2020/01/03
+# Purpose: Shut off instance
+# Parameters:
+#     conn: OpenStack connection
+#     instance_name: The instance that needs to be shutted off
+# Return value:
+#     True: If it is SHUTOFF
+#     False: If it is not SHUTOFF
 
-def reboot(host, vmName):
-    conn = openConnection('qemu+ssh://root@'+host+'/system')
-    try:
-        vm = conn.lookupByName(vmName)
-        #reboot VM
-        vm.reboot()
+def shut_off_instance(conn, instance_name):
+    instance = conn.compute.find_server(instance_name)
+    conn.compute.stop_server(instance)
+    if(instance.status == "SHUTOFF"):
         return True
-    except:
+    else:
         return False

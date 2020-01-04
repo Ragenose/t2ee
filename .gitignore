@@ -1,0 +1,4 @@
+.gitignore
+lib/__pycache__/*
+test/__pycache__/*
+.vscode/settings.json

@@ -1,18 +1,14 @@
-import libvirt
-from lib.ConnectionUtilities import openConnection
+import openstack
 
-STATE_MAP = {0: 'no state',
-             1: 'running',
-             2: 'blocked',
-             3: 'paused',
-             4: 'being shut down',
-             5: 'shutdown',
-             6: 'crashed'}
 
-def state(host, vmName):
-    conn = openConnection('qemu+ssh://root@'+host+'/system')
-    try:
-        vm = conn.lookupByName(vmName)
-        return STATE_MAP[vm.state()[0]]
-    except:
-        return False
+# Function: get_instance_status
+# Date: 2020/01/03
+# Purpose: Get instance status
+# Parameters:
+#     conn: OpenStack connection
+#     instance_name: The instance that needs to be started
+# Return value:
+#     status
+
+def get_instance_status(conn: openstack.connection.Connection, instance_name):
+    return conn.compute.find_server(instance_name).status
