@@ -1,4 +1,4 @@
 .gitignore
-lib/__pycache__/*
-test/__pycache__/*
+api/lib/__pycache__/*
+api/test/__pycache__/*
 .vscode/settings.json
