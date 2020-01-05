@@ -10,13 +10,18 @@ from lib.DatabaseUtilities import create_user_document
 #     password: User password
 #     email: User email
 # Return value:
+#     False: If creation failed
 #     instance: openstack.compute.v2.server.Server object
 
 def create_user(conn, name, password, email):
-    user = conn.identity.create_user(
-        name = name,
-        password = password,
-        email = email,
-    )
-    create_user_document(user, password)
-    return user
+    try:
+        user = conn.identity.create_user(
+            name = name,
+            password = password,
+            email = email,
+        )
+    except Exception:
+        return False
+    else:
+        create_user_document(user, password)
+        return user
