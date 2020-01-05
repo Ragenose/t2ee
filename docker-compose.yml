@@ -6,6 +6,8 @@ services:
       - ./api:/code
     extra_hosts:
       - "t2ee:192.168.0.133"
+    ports:
+      - "5000:5000"
   database:
     image: 'mongo:4.2.2'
     container_name: "mongo"
