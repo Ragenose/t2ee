@@ -7,7 +7,7 @@ services:
     extra_hosts:
       - "t2ee:192.168.0.133"
   database:
-    image: 'mongo'
+    image: 'mongo:4.2.2'
     container_name: "mongo"
     environment:
       - MONGO_INITDB_ROOT_USERNAME=admin
