@@ -1,0 +1,7 @@
+version: '3'
+services:
+  api:
+    build: api/.
+    volumes:
+      - ./api:/code
+    network_mode: "host"
