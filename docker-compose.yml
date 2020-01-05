@@ -4,4 +4,15 @@ services:
     build: api/.
     volumes:
       - ./api:/code
-    network_mode: "host"
+    extra_hosts:
+      - "t2ee:192.168.0.133"
+  database:
+    image: 'mongo'
+    container_name: "mongo"
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=admin
+      - MONGO_INITDB_ROOT_PASSWORD=t2ee
+    ports:
+      - "27017:27017"
+    volumes:
+      - "./data:/data/db"
