@@ -54,7 +54,7 @@ def api_create_user():
 @app.route('/api/user/update/<string:field>', methods=['POST'])
 def api_update_user(field):
     #If the variable is not email or password, return 404
-    if(field != "email" or "password"):
+    if(field != ("email" or "password")):
         return Response(
                 "URL not found",
                 404
@@ -70,12 +70,7 @@ def api_update_user(field):
         #Update email
         if(field == "email"):
             try:
-                username = content["username"]
-                if(username != request.authorization.get('username')):
-                    return Response(
-                    "Invalid Credential",
-                    401
-                )
+                username = request.authorization.get('username')
                 email = content["email"]
              #If data is not correct in the body, return 400
             except TypeError:
@@ -98,12 +93,7 @@ def api_update_user(field):
         #Update password
         if(field == "password"):
             try:
-                username = content["username"]
-                if(username != request.authorization.get('username')):
-                    return Response(
-                    "Invalid Credential",
-                    401
-                )
+                username = request.authorization.get('username')
                 password = content["password"]
              #If data is not correct in the body, return 400
             except TypeError:
