@@ -53,6 +53,13 @@ def api_create_user():
 
 @app.route('/api/user/update/<string:field>', methods=['POST'])
 def api_update_user(field):
+    #If the variable is not email or password, return 404
+    if(field != "email" or "password"):
+        return Response(
+                "URL not found",
+                404
+            )
+    #Check if the username and password in authorization is correct
     if(load_user_from_request(request) is False):
         return Response(
             "Invalid Credential",
@@ -60,6 +67,7 @@ def api_update_user(field):
         )
     else:
         content = request.get_json()
+        #Update email
         if(field == "email"):
             try:
                 username = content["username"]
@@ -87,6 +95,7 @@ def api_update_user(field):
                         "Update email failed",
                         400
                     )
+        #Update password
         if(field == "password"):
             try:
                 username = content["username"]
@@ -114,12 +123,7 @@ def api_update_user(field):
                         "Update password failed",
                         400
                     )
-        else:
-            return Response(
-                "URL not found",
-                404
-            )
-            
+
 if __name__ == '__main__':
     #Every time the app runs, it updates the OpenStack config
     update_database_config()
