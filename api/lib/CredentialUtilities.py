@@ -1,4 +1,5 @@
 from lib.DatabaseUtilities import create_db_connection, create_user_document
+import sys
 
 # Function: check_user_available
 # Date: 2020/01/04
@@ -9,6 +10,7 @@ from lib.DatabaseUtilities import create_db_connection, create_user_document
 # Return value:
 #     True: If it is not taken
 #     False: If it is taken
+
 def check_user_available(conn, name):
     user = conn.identity.find_user(name)
     if(user is None):
@@ -25,6 +27,7 @@ def check_user_available(conn, name):
 # Return value:
 #     True: If it is not taken
 #     False: If it is taken
+
 def check_email_available(conn, email):
     client = create_db_connection()
     db = client["t2ee"]
@@ -70,24 +73,29 @@ def create_user(conn, name, password, email):
 # Return value:
 #     False: If update failed
 #     True: If update succeed
+
 def update_user_email(conn, name, email):
     try:
         user = conn.identity.find_user(name)
-        user.update_user(
+        conn.identity.update_user(
             user,
             email = email
         )
-        client = create_db_connection()
-        db = client["t2ee"]
-        user_col = db["user"]
-        query = {"name": name}
-        new_email = {"$set": {"email": email}}
-        user_col.update_one(query, new_email)
-
     except Exception:
         return False
     else:
-        return True
+        try:
+            client = create_db_connection()
+            db = client["t2ee"]
+            user_col = db["user"]
+            query = {"name": name}
+            new_email = {"$set": {"email": email}}
+            print(user_col.find_one(query), file=sys.stderr)
+            user_col.update_one(query, new_email)
+        except Exception:
+            return False
+        else:
+            return True
 
 # Function: update_user_password
 # Date: 2020/01/05
@@ -99,21 +107,45 @@ def update_user_email(conn, name, email):
 # Return value:
 #     False: If update failed
 #     True: If update succeed
+
 def update_user_password(conn, name, password):
     try:
         user = conn.identity.find_user(name)
-        user.update_user(
+        conn.identity.update_user(
             user,
             password = password
         )
-        client = create_db_connection()
-        db = client["t2ee"]
-        user_col = db["user"]
-        query = {"name": name}
-        new_password = {"$set": {"password": password}}
-        user_col.update_one(query, new_password)
-
     except Exception:
+        return False
+    else:
+        try:
+            client = create_db_connection()
+            db = client["t2ee"]
+            user_col = db["user"]
+            query = {"name": name}
+            new_password = {"$set" : {"password" : password}}
+            user_col.update_one(query, new_password)
+        except Exception:
+            return False
+        else:
+            return True
+
+# Function: check_credential
+# Date: 2020/01/05
+# Purpose: Check user credential
+# Parameters:
+#     name: User name
+#     password: User's password
+# Return value:
+#     False: Credential not found
+#     True: Credential found
+
+def check_credential(name, password):
+    client = create_db_connection()
+    db = client["t2ee"]
+    user_col = db["user"]
+    result = user_col.find_one({"name" : name, "password" : password})
+    if(result is None):
         return False
     else:
         return True
