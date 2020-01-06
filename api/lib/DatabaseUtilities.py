@@ -36,6 +36,7 @@ def create_user_document(user, password):
         'password' : password,
         'email' : user.email,
         'id' : user.id,
-        'instance' : ""
+        'instance' : "",
+        'image' : ""
     }
     user_col.insert_one(user_data)
