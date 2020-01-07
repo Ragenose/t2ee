@@ -4,3 +4,4 @@ api/test/__pycache__/*
 api/__pycache__
 .vscode/settings.json
 api/.vscode/settings.json
+data/*
