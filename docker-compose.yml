@@ -2,6 +2,8 @@ version: '3'
 services:
   rabbitmq:
     image: "rabbitmq:3-management"
+    hostname: rabbitmq
+    container_name: "rabbitmq"
     environment:
       RABBITMQ_ERLANG_COOKIE: "SWQOKODSQALRPCLNMEQG"
       RABBITMQ_DEFAULT_USER: "rabbit"
@@ -10,8 +12,8 @@ services:
     ports:
       - "15672:15672"
       - "5672:5672"
-    labels:
-      NAME: "rabbitmq1"
+    volumes:
+      - "./data/rabbitmq:/var/lib/rabbitmq"
 
   database:
     image: 'mongo:4.2.2'
@@ -22,7 +24,7 @@ services:
     ports:
       - "27017:27017"
     volumes:
-      - "./data:/data/db"
+      - "./data/mongodb:/data/db"
 
   api:
     build: 
@@ -34,5 +36,8 @@ services:
       - "t2ee:192.168.0.133"
     ports:
       - "5000:5000"
+    depends_on:
+      - database
+      - rabbitmq
 
   

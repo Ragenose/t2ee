@@ -4,8 +4,13 @@ from CreateDatabase import update_database_config
 from lib.ConnectionUtilities import create_connection_from_config
 from lib.CredentialUtilities import create_user, update_user_email, update_user_password, check_credential
 import sys
+import pika
 
 app = Flask(__name__)
+credentials = pika.PlainCredentials('rabbit','rabbit')
+connection = pika.BlockingConnection(pika.ConnectionParameters(
+    'rabbitmq',5672,'/',credentials))
+channel = connection.channel()
 
 def load_user_from_request(request):
     if request.authorization is None:
@@ -118,5 +123,9 @@ if __name__ == '__main__':
     #Every time the app runs, it updates the OpenStack config
     update_database_config()
 
+    #Declare queues for the project
+    channel.queue_declare(queue='instance',durable=True)
+    channel.queue_declare(queue='image',durable=True)
+    
     #Start the server
     app.run(debug = True, host="0.0.0.0")
