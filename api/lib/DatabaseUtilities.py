@@ -54,3 +54,4 @@ def get_network_name():
     openstack_col = db['openstack']
     result = openstack_col.find_one()
     return result["network"][0]
+    client.close()
