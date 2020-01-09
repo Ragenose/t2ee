@@ -215,7 +215,22 @@ def api_create_image():
 @app.route('/api/image/delete/<string:image_name>', methods=['POST'])
 def api_delete_image(image_name):
     check_user_credential(request)
-
+    username = request.authorization.get('username')
+    payload = {
+        'method': 'delete',
+        'name': username,
+        'image_name': image_name
+    }
+    channel.basic_publish(exchange='',
+                          routing_key='image',
+                          body=json.dumps(payload),
+                          properties=pika.BasicProperties(
+                              delivery_mode=2,  # make message persistent
+                          ))
+    return Response(
+        "OK",
+        200
+    )
 
 if __name__ == '__main__':
     # Every time the app runs, it updates the OpenStack config
