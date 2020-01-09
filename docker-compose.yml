@@ -17,6 +17,7 @@ services:
 
   database:
     image: 'mongo:4.2.2'
+    hostname: "mongo"
     container_name: "mongo"
     environment:
       - MONGO_INITDB_ROOT_USERNAME=admin
