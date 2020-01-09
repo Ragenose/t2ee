@@ -8,10 +8,11 @@ import pika
 import json
 
 app = Flask(__name__)
-credentials = pika.PlainCredentials('rabbit','rabbit')
+credentials = pika.PlainCredentials('rabbit', 'rabbit')
 connection = pika.BlockingConnection(pika.ConnectionParameters(
-    'rabbitmq',5672,'/',credentials))
+    'rabbitmq', 5672, '/', credentials))
 channel = connection.channel()
+
 
 def load_user_from_request(request):
     if request.authorization is None:
@@ -21,35 +22,36 @@ def load_user_from_request(request):
     print(username, password)
     return check_credential(username, password)
 
+
 @app.route('/api/user/create', methods=['POST'])
 def api_create_user():
     content = request.get_json()
 
-    #Try to get data from json body
+    # Try to get data from json body
     try:
         username = content["username"]
         password = content["password"]
         email = content["email"]
-    
-    #If data is not correct in the body, return 400
+
+    # If data is not correct in the body, return 400
     except TypeError:
         return Response(
             "Bad Request",
             400
         )
-    
-    #Create user
+
+    # Create user
     else:
-        #Open conenction
+        # Open conenction
         conn = create_connection_from_config()
-        #If creation failed, return 500
+        # If creation failed, return 500
         if(create_user(conn, username, password, email) is False):
             conn.close()
             return Response(
                 "Creating failed",
                 500
             )
-        #Creation succeed, return 200
+        # Creation succeed, return 200
         else:
             conn.close()
             return Response(
@@ -57,15 +59,16 @@ def api_create_user():
                 200
             )
 
+
 @app.route('/api/user/update/<string:field>', methods=['POST'])
 def api_update_user(field):
-    #If the variable is not email or password, return 404
+    # If the variable is not email or password, return 404
     if(field != ("email" or "password")):
         return Response(
-                "URL not found",
-                404
-            )
-    #Check if the username and password in authorization is correct
+            "URL not found",
+            404
+        )
+    # Check if the username and password in authorization is correct
     if(load_user_from_request(request) is False):
         return Response(
             "Invalid Credential",
@@ -73,12 +76,12 @@ def api_update_user(field):
         )
     else:
         content = request.get_json()
-        #Update email
+        # Update email
         if(field == "email"):
             try:
                 username = request.authorization.get('username')
                 email = content["email"]
-             #If data is not correct in the body, return 400
+             # If data is not correct in the body, return 400
             except TypeError:
                 return Response(
                     "Bad Request, insufficient data",
@@ -96,12 +99,12 @@ def api_update_user(field):
                         "Update email failed",
                         400
                     )
-        #Update password
+        # Update password
         if(field == "password"):
             try:
                 username = request.authorization.get('username')
                 password = content["password"]
-             #If data is not correct in the body, return 400
+             # If data is not correct in the body, return 400
             except TypeError:
                 return Response(
                     "Bad Request, insufficient data",
@@ -120,6 +123,7 @@ def api_update_user(field):
                         400
                     )
 
+
 @app.route('/api/instance/create', methods=['POST'])
 def api_create_instance():
     if(load_user_from_request(request) is False):
@@ -136,7 +140,7 @@ def api_create_instance():
     except KeyError:
         return Response(
             "Bad Request, insufficient data",
-             400
+            400
         )
     else:
         payload = {
@@ -147,23 +151,49 @@ def api_create_instance():
             'image': image
         }
         channel.basic_publish(exchange='',
-                      routing_key='instance',
-                      body=json.dumps(payload),
-                      properties=pika.BasicProperties(
-                          delivery_mode=2,  # make message persistent
-                      ))
+                              routing_key='instance',
+                              body=json.dumps(payload),
+                              properties=pika.BasicProperties(
+                                  delivery_mode=2,  # make message persistent
+                              ))
         return Response(
             "OK",
             200
         )
 
+
+@app.route('/api/instance/delete/<string:instance_name>', methods=['POST'])
+def api_delete_instance(instance_name):
+    if(load_user_from_request(request) is False):
+        return Response(
+            "Invalid Credential",
+            401
+        )
+    username = request.authorization.get('username')
+    payload = {
+        'method': 'delete',
+        'name': username,
+        'instance_name': instance_name
+    }
+    channel.basic_publish(exchange='',
+                          routing_key='instance',
+                          body=json.dumps(payload),
+                          properties=pika.BasicProperties(
+                              delivery_mode=2,  # make message persistent
+                          ))
+    return Response(
+        "OK",
+        200
+    )
+
+
 if __name__ == '__main__':
-    #Every time the app runs, it updates the OpenStack config
+    # Every time the app runs, it updates the OpenStack config
     update_database_config()
 
-    #Declare queues for the project
-    channel.queue_declare(queue='instance',durable=True)
-    channel.queue_declare(queue='image',durable=True)
-    
-    #Start the server
-    app.run(debug = True, host="0.0.0.0")
+    # Declare queues for the project
+    channel.queue_declare(queue='instance', durable=True)
+    channel.queue_declare(queue='image', durable=True)
+
+    # Start the server
+    app.run(debug=True, host="0.0.0.0")
