@@ -40,3 +40,17 @@ def create_user_document(user, password):
         'image' : []
     }
     user_col.insert_one(user_data)
+
+# Function: get_network_name
+# Date: 2020/01/08
+# Purpose: Get network name from database
+# Parameters:
+#     None
+# Return value:
+#     Network name
+def get_network_name():
+    client = create_db_connection()
+    db = client["t2ee"]
+    openstack_col = db['openstack']
+    result = openstack_col.find_one()
+    return result["network"][0]
