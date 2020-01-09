@@ -5,3 +5,4 @@ api/__pycache__
 .vscode/settings.json
 api/.vscode/settings.json
 data/*
+api/callback/__pycache__/*
