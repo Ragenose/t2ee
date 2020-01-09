@@ -6,3 +6,4 @@ api/__pycache__/*
 api/.vscode/settings.json
 data/*
 api/callback/__pycache__/*
+/env/*
