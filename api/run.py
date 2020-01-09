@@ -5,6 +5,7 @@ from lib.ConnectionUtilities import create_connection_from_config
 from lib.CredentialUtilities import create_user, update_user_email, update_user_password, check_credential
 import sys
 import pika
+import json
 
 app = Flask(__name__)
 credentials = pika.PlainCredentials('rabbit','rabbit')
@@ -118,6 +119,43 @@ def api_update_user(field):
                         "Update password failed",
                         400
                     )
+
+@app.route('/api/instance/create', methods=['POST'])
+def api_create_instance():
+    if(load_user_from_request(request) is False):
+        return Response(
+            "Invalid Credential",
+            401
+        )
+    content = request.get_json()
+    try:
+        username = request.authorization.get('username')
+        flavor = content['flavor']
+        instance_name = content['instance_name']
+        image = content['image']
+    except KeyError:
+        return Response(
+            "Bad Request, insufficient data",
+             400
+        )
+    else:
+        payload = {
+            'method': 'create',
+            'name': username,
+            'flavor': flavor,
+            'instance_name': instance_name,
+            'image': image
+        }
+        channel.basic_publish(exchange='',
+                      routing_key='instance',
+                      body=json.dumps(payload),
+                      properties=pika.BasicProperties(
+                          delivery_mode=2,  # make message persistent
+                      ))
+        return Response(
+            "OK",
+            200
+        )
 
 if __name__ == '__main__':
     #Every time the app runs, it updates the OpenStack config
