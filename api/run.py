@@ -22,8 +22,10 @@ def load_user_from_request(request):
     print(username, password)
     return check_credential(username, password)
 
+
 def check_user_credential(request):
     load_user_from_request(request)
+
 
 @app.route('/api/user/create', methods=['POST'])
 def api_create_user():
@@ -71,68 +73,59 @@ def api_update_user(field):
             404
         )
     # Check if the username and password in authorization is correct
-    if(load_user_from_request(request) is False):
-        return Response(
-            "Invalid Credential",
-            401
-        )
-    else:
-        content = request.get_json()
-        # Update email
-        if(field == "email"):
-            try:
-                username = request.authorization.get('username')
-                email = content["email"]
-             # If data is not correct in the body, return 400
-            except TypeError:
+    check_user_credential(request)
+    content = request.get_json()
+    # Update email
+    if(field == "email"):
+        try:
+            username = request.authorization.get('username')
+            email = content["email"]
+        # If data is not correct in the body, return 400
+        except TypeError:
+            return Response(
+                "Bad Request, insufficient data",
+                400
+            )
+        else:
+            conn = create_connection_from_config()
+            if(update_user_email(conn, username, email) is True):
                 return Response(
-                    "Bad Request, insufficient data",
-                    400
+                    "OK",
+                    200
                 )
             else:
-                conn = create_connection_from_config()
-                if(update_user_email(conn, username, email) is True):
-                    return Response(
-                        "OK",
-                        200
-                    )
-                else:
-                    return Response(
-                        "Update email failed",
-                        400
-                    )
+                return Response(
+                    "Update email failed",
+                    400
+                )
         # Update password
-        if(field == "password"):
-            try:
-                username = request.authorization.get('username')
-                password = content["password"]
-             # If data is not correct in the body, return 400
-            except TypeError:
+    if(field == "password"):
+        try:
+            username = request.authorization.get('username')
+            password = content["password"]
+         # If data is not correct in the body, return 400
+        except TypeError:
+            return Response(
+                "Bad Request, insufficient data",
+                400
+            )
+        else:
+            conn = create_connection_from_config()
+            if(update_user_password(conn, username, password) is True):
                 return Response(
-                    "Bad Request, insufficient data",
-                    400
+                    "OK",
+                    200
                 )
             else:
-                conn = create_connection_from_config()
-                if(update_user_password(conn, username, password) is True):
-                    return Response(
-                        "OK",
-                        200
-                    )
-                else:
-                    return Response(
-                        "Update password failed",
-                        400
-                    )
+                return Response(
+                    "Update password failed",
+                    400
+                )
 
 
 @app.route('/api/instance/create', methods=['POST'])
 def api_create_instance():
-    if(load_user_from_request(request) is False):
-        return Response(
-            "Invalid Credential",
-            401
-        )
+    check_user_credential(request)
     content = request.get_json()
     try:
         username = request.authorization.get('username')
@@ -166,11 +159,7 @@ def api_create_instance():
 
 @app.route('/api/instance/delete/<string:instance_name>', methods=['POST'])
 def api_delete_instance(instance_name):
-    if(load_user_from_request(request) is False):
-        return Response(
-            "Invalid Credential",
-            401
-        )
+    check_user_credential(request)
     username = request.authorization.get('username')
     payload = {
         'method': 'delete',
@@ -188,13 +177,10 @@ def api_delete_instance(instance_name):
         200
     )
 
+
 @app.route('/api/image/create', methods=['POST'])
 def api_create_image():
-    if(load_user_from_request(request) is False):
-        return Response(
-            "Invalid Credential",
-            401
-        )
+    check_user_credential(request)
     content = request.get_json()
     try:
         username = request.authorization.get('username')
@@ -225,8 +211,10 @@ def api_create_image():
             200
         )
 
+
 @app.route('/api/image/delete/<string:image_name>', methods=['POST'])
 def api_delete_image(image_name):
+    check_user_credential(request)
 
 
 if __name__ == '__main__':
