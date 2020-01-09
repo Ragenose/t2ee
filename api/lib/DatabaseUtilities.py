@@ -48,10 +48,26 @@ def create_user_document(user, password):
 #     None
 # Return value:
 #     Network name
+
 def get_network_name():
     client = create_db_connection()
     db = client["t2ee"]
     openstack_col = db['openstack']
     result = openstack_col.find_one()
-    return result["network"][0]
     client.close()
+    return result["network"][0]
+
+# Function: add_instance_to_user
+# Date: 2020/01/08
+# Purpose: Add instance under user's name
+# Parameters:
+#     None
+# Return value:
+#     Network name
+def add_instance_to_user(user, instance_name):
+    client = create_db_connection()
+    user_col = client["t2ee"]["user"]
+    user_col.update_one(
+        {"name": user},
+        {"$push": {"instance": {"instance_name": instance_name}}}
+    )
