@@ -22,6 +22,8 @@ def load_user_from_request(request):
     print(username, password)
     return check_credential(username, password)
 
+def check_user_credential(request):
+    load_user_from_request(request)
 
 @app.route('/api/user/create', methods=['POST'])
 def api_create_user():
@@ -222,6 +224,10 @@ def api_create_image():
             "OK",
             200
         )
+
+@app.route('/api/image/delete/<string:image_name>', methods=['POST'])
+def api_delete_image(image_name):
+
 
 if __name__ == '__main__':
     # Every time the app runs, it updates the OpenStack config
