@@ -8,4 +8,4 @@ COPY lib .
 COPY run.py .
 COPY CreateDatabase.py .
 COPY start.sh .
-CMD ["sh", "start.sh"]
+CMD ["sh", "start.sh", "run.py"]
