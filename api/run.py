@@ -186,6 +186,42 @@ def api_delete_instance(instance_name):
         200
     )
 
+@app.route('/api/image/create', methods=['POST'])
+def api_create_image():
+    if(load_user_from_request(request) is False):
+        return Response(
+            "Invalid Credential",
+            401
+        )
+    content = request.get_json()
+    try:
+        username = request.authorization.get('username')
+        instance_name = content['instance_name']
+        image_name = content['image_name']
+        description = content['description']
+    except KeyError:
+        return Response(
+            "Bad Request, insufficient data",
+            400
+        )
+    else:
+        payload = {
+            'method': 'create',
+            'name': username,
+            'instance_name': instance_name,
+            'image_name': image_name,
+            'description': description
+        }
+        channel.basic_publish(exchange='',
+                              routing_key='image',
+                              body=json.dumps(payload),
+                              properties=pika.BasicProperties(
+                                  delivery_mode=2,  # make message persistent
+                              ))
+        return Response(
+            "OK",
+            200
+        )
 
 if __name__ == '__main__':
     # Every time the app runs, it updates the OpenStack config
