@@ -11,7 +11,7 @@ app = Flask(__name__)
 credentials = pika.PlainCredentials('rabbit', 'rabbit')
 connection = pika.BlockingConnection(pika.ConnectionParameters(
     'rabbitmq', 5672, '/', credentials))
-channel = connection.channel()
+
 
 
 def load_user_from_request(request):
@@ -145,19 +145,21 @@ def api_create_instance():
             'instance_name': instance_name,
             'image': image
         }
+        channel = connection.channel()
         channel.basic_publish(exchange='',
                               routing_key='instance',
                               body=json.dumps(payload),
                               properties=pika.BasicProperties(
                                   delivery_mode=2,  # make message persistent
                               ))
+        channel.close()
         return Response(
             "OK",
             200
         )
 
 
-@app.route('/api/instance/delete/<string:instance_name>', methods=['POST'])
+@app.route('/api/instance/delete/<string:instance_name>', methods=['DELETE'])
 def api_delete_instance(instance_name):
     check_user_credential(request)
     username = request.authorization.get('username')
@@ -166,12 +168,14 @@ def api_delete_instance(instance_name):
         'name': username,
         'instance_name': instance_name
     }
+    channel = connection.channel()
     channel.basic_publish(exchange='',
                           routing_key='instance',
                           body=json.dumps(payload),
                           properties=pika.BasicProperties(
                               delivery_mode=2,  # make message persistent
                           ))
+    channel.close()
     return Response(
         "OK",
         200
@@ -200,19 +204,21 @@ def api_create_image():
             'image_name': image_name,
             'description': description
         }
+        channel = connection.channel()
         channel.basic_publish(exchange='',
                               routing_key='image',
                               body=json.dumps(payload),
                               properties=pika.BasicProperties(
                                   delivery_mode=2,  # make message persistent
                               ))
+        channel.close()
         return Response(
             "OK",
             200
         )
 
 
-@app.route('/api/image/delete/<string:image_name>', methods=['POST'])
+@app.route('/api/image/delete/<string:image_name>', methods=['DELETE'])
 def api_delete_image(image_name):
     check_user_credential(request)
     username = request.authorization.get('username')
@@ -221,12 +227,14 @@ def api_delete_image(image_name):
         'name': username,
         'image_name': image_name
     }
+    channel = connection.channel()
     channel.basic_publish(exchange='',
                           routing_key='image',
                           body=json.dumps(payload),
                           properties=pika.BasicProperties(
                               delivery_mode=2,  # make message persistent
                           ))
+    channel.close()
     return Response(
         "OK",
         200
@@ -237,8 +245,9 @@ if __name__ == '__main__':
     update_database_config()
 
     # Declare queues for the project
+    channel = connection.channel()
     channel.queue_declare(queue='instance', durable=True)
     channel.queue_declare(queue='image', durable=True)
-
+    channel.close()
     # Start the server
     app.run(debug=True, host="0.0.0.0")

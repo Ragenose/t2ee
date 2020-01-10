@@ -40,6 +40,7 @@ def create_user_document(user, password):
         'image' : []
     }
     user_col.insert_one(user_data)
+    client.close()
 
 # Function: get_network_name
 # Date: 2020/01/08
@@ -63,11 +64,30 @@ def get_network_name():
 # Parameters:
 #     None
 # Return value:
-#     Network name
+#     None
+
 def add_instance_to_user(user, instance_name):
     client = create_db_connection()
     user_col = client["t2ee"]["user"]
-    user_col.update_one(
+    user_col.update(
         {"name": user},
         {"$push": {"instance": {"instance_name": instance_name}}}
     )
+    client.close()
+
+# Function: remove_instance_from_user
+# Date: 2020/01/09
+# Purpose: Remove instance under user's name
+# Parameters:
+#     None
+# Return value:
+#     None
+
+def remove_instance_from_user(user, instance_name):
+    client = create_db_connection()
+    user_col = client["t2ee"]["user"]
+    user_col.update(
+        {"name": user},
+        {"$pull": {"instance": {"instance_name": instance_name}}}
+    )
+    client.close()

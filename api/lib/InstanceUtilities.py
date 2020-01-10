@@ -1,3 +1,5 @@
+from lib.DatabaseUtilities import create_db_connection
+
 # Function: check_instance_name_available
 # Date: 2020/01/02
 # Purpose: Check if the instance name is taken
@@ -53,3 +55,13 @@ def create_instance(conn, image_name, flavor_name, network_name, instance_name):
 def delete_instance(conn, instance_name):
     instance = conn.compute.find_server(instance_name)
     conn.compute.delete_server(instance) 
+
+def check_instance_ownership(name, instance_name):
+    client = create_db_connection()
+    user_col = client["t2ee"]["user"]
+    result = user_col.find_one({"name": name, "instance": {"$elemMatch":{"instance_name":instance_name}}})
+    client.close()
+    if(result is not None):
+        return True
+    else:
+        return False
