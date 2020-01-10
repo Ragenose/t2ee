@@ -40,5 +40,16 @@ services:
     depends_on:
       - database
       - rabbitmq
-
+  
+  callback:
+    build:
+      context: api/.
+      dockerfile: callback.Dockerfile
+    volumes:
+      - ./api:/code
+    extra_hosts:
+      - "t2ee:192.168.0.133"
+    depends_on: 
+      - database
+      - rabbitmq
   

@@ -1,5 +1,6 @@
 import pika
 import json
+import logging
 from lib.ConnectionUtilities import create_connection_from_config
 from lib.InstanceUtilities import\
     create_instance,\
@@ -22,7 +23,7 @@ from lib.DatabaseUtilities import \
 
 def mq_instance(ch, method, properties, body):
     payload = json.loads(body.decode("utf-8"))
-    print(payload)
+    logging.warning(payload)
     try:
         if(payload['method'] == "create"):
             mq_create_instance(payload['name'], payload['instance_name'], payload['image'], payload['flavor'])
