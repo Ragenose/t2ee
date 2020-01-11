@@ -56,6 +56,16 @@ def delete_instance(conn, instance_name):
     instance = conn.compute.find_server(instance_name)
     conn.compute.delete_server(instance) 
 
+# Function: check_instance_ownership
+# Date: 2020/01/09
+# Purpose: check instance ownership
+# Parameters:
+#     name: User's name
+#     instance_name: The name of instance
+# Return value:
+#     True: If the user owns the instance
+#     False: If the user doesn't own the instance
+
 def check_instance_ownership(name, instance_name):
     client = create_db_connection()
     user_col = client["t2ee"]["user"]
