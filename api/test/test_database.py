@@ -36,7 +36,8 @@ class test_database(unittest.TestCase):
     def test_create_image_document(self):
         create_image_document("test_user1", "test_image", "docker")
         image_col = db["image"]
-        #result = image_col.find_one({"name": "test_user1", "instance": {"$elemMatch":{"instance_name":"test_instance"}}})
+        result = image_col.find_one({"image_name": "test_image", "username": "test_user1"})
+        self.assertIsNotNone(result)
 
 if __name__ == '__main__':
     unittest.main()
