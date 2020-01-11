@@ -47,8 +47,8 @@ def mq_instance(ch, method, properties, body):
 def mq_create_instance(username, instance_name, image, flavor):
     conn = create_connection_from_config()
     if(check_instance_name_available(conn, instance_name) is True):
-        create_instance(conn, image, flavor, get_network_name(), instance_name)
-        add_instance_to_user(username, instance_name)
+        instance = create_instance(conn, image, flavor, get_network_name(), instance_name)
+        add_instance_to_user(username, instance_name, instance.id)
     conn.close()
 
 # Function: mq_delete_instance
