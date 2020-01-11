@@ -3,7 +3,12 @@ import unittest
 
 from lib.ConnectionUtilities import create_connection_from_config
 from lib.CredentialUtilities import create_user
-from lib.DatabaseUtilities import create_db_connection, get_network_name, add_instance_to_user, remove_instance_from_user
+from lib.DatabaseUtilities import \
+    create_db_connection,\
+    get_network_name,\
+    add_instance_to_user,\
+    remove_instance_from_user,\
+    create_image_document
 
 conn = create_connection_from_config()
 client = create_db_connection()
@@ -27,6 +32,11 @@ class test_database(unittest.TestCase):
         remove_instance_from_user("test_user1", "test_instance")
         result = user_col.find_one({"name": "test_user1", "instance": {"$elemMatch":{"instance_name":"test_instance"}}})
         self.assertIsNone(result)
-        
+
+    def test_create_image_document(self):
+        create_image_document("test_user1", "test_image", "docker")
+        image_col = db["image"]
+        #result = image_col.find_one({"name": "test_user1", "instance": {"$elemMatch":{"instance_name":"test_instance"}}})
+
 if __name__ == '__main__':
     unittest.main()
