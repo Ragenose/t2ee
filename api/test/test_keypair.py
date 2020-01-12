@@ -3,7 +3,7 @@ import unittest
 
 from lib.ConnectionUtilities import create_connection_from_config
 from lib.CredentialUtilities import create_user
-from lib.KeyUtilities import create_keypair
+from lib.SecretUtilities import create_keypair
 from lib.DatabaseUtilities import \
     create_db_connection,\
     get_network_name,\
