@@ -26,6 +26,6 @@ def mq_create_image(username, image_name, instance_name, description):
     conn = create_connection_from_config()
     if(check_image_name_available(conn, image_name) is True):
         image = create_image_from_instance(conn, instance_name, image_name, description)
-        create_image_document(username, image_name, instance_name)
+        create_image_document(username, image_name, instance_name, description)
         add_image_to_user(username, image_name, image.id)
     conn.close()

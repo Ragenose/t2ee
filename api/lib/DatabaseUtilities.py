@@ -50,7 +50,7 @@ def create_user_document(user, password):
 # Return value:
 #     None
 
-def create_image_document(name, image_name, instance_name):
+def create_image_document(name, image_name, instance_name, description):
     client = create_db_connection()
     db = client["t2ee"]
     image_col = db["image"]
@@ -68,7 +68,9 @@ def create_image_document(name, image_name, instance_name):
             "username" : name,
             "image_id": image_id,
             "image_name": image_name,
-            "base_image_name": base_image_name
+            "base_image_name": base_image_name,
+            "description": description,
+            "count": 0
         }
         image_col.insert_one(image_data)
     client.close()
