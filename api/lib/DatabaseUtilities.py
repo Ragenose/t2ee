@@ -36,6 +36,7 @@ def create_user_document(user, password):
         'email' : user.email,
         'id' : user.id,
         'key': '',
+        'root_password': '',
         'instance' : [],
         'image' : []
     }
