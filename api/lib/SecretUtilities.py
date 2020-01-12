@@ -54,5 +54,4 @@ def update_keypair(user, pubkey):
         key = conn.compute.find_keypair(result["key"])
         if(key is not None):
             conn.compute.delete_keypair(key)
-            return create_keypair(user, pubkey)
-        return False
+        return create_keypair(user, pubkey)
