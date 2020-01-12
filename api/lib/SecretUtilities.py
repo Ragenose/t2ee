@@ -43,8 +43,10 @@ def update_keypair(user, pubkey):
     result = user_col.find_one({
         "name": user
     })
+    #If cannot find the user
     if(result is None):
         return False
+    #If the user doesn't have a key, create it
     if(result["key"] == ""):
         return create_keypair(user, pubkey)
     else:
