@@ -165,3 +165,21 @@ def remove_image_from_user(user, image_name):
         {"$pull": {"image": {"image_name": image_name}}}
     )
     client.close()
+
+# Function: add_keypair_to_user
+# Date: 2020/01/11
+# Purpose: Added keypair under user's name
+# Parameters:
+#     user: User's name
+#     keypair: Keypair name
+# Return value:
+#     None
+
+def add_keypair_to_user(user, keypair):
+    client = create_db_connection()
+    user_col = client["t2ee"]["user"]
+    user_col.update(
+        {"name": user},
+        {"$set" : {"key" : keypair}}
+    )
+    client.close()
