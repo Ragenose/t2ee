@@ -8,7 +8,10 @@ from lib.DatabaseUtilities import \
     get_network_name,\
     add_instance_to_user,\
     remove_instance_from_user,\
-    create_image_document
+    create_image_document,\
+    add_root_password_to_user,\
+    remove_root_password_from_user
+    
 
 conn = create_connection_from_config()
 client = create_db_connection()
@@ -38,6 +41,15 @@ class test_database(unittest.TestCase):
         image_col = db["image"]
         result = image_col.find_one({"image_name": "test_image", "username": "test_user1"})
         self.assertIsNotNone(result)
-
+    
+    def test_add_root_password_to_user(self):
+        add_root_password_to_user("test_user1", "whatever")
+        user_col = db["user"]
+        result = user_col.find_one(
+            {"name" : "test_user1",
+             "root_password": "whatever"}
+        )
+        self.assertIsNotNone(result)
+        
 if __name__ == '__main__':
     unittest.main()
