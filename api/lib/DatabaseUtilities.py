@@ -169,7 +169,7 @@ def remove_image_from_user(user, image_name):
 
 # Function: add_keypair_to_user
 # Date: 2020/01/11
-# Purpose: Added keypair under user's name
+# Purpose: Add keypair under user's name
 # Parameters:
 #     user: User's name
 #     keypair: Keypair name
@@ -182,5 +182,57 @@ def add_keypair_to_user(user, keypair):
     user_col.update(
         {"name": user},
         {"$set" : {"key" : keypair}}
+    )
+    client.close()
+
+# Function: remove_keypair_from_user
+# Date: 2020/01/12
+# Purpose: Remove keypair under user's name
+# Parameters:
+#     user: User's name
+# Return value:
+#     None
+
+def remove_keypair_from_user(user):
+    client = create_db_connection()
+    user_col = client["t2ee"]["user"]
+    user_col.update(
+        {"name": user},
+        {"$set" : {"key" : ""}}
+    )
+    client.close()
+
+# Function: add_root_password_to_user
+# Date: 2020/01/12
+# Purpose: Add root password under user's name
+# Parameters:
+#     user: User's name
+#     root_password: Root password
+# Return value:
+#     None
+
+def add_root_password_to_user(user, root_password):
+    client = create_db_connection()
+    user_col = client["t2ee"]["user"]
+    user_col.update(
+        {"name": user},
+        {"$set" : {"root_password" : root_password}}
+    )
+    client.close()
+
+# Function: remove_root_password_from_user
+# Date: 2020/01/12
+# Purpose: Remove root password under user's name
+# Parameters:
+#     user: User's name
+# Return value:
+#     None
+
+def remove_root_password_from_user(user):
+    client = create_db_connection()
+    user_col = client["t2ee"]["user"]
+    user_col.update(
+        {"name": user},
+        {"$set" : {"root_password" : ""}}
     )
     client.close()
