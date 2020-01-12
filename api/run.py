@@ -29,7 +29,6 @@ def load_user_from_request(request):
 def check_user_credential(request):
     load_user_from_request(request)
 
-
 @app.route('/api/user/create', methods=['POST'])
 def api_create_user():
     content = request.get_json()
@@ -65,7 +64,6 @@ def api_create_user():
                 "OK",
                 200
             )
-
 
 @app.route('/api/user/update/<string:field>', methods=['POST'])
 def api_update_user(field):
@@ -132,7 +130,6 @@ def api_create_root_password():
     content = request.get_json()
     try:
         root_password = content["root_password"]
-        logging.warning(root_password)
     except KeyError:
         return Response(
             "Bad Request, insufficient data",
