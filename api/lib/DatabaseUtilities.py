@@ -93,6 +93,29 @@ def get_network_name():
     client.close()
     return result["network"][0]
 
+# Function: get_keypair
+# Date: 2020/01/12
+# Purpose: Get key name of user
+# Parameters:
+#     user: User's name
+# Return value:
+#     None: If user doesn't have a key registered 
+#           or user doesn't exist
+#     result['key']: User's key name
+def get_keypair(user):
+    client = create_db_connection()
+    user_col = client["t2ee"]["user"]
+    result = user_col.find_one(
+        {'name' : user}
+    )
+    if(result is None):
+        return None
+    else:
+        if(result['key'] == ""):
+            return None
+        else:
+            return result['key']
+
 # Function: add_instance_to_user
 # Date: 2020/01/08
 # Purpose: Add instance under user's name
