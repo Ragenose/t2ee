@@ -9,7 +9,8 @@ from lib.DatabaseUtilities import \
     get_network_name,\
     add_instance_to_user,\
     remove_instance_from_user,\
-    create_image_document
+    create_image_document,\
+    get_keypair
 
 conn = create_connection_from_config()
 client = create_db_connection()
@@ -24,5 +25,9 @@ class test_keypair(unittest.TestCase):
         update_keypair("test_user1",
         "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDS7ccrAx5T3LFHSElcyjaTavfdG+8JBzk0RscUHbkQGKTTdoaQGlTduCQDJLt86KpkrBOK2fklcU1O0Q02Y8Y1Zdrns6zwNb8czgKi0qAyUZ2GwAtFNTeLrpRk4g4J6+gD8HSPDxXqVLrOXF+LEN7gqzEQcpcpl1c2qzoS5VspbVWwcak7Jc6sGppjrqa1vUo/zdz90HQQ6SoiEjTDsQeB7DDvOeefSFJMLL9siBH884OIVyvTUQWFkr/vUwGL7g9oGvHUymLcjKY+SnjCoIEo2gM4pLhwhzNtwadv8plKwdyGjG+Fsq3Dzm1RmA9gOHRVWPmcKDQQM2vPbzQs/LqL Generated-by-Nova")
 
+    def test_get_keypair(self):
+        key = get_keypair("test_user1")
+        self.assertEqual("test_user1_key", key)
+        
 if __name__ == '__main__':
     unittest.main()
