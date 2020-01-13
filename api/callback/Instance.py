@@ -11,7 +11,9 @@ from lib.DatabaseUtilities import \
     create_db_connection,\
     get_network_name,\
     add_instance_to_user,\
-    remove_instance_from_user
+    remove_instance_from_user,\
+    get_keypair,\
+    get_root_password
 
 # Function: mq_instance
 # Date: 2020/01/08
@@ -47,7 +49,9 @@ def mq_instance(ch, method, properties, body):
 def mq_create_instance(username, instance_name, image, flavor):
     conn = create_connection_from_config()
     if(check_instance_name_available(conn, instance_name) is True):
-        instance = create_instance(conn, image, flavor, get_network_name(), instance_name)
+        keypair = get_keypair(username)
+        root_password = get_root_password(username)
+        instance = create_instance(conn, image, flavor, get_network_name(), instance_name, root_password=root_password, keypair=keypair)
         add_instance_to_user(username, instance_name, instance.id)
     conn.close()
 

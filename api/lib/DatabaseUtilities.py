@@ -136,10 +136,10 @@ def get_root_password(user):
     )
     client.close()
     if(result is None):
-        return None
+        return ""
     else:
         if(result['root_password'] == ""):
-            return None
+            return ""
         else:
             return result['root_password']
 

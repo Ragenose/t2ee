@@ -30,17 +30,18 @@ def check_instance_name_available(conn, instance_name):
 # Return value:
 #     instance: openstack.compute.v2.server.Server object
 
-def create_instance(conn, image_name, flavor_name, network_name, instance_name):
+def create_instance(conn, image_name, flavor_name, network_name, instance_name, root_password="", keypair=None):
     image = conn.compute.find_image(image_name)
     flavor = conn.compute.find_flavor(flavor_name)
     network = conn.network.find_network(network_name)
 
-    instance = conn.compute.create_server(
-        name = instance_name, image_id = image.id, flavor_id = flavor.id,
-        networks = [{"uuid": network.id}], key_name = "key")
-
-    instance = conn.compute.wait_for_server(instance)
-    return instance
+    if(keypair is not None):
+        instance = conn.compute.create_server(
+            name = instance_name, image_id = image.id, flavor_id = flavor.id,
+            networks = [{"uuid": network.id}], key_name = keypair)
+        return instance
+    #instance = conn.compute.wait_for_server(instance)
+    return None
 
 
 # Function: delete_instance
