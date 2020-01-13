@@ -102,12 +102,14 @@ def get_network_name():
 #     None: If user doesn't have a key registered 
 #           or user doesn't exist
 #     result['key']: User's key name
+
 def get_keypair(user):
     client = create_db_connection()
     user_col = client["t2ee"]["user"]
     result = user_col.find_one(
         {'name' : user}
     )
+    client.close()
     if(result is None):
         return None
     else:
@@ -115,6 +117,31 @@ def get_keypair(user):
             return None
         else:
             return result['key']
+
+# Function: get_root_password
+# Date: 2020/01/12
+# Purpose: Get root password of user
+# Parameters:
+#     user: User's name
+# Return value:
+#     None: If user doesn't have a root password registered 
+#           or user doesn't exist
+#     result['key']: User's key name
+
+def get_root_password(user):
+    client = create_db_connection()
+    user_col = client["t2ee"]["user"]
+    result = user_col.find_one(
+        {'name' : user}
+    )
+    client.close()
+    if(result is None):
+        return None
+    else:
+        if(result['root_password'] == ""):
+            return None
+        else:
+            return result['root_password']
 
 # Function: add_instance_to_user
 # Date: 2020/01/08
