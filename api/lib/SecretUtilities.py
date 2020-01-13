@@ -43,6 +43,7 @@ def update_keypair(user, pubkey):
     result = user_col.find_one({
         "name": user
     })
+    client.close()
     #If cannot find the user
     if(result is None):
         return False
