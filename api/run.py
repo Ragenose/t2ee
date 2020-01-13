@@ -3,7 +3,7 @@ from flask import Flask, request, Response
 from CreateDatabase import update_database_config
 from lib.ConnectionUtilities import create_connection_from_config
 from lib.CredentialUtilities import create_user, update_user_email, update_user_password, check_credential
-from lib.SecretUtilities import create_keypair, update_keypair
+from lib.SecretUtilities import update_keypair
 from lib.DatabaseUtilities import add_root_password_to_user
 import logging
 import sys
@@ -124,7 +124,7 @@ def api_update_user(field):
                 )
 
 @app.route('/api/user/root_password/update', methods=['POST'])
-def api_create_root_password():
+def api_update_root_password():
     check_user_credential(request)
     username = request.authorization.get('username')
     content = request.get_json()
@@ -137,6 +137,25 @@ def api_create_root_password():
         )
     else:
         add_root_password_to_user(username, root_password)
+        return Response(
+                "OK",
+                200
+            )
+
+@app.route('/api/user/keypair/update', methods=['POST'])
+def api_update_keypair():
+    check_user_credential(request)
+    username = request.authorization.get('username')
+    content = request.get_json()
+    try:
+        pubkey = content["pubkey"]
+    except KeyError:
+        return Response(
+            "Bad Request, insufficient data",
+            400
+        )
+    else:
+        update_keypair(username, pubkey)
         return Response(
                 "OK",
                 200
@@ -176,7 +195,6 @@ def api_create_instance():
             "OK",
             200
         )
-
 
 @app.route('/api/instance/delete/<string:instance_name>', methods=['DELETE'])
 def api_delete_instance(instance_name):
