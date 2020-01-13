@@ -10,7 +10,8 @@ from lib.DatabaseUtilities import \
     add_instance_to_user,\
     remove_instance_from_user,\
     create_image_document,\
-    get_keypair
+    get_keypair,\
+    get_root_password
 
 conn = create_connection_from_config()
 client = create_db_connection()
@@ -28,6 +29,10 @@ class test_keypair(unittest.TestCase):
     def test_get_keypair(self):
         key = get_keypair("test_user1")
         self.assertEqual("test_user1_key", key)
+    
+    def test_get_root_password(self):
+        root_password = get_root_password("test_user1")
+        self.assertEqual("whatever", root_password)
         
 if __name__ == '__main__':
     unittest.main()
