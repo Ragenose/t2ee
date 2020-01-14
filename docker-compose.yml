@@ -1,13 +1,23 @@
 version: '3'
 services:
-  api:
-    build: api/.
+  rabbitmq:
+    image: "rabbitmq:3-management"
+    hostname: rabbitmq
+    container_name: "rabbitmq"
+    environment:
+      RABBITMQ_ERLANG_COOKIE: "SWQOKODSQALRPCLNMEQG"
+      RABBITMQ_DEFAULT_USER: "rabbit"
+      RABBITMQ_DEFAULT_PASS: "rabbit"
+      RABBITMQ_DEFAULT_VHOST: "/"
+    ports:
+      - "15672:15672"
+      - "5672:5672"
     volumes:
-      - ./api:/code
-    extra_hosts:
-      - "t2ee:192.168.0.133"
+      - "./data/rabbitmq:/var/lib/rabbitmq"
+
   database:
     image: 'mongo:4.2.2'
+    hostname: "mongo"
     container_name: "mongo"
     environment:
       - MONGO_INITDB_ROOT_USERNAME=admin
@@ -15,4 +25,31 @@ services:
     ports:
       - "27017:27017"
     volumes:
-      - "./data:/data/db"
+      - "./data/mongodb:/data/db"
+
+  api:
+    build: 
+      context: api/.
+      dockerfile: api.Dockerfile
+    volumes:
+      - ./api:/code
+    extra_hosts:
+      - "t2ee:192.168.0.133"
+    ports:
+      - "5000:5000"
+    depends_on:
+      - database
+      - rabbitmq
+  
+  callback:
+    build:
+      context: api/.
+      dockerfile: callback.Dockerfile
+    volumes:
+      - ./api:/code
+    extra_hosts:
+      - "t2ee:192.168.0.133"
+    depends_on: 
+      - database
+      - rabbitmq
+  

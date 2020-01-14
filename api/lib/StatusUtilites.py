@@ -11,4 +11,21 @@ import openstack
 #     status
 
 def get_instance_status(conn: openstack.connection.Connection, instance_name):
-    return conn.compute.find_server(instance_name).status
+    #return conn.compute.find_server(instance_name).power_state
+    instance = conn.compute.find_server(instance_name)
+    state = conn.compute.get_server(instance).power_state
+    return return_power_state(state)
+    
+def return_power_state(code):
+    state = [
+        'NO STATE',
+        'RUNNING',
+        'BLOCKED',
+        'PAUSED',
+        'SHUTDOWN',
+        'SHUTOFF',
+        'CRASHED',
+        'SUSPENDED',
+        'FAILED',
+        'BUILDING']
+    return state[code]

@@ -7,8 +7,8 @@ import yaml
 # Purpose: Creation options for creating connection from openstack.yaml config file
 
 class options(object):
-    def __init__(self, debug=False):
-        with open("config/openstack.yaml", 'r') as stream:
+    def __init__(self, file = "config/openstack.yaml", debug=False):
+        with open(file, 'r') as stream:
             data_loaded = yaml.safe_load(stream)
         self.auth_url = data_loaded['auth']['auth_url']
         self.username = data_loaded['auth']['username']
@@ -20,7 +20,7 @@ class options(object):
         self.image_api_version = data_loaded['auth']['image_api_version']
         
         self.region_name = data_loaded['region_name']
- 
+
 
 # Function: create_connection_from_config
 # Date: 2019/12/30
@@ -30,8 +30,8 @@ class options(object):
 # Return value:
 #     openstack.connection.Connection object
 
-def create_connection_from_config():
-    opts = options()
+def create_connection_from_config(file="config/openstack.yaml"):
+    opts = options(file)
     return openstack.connection.Connection(
         auth_url = opts.auth_url,
         username = opts.username,
