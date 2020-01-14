@@ -4,7 +4,8 @@ from CreateDatabase import update_database_config
 from lib.ConnectionUtilities import create_connection_from_config
 from lib.CredentialUtilities import create_user, update_user_email, update_user_password, check_credential
 from lib.SecretUtilities import update_keypair
-from lib.DatabaseUtilities import add_root_password_to_user, get_images
+from lib.DatabaseUtilities import add_root_password_to_user, get_images, get_user_info
+from lib.StatusUtilites import get_instance_status
 import logging
 import sys
 import pika
@@ -16,18 +17,15 @@ connection = pika.BlockingConnection(pika.ConnectionParameters(
     'rabbitmq', 5672, '/', credentials))
 
 
-
-def load_user_from_request(request):
-    if request.authorization is None:
-        return None
-    username = request.authorization.get('username')
-    password = request.authorization.get('password')
-    print(username, password)
-    return check_credential(username, password)
-
-
 def check_user_credential(request):
-    load_user_from_request(request)
+    try:
+        username = request.authorization.get('username')
+        password = request.authorization.get('password')
+    except:
+        return False
+    else:
+        return check_credential(username, password)
+
 
 @app.route('/api/user/create', methods=['POST'])
 def api_create_user():
@@ -125,7 +123,11 @@ def api_update_user(field):
 
 @app.route('/api/user/root_password/update', methods=['POST'])
 def api_update_root_password():
-    check_user_credential(request)
+    if(check_user_credential(request) is False):
+        return Response(
+            "Invalid Credential",
+            401
+        )
     username = request.authorization.get('username')
     content = request.get_json()
     try:
@@ -144,7 +146,11 @@ def api_update_root_password():
 
 @app.route('/api/user/keypair/update', methods=['POST'])
 def api_update_keypair():
-    check_user_credential(request)
+    if(check_user_credential(request) is False):
+        return Response(
+            "Invalid Credential",
+            401
+        )
     username = request.authorization.get('username')
     content = request.get_json()
     try:
@@ -161,9 +167,32 @@ def api_update_keypair():
                 200
             )
 
+@app.route('/api/user/info', methods=['GET'])
+def api_get_user_info():
+    if(check_user_credential(request) is False):
+        return Response(
+            "Invalid Credential",
+            401
+        )
+    username = request.authorization.get('username')
+    conn = create_connection_from_config()
+    result = get_user_info(username)
+    if(result is not None):
+        for instance in result['instance']:
+            instance['status'] = get_instance_status(conn, instance["instance_name"])
+    conn.close()
+    return Response(
+        response = json.dumps(result),
+        status = 200
+    )
+
 @app.route('/api/instance/create', methods=['POST'])
 def api_create_instance():
-    check_user_credential(request)
+    if(check_user_credential(request) is False):
+        return Response(
+            "Invalid Credential",
+            401
+        )
     content = request.get_json()
     try:
         username = request.authorization.get('username')
@@ -198,7 +227,11 @@ def api_create_instance():
 
 @app.route('/api/instance/delete/<string:instance_name>', methods=['DELETE'])
 def api_delete_instance(instance_name):
-    check_user_credential(request)
+    if(check_user_credential(request) is False):
+        return Response(
+            "Invalid Credential",
+            401
+        )
     username = request.authorization.get('username')
     payload = {
         'method': 'delete',
@@ -221,7 +254,11 @@ def api_delete_instance(instance_name):
 
 @app.route('/api/image/create', methods=['POST'])
 def api_create_image():
-    check_user_credential(request)
+    if(check_user_credential(request) is False):
+        return Response(
+            "Invalid Credential",
+            401
+        )
     content = request.get_json()
     try:
         username = request.authorization.get('username')
@@ -257,7 +294,11 @@ def api_create_image():
 
 @app.route('/api/image/delete/<string:image_name>', methods=['DELETE'])
 def api_delete_image(image_name):
-    check_user_credential(request)
+    if(check_user_credential(request) is False):
+        return Response(
+            "Invalid Credential",
+            401
+        )
     username = request.authorization.get('username')
     payload = {
         'method': 'delete',

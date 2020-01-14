@@ -1,6 +1,6 @@
 from lib.DatabaseUtilities import create_db_connection, create_user_document
 import sys
-
+import logging
 # Function: check_user_available
 # Date: 2020/01/04
 # Purpose: Check if the user name is taken
@@ -145,6 +145,7 @@ def check_credential(name, password):
     db = client["t2ee"]
     user_col = db["user"]
     result = user_col.find_one({"name" : name, "password" : password})
+    logging.warning(result)
     if(result is None):
         return False
     else:
