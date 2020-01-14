@@ -1,6 +1,7 @@
 import yaml
 import pymongo
 from lib.ConnectionUtilities import create_connection_from_config
+from lib.StatusUtilites import get_instance_status
 
 # Function: create_db_connection
 # Date: 2020/01/02
@@ -286,3 +287,33 @@ def remove_root_password_from_user(user):
         {"$set" : {"root_password" : ""}}
     )
     client.close()
+
+# Function: get_images
+# Date: 2020/01/13
+# Purpose: Get all images from database
+# Parameters:
+#     user: User's name
+# Return value:
+#     None
+
+def get_images():
+    client = create_db_connection()
+    image_col = client["t2ee"]["image"]
+    result = list(image_col.find({}, {'_id': False}))
+    client.close()
+    return result
+
+# Function: get_user_info
+# Date: 2020/01/13
+# Purpose: Get all images from database
+# Parameters:
+#     user: User's name
+# Return value:
+#     None
+
+def get_user_info(user):
+    client = create_db_connection()
+    user_col = client["t2ee"]["user"]
+    result = list(user_col.find({'name' : user}, {'_id': False}))
+    client.close()
+    return result

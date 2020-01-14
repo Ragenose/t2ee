@@ -10,7 +10,8 @@ from lib.DatabaseUtilities import \
     remove_instance_from_user,\
     create_image_document,\
     add_root_password_to_user,\
-    remove_root_password_from_user
+    remove_root_password_from_user,\
+    get_images
     
 
 conn = create_connection_from_config()
@@ -50,6 +51,10 @@ class test_database(unittest.TestCase):
              "root_password": "whatever"}
         )
         self.assertIsNotNone(result)
-        
+
+    def test_get_images(self):
+        result = get_images()
+        print(result)
+
 if __name__ == '__main__':
     unittest.main()

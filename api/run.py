@@ -1,10 +1,10 @@
 #!/usr/bin/python3
-from flask import Flask, request, Response
+from flask import Flask, request, Response, jsonify
 from CreateDatabase import update_database_config
 from lib.ConnectionUtilities import create_connection_from_config
 from lib.CredentialUtilities import create_user, update_user_email, update_user_password, check_credential
 from lib.SecretUtilities import update_keypair
-from lib.DatabaseUtilities import add_root_password_to_user
+from lib.DatabaseUtilities import add_root_password_to_user, get_images
 import logging
 import sys
 import pika
@@ -275,6 +275,14 @@ def api_delete_image(image_name):
     return Response(
         "OK",
         200
+    )
+
+@app.route('/api/image/list', methods=['GET'])
+def api_get_images():
+    data = get_images()
+    return Response(
+        response = json.dumps(data),
+        status = 200
     )
 
 if __name__ == '__main__':
