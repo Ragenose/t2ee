@@ -314,6 +314,6 @@ def get_images():
 def get_user_info(user):
     client = create_db_connection()
     user_col = client["t2ee"]["user"]
-    result = list(user_col.find({'name' : user}, {'_id': False}))
+    result = user_col.find_one({'name' : user}, {'_id': False, 'password': False, 'root_password': False})
     client.close()
     return result

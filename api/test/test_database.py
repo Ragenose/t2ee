@@ -11,7 +11,9 @@ from lib.DatabaseUtilities import \
     create_image_document,\
     add_root_password_to_user,\
     remove_root_password_from_user,\
-    get_images
+    get_images,\
+    get_user_info
+from lib.StatusUtilites import get_instance_status
     
 
 conn = create_connection_from_config()
@@ -56,5 +58,12 @@ class test_database(unittest.TestCase):
         result = get_images()
         print(result)
 
+    def test_get_user_info(self):
+        print(get_instance_status(conn, "test_creation"))
+        result = get_user_info("test_user1")
+        for instance in result['instance']:
+            print(instance)
+            instance['status'] = get_instance_status(conn, instance["instance_name"])
+        print(result)
 if __name__ == '__main__':
     unittest.main()
