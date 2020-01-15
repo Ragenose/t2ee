@@ -27,10 +27,23 @@ services:
     volumes:
       - "./data/mongodb:/data/db"
 
+  nginx:
+    image: "nginx:1.17.7"
+    hostname: "nginx"
+    container_name: "nginx"
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf
+      - ./data/nginx:/var/log/nginx/
+
   api:
     build: 
       context: api/.
       dockerfile: api.Dockerfile
+    hostname: "api"
+    container_name: "api"
     volumes:
       - ./api:/code
     extra_hosts:
