@@ -8,3 +8,4 @@ data/*
 api/callback/__pycache__/*
 /env/*
 .DS_Store
+webpage/node_modules
