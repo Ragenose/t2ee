@@ -187,7 +187,7 @@ def api_get_user_info():
     )
 
 @app.route('/api/user/login', methods=['POST'])
-def api_get_user_info():
+def api_user_login():
     if(check_user_credential(request) is False):
         return Response(
             "Invalid Credential",
