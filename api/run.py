@@ -186,6 +186,18 @@ def api_get_user_info():
         status = 200
     )
 
+@app.route('/api/user/login', methods=['POST'])
+def api_get_user_info():
+    if(check_user_credential(request) is False):
+        return Response(
+            "Invalid Credential",
+            401
+        )
+    return Response(
+            "OK",
+            200
+        )
+        
 @app.route('/api/instance/create', methods=['POST'])
 def api_create_instance():
     if(check_user_credential(request) is False):
