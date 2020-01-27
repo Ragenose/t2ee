@@ -65,4 +65,14 @@ services:
     depends_on: 
       - database
       - rabbitmq
-  
+
+  webpage:
+    build:
+      context: webpage/.
+      dockerfile: Dockerfile
+    volumes:
+      - ./webpage:/webpage
+    hostname: "webpage"
+    container_name: "webpage"
+    ports:
+      - "4201:4200"
