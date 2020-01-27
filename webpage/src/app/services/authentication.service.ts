@@ -34,13 +34,14 @@ export class AuthenticationService {
         httpHeaders = httpHeaders.append("Authorization", "Basic " + btoa(username+":"+password));
         httpHeaders = httpHeaders.append("Content-Type", "application/x-www-form-urlencoded");
         return this.http.post<any>("/api/user/login", "", {headers : httpHeaders})
-            .pipe(map(user => {
-                // store user details and basic auth credentials in local storage to keep user logged in between page refreshes
-                user.authdata = window.btoa(username + ':' + password);
-                localStorage.setItem('currentUser', JSON.stringify(user));
-                this.currentUserSubject.next(user);
-                return user;
-            }));
+        .pipe(
+            map(user => {
+            // store user details and basic auth credentials in local storage to keep user logged in between page refreshes
+            user.authdata = window.btoa(username + ':' + password);
+            localStorage.setItem('currentUser', JSON.stringify(user));
+            this.currentUserSubject.next(user);
+            return user;
+        }));
     }
 
     logout() {

@@ -12,4 +12,4 @@ COPY . /webpage
 RUN npm install
 RUN npm install -g @angular/cli@7.3.9
 
-CMD ng serve --host webpage --port 4201
+CMD ng serve --host webpage --port 4201 --disableHostCheck true
