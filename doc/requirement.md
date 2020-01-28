@@ -15,7 +15,23 @@ docker-compose up
 ```
 
 ### 1.2.3 Features
+1. Users should be able to create an account and login with that account.  
+
+2. Users should be able to create virtual machines with only a few steps.
+
+3. Users should be able to manage their own virtual machines and perform tasks including booting, shutting down, rebooting and deleting virtual machines.
+
+4. Users should be able to transfer the ownership of one own virtual machine to another user.
+   
+5. Users should be able to perform all the above tasks without knowledge of OpenStack.
+
+### 1.2.4 Functions
 1. RESTful API that utilizes OpenStack SDK to control the OpenStack controller node and publishes time-consuming tasks to the message queue.
+   
 2. Database that stores customized data including user credential, virtual machine ownership, virtual machine specification, etc.
+   
 3. Message queue that queues time-consuming tasks including virtual machine and image creation.
+   
 4. Callback program that consumes messages from the message queue and performs tasks.
+   
+5. The web page that interacts with users, sends HTTP requests to the RESTful API and gathers responses.
