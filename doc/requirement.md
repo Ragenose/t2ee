@@ -25,7 +25,7 @@ docker-compose up
    
 5. Users should be able to perform all the above tasks without knowledge of OpenStack.
 
-### 1.2.4 Functions
+### 1.2.4 Functionality
 1. RESTful API that utilizes OpenStack SDK to control the OpenStack controller node and publishes time-consuming tasks to the message queue.
    
 2. Database that stores customized data including user credential, virtual machine ownership, virtual machine specification, etc.
@@ -35,3 +35,14 @@ docker-compose up
 4. Callback program that consumes messages from the message queue and performs tasks.
    
 5. The web page that interacts with users, sends HTTP requests to the RESTful API and gathers responses.
+
+6. Nginx HTTP server that reverse proxies HTTP requests from client-side (Browser) toward proper HTTP handler including the web page and RESTful API.
+   
+7. All the above functionalities should be running in Docker containers.
+   
+### 1.2.5 Milestones
+1. Milestone 1: The OpenStack environment including one controller node and one compute node should be set up and running properly.
+
+2. Milestone 2: The RESTful API should be running and interacting with the OpenStack controller node properly.
+
+3. Milestone 3: The frond end web page should be running and interacting with the RESTful API properly. 
