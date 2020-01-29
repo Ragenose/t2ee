@@ -56,4 +56,37 @@ Here are definitions that will be used in this project:
 
 2. Image: A single file that containes bootable operating system. An image can be used to create instances with pre-configured options and images can be created from instances.
 
+## 1.4. Rationale
+
+## 1.4. Assumption
+This project assumes OpenStack is already set up prior to project deployment and administrator credential, OpenStack API address, default instance deployment information are written in the configuration file of the project.
+
+Here is a sample configuration file:
+``` YAML
+region_name: RegionOne
+auth:
+    auth_url: http://t2ee:5000/v3/
+    username: admin
+    password: t2ee
+    project_name: t2ee
+    user_domain_name: Default
+    project_domain_name: Default
+    identity_api_version: 3
+    image_api_version: 2
+```
+
+And a instance deployment configuration file:
+```YAML
+image:
+  [CentOS7, Ubuntu16.04]
+
+flavor:
+  [small, medium, large]
+
+network:
+  [provider1]
+```
+
+
+
 [1]: https://www.openstack.org/software/
