@@ -55,10 +55,17 @@ Here are definitions that will be used in this project:
 1. Instance: A virtual machine that runs inside OpenStack
 
 2. Image: A single file that containes bootable operating system. An image can be used to create instances with pre-configured options and images can be created from instances.
+   
+3. IaaS: Infrastructure as a service is one type of cloud service which is cloud infrastructure that is provisioned and managed over the Internet. 
 
 ## 1.4. Rationale
+Although OpenStack so powerful that you get IaaS functions, it is **difficult**. Before an instance is up running, there are lots of things need to be provided such as: configure network, select a image, import keys, CPUs, RAMs, etc.. For users who have little or no experience with OpenStack, those things are complicated and confusing and all they want is a running virtual machine. 
 
-## 1.4. Assumption
+OpenStack itself cannot do everything, and itself needs more abstraction. This project is to abstract OpenStack' IaaS functions to provide users only a few straight forward options to fire up a virtual machine. 
+
+Also this project has potential to reduce IT staff's workload. Some common workflows for IT staff are to manually create virtual machines as per user's request and reboot user's virtual machine. This project will allow users to create and manage their virtual machines by themselves. 
+
+## 1.5. Assumption
 This project assumes OpenStack is already set up prior to project deployment and administrator credential, OpenStack API address, default instance deployment information are written in the configuration file of the project.
 
 Here is a sample configuration file:
@@ -87,7 +94,7 @@ network:
   [provider1]
 ```
 
-## 1.5. Constraint
+## 1.6. Constraint
 Instances are not mapped to DNS records, which means users need to access the virtual machines by IP addresses. This is due to the fact that the project does not have access to campus's DNS server and instances simply get IP address from campus's DHCP server.
 
 
