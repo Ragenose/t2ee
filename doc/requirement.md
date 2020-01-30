@@ -10,7 +10,7 @@ The goal of the project is to create a web portal - a layer above OpenStack - th
 
 ### 1.2.2. Deliverable
 The deliverable of the project will be source code with Dockerfiles and a docker-compose file so that the entire project will be up running within docker by one command:
-```
+```bash
 docker-compose up
 ```
 
@@ -62,7 +62,7 @@ Here are definitions that will be used in this project:
 This project assumes OpenStack is already set up prior to project deployment and administrator credential, OpenStack API address, default instance deployment information are written in the configuration file of the project.
 
 Here is a sample configuration file:
-``` YAML
+``` yaml
 region_name: RegionOne
 auth:
     auth_url: http://t2ee:5000/v3/
@@ -76,7 +76,7 @@ auth:
 ```
 
 And a instance deployment configuration file:
-```YAML
+```yaml
 image:
   [CentOS7, Ubuntu16.04]
 
@@ -87,6 +87,8 @@ network:
   [provider1]
 ```
 
+## 1.5. Constraint
+Instances are not mapped to DNS records, which means users need to access the virtual machines by IP addresses. This is due to the fact that the project does not have access to campus's DNS server and instances simply get IP address from campus's DHCP server.
 
 
 [1]: https://www.openstack.org/software/
