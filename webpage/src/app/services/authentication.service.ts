@@ -44,6 +44,22 @@ export class AuthenticationService {
         }));
     }
 
+    signup(username: string, password: string, email: string){
+        return this.http.post<any>("/api/user/create", {
+            "username": username,
+            "email": email,
+            "password": password
+        })
+        .pipe(
+            map(user => {
+            // store user details and basic auth credentials in local storage to keep user logged in between page refreshes
+            user.authdata = window.btoa(username + ':' + password);
+            localStorage.setItem('currentUser', JSON.stringify(user));
+            this.currentUserSubject.next(user);
+            return user;
+        }));
+    }
+
     logout() {
         // remove user from local storage to log user out
         localStorage.removeItem('currentUser');

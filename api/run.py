@@ -59,9 +59,10 @@ def api_create_user():
         else:
             conn.close()
             return Response(
-                "OK",
-                200
+                response=json.dumps({'username': username}),
+                status=200
             )
+
 
 @app.route('/api/user/update/<string:field>', methods=['POST'])
 def api_update_user(field):
@@ -121,6 +122,7 @@ def api_update_user(field):
                     400
                 )
 
+
 @app.route('/api/user/root_password/update', methods=['POST'])
 def api_update_root_password():
     if(check_user_credential(request) is False):
@@ -140,9 +142,10 @@ def api_update_root_password():
     else:
         add_root_password_to_user(username, root_password)
         return Response(
-                "OK",
-                200
-            )
+            "OK",
+            200
+        )
+
 
 @app.route('/api/user/keypair/update', methods=['POST'])
 def api_update_keypair():
@@ -163,9 +166,10 @@ def api_update_keypair():
     else:
         update_keypair(username, pubkey)
         return Response(
-                "OK",
-                200
-            )
+            "OK",
+            200
+        )
+
 
 @app.route('/api/user/info', methods=['GET'])
 def api_get_user_info():
@@ -179,12 +183,14 @@ def api_get_user_info():
     result = get_user_info(username)
     if(result is not None):
         for instance in result['instance']:
-            instance['status'] = get_instance_status(conn, instance["instance_name"])
+            instance['status'] = get_instance_status(
+                conn, instance["instance_name"])
     conn.close()
     return Response(
-        response = json.dumps(result),
-        status = 200
+        response=json.dumps(result),
+        status=200
     )
+
 
 @app.route('/api/user/login', methods=['POST'])
 def api_user_login():
@@ -194,10 +200,12 @@ def api_user_login():
             401
         )
     return Response(
-            response = json.dumps({'username': request.authorization.get('username')}),
-            status = 200
-        )
-        
+        response=json.dumps(
+            {'username': request.authorization.get('username')}),
+        status=200
+    )
+
+
 @app.route('/api/instance/create', methods=['POST'])
 def api_create_instance():
     if(check_user_credential(request) is False):
@@ -236,6 +244,7 @@ def api_create_instance():
             "OK",
             200
         )
+
 
 @app.route('/api/instance/delete/<string:instance_name>', methods=['DELETE'])
 def api_delete_instance(instance_name):
@@ -330,13 +339,15 @@ def api_delete_image(image_name):
         200
     )
 
+
 @app.route('/api/image/list', methods=['GET'])
 def api_get_images():
     data = get_images()
     return Response(
-        response = json.dumps(data),
-        status = 200
+        response=json.dumps(data),
+        status=200
     )
+
 
 if __name__ == '__main__':
     # Every time the app runs, it updates the OpenStack config

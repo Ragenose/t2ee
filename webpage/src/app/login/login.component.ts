@@ -11,10 +11,13 @@ import { AuthenticationService } from '@app/services/authentication.service';
   styleUrls: ['./login.component.css'] })
 export class LoginComponent implements OnInit {
     loginForm: FormGroup;
+    signupForm: FormGroup;
     loading = false;
-    submitted = false;
+    submittedLogin = false;
+    submittedSignup = false;
     returnUrl: string;
-    error = '';
+    errorLogin = '';
+    errorSignup= '';
 
     constructor(
         private formBuilder: FormBuilder,
@@ -33,16 +36,22 @@ export class LoginComponent implements OnInit {
             username: ['', Validators.required],
             password: ['', Validators.required]
         });
-
+        
+        this.signupForm = this.formBuilder.group({
+            username: ['', Validators.required],
+            password: ['', Validators.required],
+            email: ['', Validators.required]
+        });
         // get return url from route parameters or default to '/'
         this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
     }
 
     // convenience getter for easy access to form fields
     get f() { return this.loginForm.controls; }
+    get s() {return this.signupForm.controls;}
 
-    onSubmit() {
-        this.submitted = true;
+    onLoginSubmit() {
+        this.submittedLogin = true;
 
         // stop here if form is invalid
         if (this.loginForm.invalid) {
@@ -57,7 +66,28 @@ export class LoginComponent implements OnInit {
                     this.router.navigate([this.returnUrl]);
                 },
                 error => {
-                    this.error = error;
+                    this.errorLogin = error;
+                    this.loading = false;
+                });
+    }
+
+    onSignupSubmit(){
+        this.submittedSignup = true;
+
+        // stop here if form is invalid
+        if (this.signupForm.invalid) {
+            return;
+        }
+
+        this.loading = true;
+        this.authenticationService.signup(this.s.username.value, this.s.password.value, this.s.email.value)
+            .pipe(first())
+            .subscribe(
+                data => {
+                    this.router.navigate([this.returnUrl]);
+                },
+                error => {
+                    this.errorLogin = error;
                     this.loading = false;
                 });
     }
