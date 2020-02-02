@@ -15,7 +15,11 @@ def get_instance_status(conn: openstack.connection.Connection, instance_name):
     instance = conn.compute.find_server(instance_name)
     state = conn.compute.get_server(instance).power_state
     return return_power_state(state)
-    
+
+def get_instance_address(conn: openstack.connection.Connection, instance_name):
+    instance = conn.compute.find_server(instance_name)
+    return conn.compute.get_server(instance).addresses
+
 def return_power_state(code):
     state = [
         'NO STATE',

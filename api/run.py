@@ -5,7 +5,7 @@ from lib.ConnectionUtilities import create_connection_from_config
 from lib.CredentialUtilities import create_user, update_user_email, update_user_password, check_credential
 from lib.SecretUtilities import update_keypair
 from lib.DatabaseUtilities import add_root_password_to_user, get_images, get_user_info
-from lib.StatusUtilites import get_instance_status
+from lib.StatusUtilites import get_instance_status, get_instance_address
 import logging
 import sys
 import pika
@@ -185,6 +185,9 @@ def api_get_user_info():
         for instance in result['instance']:
             instance['status'] = get_instance_status(
                 conn, instance["instance_name"])
+            address = get_instance_address(
+                conn, instance["instance_name"])
+            instance['address'] = address[list(address)[0]]
     conn.close()
     return Response(
         response=json.dumps(result),
