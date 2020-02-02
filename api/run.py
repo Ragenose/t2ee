@@ -14,7 +14,7 @@ import json
 app = Flask(__name__)
 credentials = pika.PlainCredentials('rabbit', 'rabbit')
 connection = pika.BlockingConnection(pika.ConnectionParameters(
-    'rabbitmq', 5672, '/', credentials))
+    'rabbitmq', 5672, '/', credentials, heartbeat=0))
 
 
 def check_user_credential(request):
