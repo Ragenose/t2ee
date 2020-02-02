@@ -5,6 +5,7 @@ import { map } from 'rxjs/operators';
 
 import { environment } from '@environments/environment';
 import { User } from '@app/models/user';
+import { Md5 } from 'ts-md5/dist/md5';
 
 @Injectable({
   providedIn: 'root'
@@ -30,14 +31,15 @@ export class AuthenticationService {
     }
 
     login(username: string, password: string) {
+        let hashedPassword = Md5.hashStr(password);
         let httpHeaders = new HttpHeaders;
-        httpHeaders = httpHeaders.append("Authorization", "Basic " + btoa(username+":"+password));
+        httpHeaders = httpHeaders.append("Authorization", "Basic " + btoa(username+":"+hashedPassword));
         httpHeaders = httpHeaders.append("Content-Type", "application/x-www-form-urlencoded");
         return this.http.post<any>("/api/user/login", "", {headers : httpHeaders})
         .pipe(
             map(user => {
             // store user details and basic auth credentials in local storage to keep user logged in between page refreshes
-            user.authdata = window.btoa(username + ':' + password);
+            user.authdata = window.btoa(username + ':' + hashedPassword);
             localStorage.setItem('currentUser', JSON.stringify(user));
             this.currentUserSubject.next(user);
             return user;
@@ -45,15 +47,16 @@ export class AuthenticationService {
     }
 
     signup(username: string, password: string, email: string){
+        let hashedPassword = Md5.hashStr(password);
         return this.http.post<any>("/api/user/create", {
             "username": username,
             "email": email,
-            "password": password
+            "password": hashedPassword
         })
         .pipe(
             map(user => {
             // store user details and basic auth credentials in local storage to keep user logged in between page refreshes
-            user.authdata = window.btoa(username + ':' + password);
+            user.authdata = window.btoa(username + ':' + hashedPassword);
             localStorage.setItem('currentUser', JSON.stringify(user));
             this.currentUserSubject.next(user);
             return user;
