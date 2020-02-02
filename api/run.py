@@ -14,7 +14,7 @@ import json
 app = Flask(__name__)
 credentials = pika.PlainCredentials('rabbit', 'rabbit')
 connection = pika.BlockingConnection(pika.ConnectionParameters(
-    'rabbitmq', 5672, '/', credentials))
+    'rabbitmq', 5672, '/', credentials, heartbeat=0))
 
 
 def check_user_credential(request):
@@ -186,6 +186,18 @@ def api_get_user_info():
         status = 200
     )
 
+@app.route('/api/user/login', methods=['POST'])
+def api_user_login():
+    if(check_user_credential(request) is False):
+        return Response(
+            "Invalid Credential",
+            401
+        )
+    return Response(
+            response = json.dumps({'username': request.authorization.get('username')}),
+            status = 200
+        )
+        
 @app.route('/api/instance/create', methods=['POST'])
 def api_create_instance():
     if(check_user_credential(request) is False):

@@ -37,6 +37,9 @@ services:
     volumes:
       - ./nginx/nginx.conf:/etc/nginx/nginx.conf
       - ./data/nginx:/var/log/nginx/
+    depends_on: 
+      - api
+      - webpage
 
   api:
     build: 
@@ -65,4 +68,14 @@ services:
     depends_on: 
       - database
       - rabbitmq
-  
+
+  webpage:
+    build:
+      context: webpage/.
+      dockerfile: Dockerfile
+    volumes:
+      - ./webpage:/webpage
+    hostname: "webpage"
+    container_name: "webpage"
+    ports:
+      - "4201:4200"

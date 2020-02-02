@@ -5,7 +5,7 @@ from callback.Image import mq_image
 
 credentials = pika.PlainCredentials('rabbit','rabbit')
 connection = pika.BlockingConnection(pika.ConnectionParameters(
-    'rabbitmq',5672,'/',credentials))
+    'rabbitmq',5672,'/',credentials, heartbeat=0))
 channel = connection.channel()
 
 channel.queue_declare(queue='instance',durable=True)
