@@ -187,7 +187,7 @@ def api_get_user_info():
                 conn, instance["instance_name"])
             address = get_instance_address(
                 conn, instance["instance_name"])
-            instance['address'] = address[list(address)[0]]
+            instance['address'] = list(address[list(address)[0]])[0]
     conn.close()
     return Response(
         response=json.dumps(result),
