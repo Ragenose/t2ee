@@ -1,3 +1,6 @@
+import { UserinfoService } from './../services/userinfo.service';
+import { HttpClient } from '@angular/common/http';
+import { Instance } from './../models/instance';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -6,10 +9,28 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
+  instances: Instance[];
+  http: HttpClient;
+  test: string;
 
-  constructor() { }
+  constructor(
+    private userinfo: UserinfoService
+  ) { }
 
   ngOnInit() {
+    this.userinfo.getUserInfo()
+    .subscribe(data =>{
+      data["instance"].forEach(element => {
+        let temp: Instance;
+        temp = {
+          name : element["instance_name"],
+          status : element["status"],
+          ip : element["address"]["addr"]
+        }
+      });
+      
+    });
+
   }
 
 }
