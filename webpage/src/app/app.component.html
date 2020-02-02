@@ -1,4 +1,18 @@
-<mat-toolbar color="primary">t2ee</mat-toolbar>
+<mat-toolbar color="primary">
+    <mat-toolbar-row>
+        <h1>Yet Another VPS</h1>
+        <div>
+            <a mat-button> Deploy </a>
+            <a mat-button> Images </a>
+        </div>
+        <span class="example-spacer"></span>
+        <span flex></span>
+        <div>
+            <mat-icon aria-hidden="false" svgIcon="account" class="account-icon"></mat-icon>
+        </div>
+    </mat-toolbar-row>
+
+</mat-toolbar>
 <div class="MainContainer">
     <router-outlet></router-outlet>
 </div>

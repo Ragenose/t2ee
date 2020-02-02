@@ -1,3 +1,15 @@
 .MainContainer{
     max-width: 80%;
 }
+
+.account-icon{
+    vertical-align: middle;
+    display: flex;
+    align-items: center;
+    width: 36px;
+    height: 36px;
+}
+
+.example-spacer {
+    flex: 1 1 auto;
+  }
