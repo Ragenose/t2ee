@@ -194,8 +194,8 @@ def api_user_login():
             401
         )
     return Response(
-            "OK",
-            200
+            response = json.dumps({'username': request.authorization.get('username')}),
+            status = 200
         )
         
 @app.route('/api/instance/create', methods=['POST'])
