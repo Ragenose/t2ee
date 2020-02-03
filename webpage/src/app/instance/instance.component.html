@@ -1,11 +1,18 @@
-<mat-card>
+<mat-card class="instance-card">
     <mat-card-header>
-        {{instance.name}}
+        <mat-card-title>{{instance.name}}</mat-card-title>
     </mat-card-header>
+    <br>
     <mat-card-content>
-        {{instance.status}}
+        <p>Status: {{instance.status}}</p>
     </mat-card-content>
+    <br>
     <mat-card-actions>
-
+        <section layout="row">
+            <button mat-button>Start</button>
+            <button mat-button>Shutdown</button>
+            <button mat-button>Reboot</button>
+            <button mat-button color="warn" (click)="delete()">Delete</button>
+        </section>
     </mat-card-actions>
 </mat-card>

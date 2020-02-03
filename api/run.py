@@ -244,8 +244,8 @@ def api_create_instance():
                               ))
         channel.close()
         return Response(
-            "OK",
-            200
+            response=json.dumps({"status": "OK"}),
+            status=200
         )
 
 
@@ -271,8 +271,8 @@ def api_delete_instance(instance_name):
                           ))
     channel.close()
     return Response(
-        "OK",
-        200
+        response=json.dumps({"status": "OK"}),
+        status=200
     )
 
 
