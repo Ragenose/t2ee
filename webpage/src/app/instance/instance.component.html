@@ -9,9 +9,9 @@
     <br>
     <mat-card-actions>
         <section layout="row">
-            <button mat-button>Start</button>
-            <button mat-button>Shutdown</button>
-            <button mat-button>Reboot</button>
+            <button mat-button (click)="start()">Start</button>
+            <button mat-button (click)="shutdown()">Shutdown</button>
+            <button mat-button (click)="reboot()">Reboot</button>
             <button mat-button color="warn" (click)="delete()">Delete</button>
         </section>
     </mat-card-actions>

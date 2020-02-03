@@ -16,15 +16,36 @@ export class InstanceComponent implements OnInit {
   }
 
   start(){
-
+    this.vmService.startInstance(this.instance.name)
+    .subscribe(
+      data=>{
+        alert("Successful Started");
+        location.reload();
+      },
+      error=>console.log(error)
+    )
   }
 
   shutdown(){
-
+    this.vmService.shutoffInstance(this.instance.name)
+    .subscribe(
+      data=>{
+        alert("Successful Shutdown");
+        location.reload();
+      },
+      error=>console.log(error)
+    )
   }
 
   reboot(){
-
+    this.vmService.rebootInstance(this.instance.name)
+    .subscribe(
+      data=>{
+        alert("Successful Rebooted");
+        location.reload();
+      },
+      error=>console.log(error)
+    )
   }
 
   delete(){

@@ -1,3 +1,6 @@
 .instance-card{
     max-width: 30%;
+    margin: 2em auto;
+    text-align: center;
+    float: left;
 }
