@@ -6,6 +6,8 @@ from lib.CredentialUtilities import create_user, update_user_email, update_user_
 from lib.SecretUtilities import update_keypair
 from lib.DatabaseUtilities import add_root_password_to_user, get_images, get_user_info
 from lib.StatusUtilites import get_instance_status, get_instance_address
+from lib.LifecycleUtilities import start_instance, shut_off_instance, reboot_instance
+from lib.InstanceUtilities import check_instance_ownership
 import logging
 import sys
 import pika
@@ -275,6 +277,53 @@ def api_delete_instance(instance_name):
         status=200
     )
 
+@app.route('/api/instance/lifecycle/<string:type>/<string:instance_name>', methods=['POST'])
+def api_instance_lifecycle(type, instance_name):
+    if(check_user_credential(request) is False):
+        return Response(
+            "Invalid Credential",
+            401
+        )
+    username = request.authorization.get('username')
+    if(check_instance_ownership(username, instance_name) is False):
+         return Response(
+            "Invalid Credential",
+            401
+        )
+
+    if(type == "start"):
+        conn = create_connection_from_config()
+        if(start_instance(conn, instance_name) is True):
+            conn.close()
+            return Response(
+            response=json.dumps({"status": "OK"}),
+            status=200
+        )
+    elif(type == "shutdown"):
+        conn = create_connection_from_config()
+        if(shut_off_instance(conn, instance_name) is True):
+            conn.close()
+            return Response(
+            response=json.dumps({"status": "OK"}),
+            status=200
+        )
+    elif(type == "reboot"):
+        conn = create_connection_from_config()
+        if(reboot_instance(conn, instance_name) is True):
+            conn.close()
+            return Response(
+            response=json.dumps({"status": "OK"}),
+            status=200
+        )
+    else:
+        return Response(
+            "Invalid operation",
+            500
+        )
+    return Response(
+        "Failed",
+        500
+    )
 
 @app.route('/api/image/create', methods=['POST'])
 def api_create_image():

@@ -13,12 +13,17 @@ import openstack
 
 def start_instance(conn, instance_name):
     instance = conn.compute.find_server(instance_name)
-    conn.compute.start_server(instance)
+    
     if(instance.status == "ACTIVE"):
         return True
     else:
+        conn.compute.start_server(instance)
+    try:
+        conn.compute.wait_for_server(instance, status='ACTIVE',wait=10)
+    except conn.compute.ResourceTimeout:
         return False
-
+    else:
+        return True
 
 # Function: shut_off_instance
 # Date: 2020/01/03
@@ -32,11 +37,17 @@ def start_instance(conn, instance_name):
 
 def shut_off_instance(conn, instance_name):
     instance = conn.compute.find_server(instance_name)
-    conn.compute.stop_server(instance)
+    
     if(instance.status == "SHUTOFF"):
         return True
     else:
+        conn.compute.stop_server(instance)
+    try:
+        conn.compute.wait_for_server(instance, status='SHUTOFF',wait=10)
+    except conn.compute.ResourceTimeout:
         return False
+    else:
+        return True
 
 # Function: reboot_instance
 # Date: 2020/02/03
@@ -50,8 +61,16 @@ def shut_off_instance(conn, instance_name):
 
 def reboot_instance(conn, instance_name):
     instance = conn.compute.find_server(instance_name)
-    conn.compute.reboot_server(instance)
+
     if(instance.status == "ACTIVE"):
-        return True
+        conn.compute.reboot_server(instance, "SOFT")
+
     else:
-        return False        
+        conn.compute.start_server(instance)   
+
+    try:
+        conn.compute.wait_for_server(instance, status='ACTIVE',wait=10)
+    except conn.compute.ResourceTimeout:
+        return False
+    else:
+        return True
