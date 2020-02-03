@@ -9,7 +9,7 @@ export class VmService {
   constructor(private http: HttpClient) { }
 
   deleteInstance(name: string){
-    return this.http.post('/api/instance/delete/'+name, "");
+    return this.http.delete('/api/instance/delete/'+name);
   }
 
   startInstance(name: string){
