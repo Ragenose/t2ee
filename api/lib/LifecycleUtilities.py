@@ -37,3 +37,21 @@ def shut_off_instance(conn, instance_name):
         return True
     else:
         return False
+
+# Function: reboot_instance
+# Date: 2020/02/03
+# Purpose: Reboot instance
+# Parameters:
+#     conn: OpenStack connection
+#     instance_name: The instance that needs to be shutted off
+# Return value:
+#     True: If it is ACTIVE
+#     False: If it is not ACTIVE
+
+def reboot_instance(conn, instance_name):
+    instance = conn.compute.find_server(instance_name)
+    conn.compute.reboot_server(instance)
+    if(instance.status == "ACTIVE"):
+        return True
+    else:
+        return False        
