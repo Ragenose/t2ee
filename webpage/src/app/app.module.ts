@@ -1,3 +1,4 @@
+import { Instance } from './models/instance';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
@@ -12,13 +13,15 @@ import { BasicAuthInterceptor } from './helpers/basic-auth.interceptor';
 import { ErrorInterceptor } from './helpers/error.interceptor';
 import { HomeComponent } from './home/home.component';
 import { InstanceComponent } from './instance/instance.component';
+import { HomeDirective } from './home/home.directive';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     HomeComponent,
-    InstanceComponent
+    InstanceComponent,
+    HomeDirective
   ],
   imports: [
     BrowserModule,
@@ -33,6 +36,7 @@ import { InstanceComponent } from './instance/instance.component';
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
 
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [ HomeComponent, InstanceComponent ]
 })
 export class AppModule { }

@@ -1,5 +1,5 @@
 import { Instance } from './../models/instance';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
   selector: 'app-instance',
@@ -7,8 +7,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./instance.component.css']
 })
 export class InstanceComponent implements OnInit {
-  instance: Instance;
-  
+  @Input() instance: Instance;
   constructor() { }
 
   ngOnInit() {
