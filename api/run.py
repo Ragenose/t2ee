@@ -224,6 +224,7 @@ def api_create_instance():
         flavor = content['flavor']
         instance_name = content['instance_name']
         image = content['image']
+        root_password = content['root_password']
     except KeyError:
         return Response(
             "Bad Request, insufficient data",
@@ -235,7 +236,8 @@ def api_create_instance():
             'name': username,
             'flavor': flavor,
             'instance_name': instance_name,
-            'image': image
+            'image': image,
+            'root_password': root_password
         }
         channel = connection.channel()
         channel.basic_publish(exchange='',

@@ -14,6 +14,8 @@ class test_instance(unittest.TestCase):
     def test_deleting(self):
         conn = create_connection_from_config()
         self.assertTrue(delete_instance(conn, "test"))
-
+    def test_change_password(self):
+        conn = create_connection_from_config()
+        conn.compute.change_server_password(conn.compute.find_server("test_creation2"), "whatever")
 if __name__ == '__main__':
     unittest.main()

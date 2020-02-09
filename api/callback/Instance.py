@@ -28,7 +28,7 @@ def mq_instance(ch, method, properties, body):
     logging.warning(payload)
     try:
         if(payload['method'] == "create"):
-            mq_create_instance(payload['name'], payload['instance_name'], payload['image'], payload['flavor'])
+            mq_create_instance(payload['name'], payload['instance_name'], payload['image'], payload['flavor'], payload['root_password'])
         if(payload['method'] == "delete"):
             mq_delete_instance(payload['name'], payload['instance_name'])
     except KeyError:
@@ -46,13 +46,14 @@ def mq_instance(ch, method, properties, body):
 # Return value:
 #     None
 
-def mq_create_instance(username, instance_name, image, flavor):
+def mq_create_instance(username, instance_name, image, flavor, root_password):
     conn = create_connection_from_config()
     if(check_instance_name_available(conn, instance_name) is True):
         keypair = get_keypair(username)
-        root_password = get_root_password(username)
+        # root_password = get_root_password(username)
         instance = create_instance(conn, image, flavor, get_network_name(), instance_name, root_password=root_password, keypair=keypair)
         add_instance_to_user(username, instance_name, instance.id)
+        conn.compute.change_server_password(instance, root_password)
     conn.close()
 
 # Function: mq_delete_instance

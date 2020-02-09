@@ -1,4 +1,5 @@
 from lib.DatabaseUtilities import create_db_connection
+import time
 
 # Function: check_instance_name_available
 # Date: 2020/01/02
@@ -39,6 +40,8 @@ def create_instance(conn, image_name, flavor_name, network_name, instance_name, 
         instance = conn.compute.create_server(
             name = instance_name, image_id = image.id, flavor_id = flavor.id,
             networks = [{"uuid": network.id}], key_name = keypair)
+        conn.compute.wait_for_server(instance, status='ACTIVE', wait=60)
+        time.sleep(30)
         return instance
     #instance = conn.compute.wait_for_server(instance)
     return None
