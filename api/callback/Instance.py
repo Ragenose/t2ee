@@ -1,6 +1,7 @@
 import pika
 import json
 import logging
+import time
 from lib.ConnectionUtilities import create_connection_from_config
 from lib.InstanceUtilities import\
     create_instance,\
@@ -53,6 +54,7 @@ def mq_create_instance(username, instance_name, image, flavor, root_password):
         # root_password = get_root_password(username)
         instance = create_instance(conn, image, flavor, get_network_name(), instance_name, root_password=root_password, keypair=keypair)
         add_instance_to_user(username, instance_name, instance.id)
+        time.sleep(40)
         conn.compute.change_server_password(instance, root_password)
     conn.close()
 
