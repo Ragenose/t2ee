@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
@@ -22,5 +22,16 @@ export class VmService {
 
   rebootInstance(name: string){
     return this.http.post('/api/instance/lifecycle/reboot/'+name, "");
+  }
+
+  deployInstance(instance_name: string, root_password: string, image: string, flavor: string){
+    let httpHeaders = new HttpHeaders;
+    httpHeaders = httpHeaders.append("Content-Type", "application/json");
+    return this.http.post("/api/instance/create",{
+      "instance_name": instance_name,
+      "flavor": flavor,
+      "image": image,
+      "root_password": root_password
+    }, {headers: httpHeaders});
   }
 }
