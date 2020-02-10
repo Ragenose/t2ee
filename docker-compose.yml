@@ -56,6 +56,7 @@ services:
     depends_on:
       - database
       - rabbitmq
+      restart: on-failure
   
   callback:
     build:
@@ -68,6 +69,7 @@ services:
     depends_on: 
       - database
       - rabbitmq
+    restart: on-failure
 
   webpage:
     build:
@@ -79,3 +81,4 @@ services:
     container_name: "webpage"
     ports:
       - "4201:4200"
+    restart: on-failure
