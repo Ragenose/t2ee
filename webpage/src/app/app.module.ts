@@ -14,6 +14,7 @@ import { ErrorInterceptor } from './helpers/error.interceptor';
 import { HomeComponent } from './home/home.component';
 import { InstanceComponent } from './instance/instance.component';
 import { HomeDirective } from './home/home.directive';
+import { DeployComponent } from './deploy/deploy.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import { HomeDirective } from './home/home.directive';
     LoginComponent,
     HomeComponent,
     InstanceComponent,
-    HomeDirective
+    HomeDirective,
+    DeployComponent
   ],
   imports: [
     BrowserModule,
