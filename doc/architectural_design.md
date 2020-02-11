@@ -6,7 +6,7 @@
 
 ## System Design
 
-The project is running in docker containers except OpenStack controller node and compute node. The reason why using docker container is to build and start the project with one `docker-compose up` command.
+The project is running in docker containers except for the OpenStack controller node and compute node. The reason why using Docker containers is to build and start the project with one `docker-compose up` command.
 
 ### 1. Nginx
 
@@ -23,9 +23,9 @@ location / {
         }
 ```
 
-The proxy pass works based on URL. Requests toward `www.example.com/` will be passed to Webpage container and requests toward `www.example.com/api` will be passed to RESTful API container.
+The proxy pass works based on the URL. Requests toward `www.example.com/` will be passed to Webpage container and requests toward `www.example.com/api` will be passed to the RESTful API container.
 
-The hostnames - webpage and api - are defined in docker compose file for easy container-wise routing.
+The hostnames - *webpage* and *api* - are defined in Docker compose file for easy container-wise routing.
 
 ```yaml
 version: '3'
@@ -38,4 +38,18 @@ services:
         hostname: "webpage"
     ...
 ```
+
+Nginx can also prevent *Cross-origin resource sharing (CORS)* which is requesting restricted resources from another domain. All requests on the web page are in the same domain and passed by Nginx since it is the gateway. CORS is not necessarily an issue but requires extra effort to enable cross-origin requests.
+
+### 2. Webpage
+
+The fron-end framework used in Webpage container is Angular.
+
+The reason why choosing Angular:
+
+1. Previous experience with AngularJS
+2. Component based
+3. Angular Material design
+4. Angular CLI
+5. Built-in unit test and end-to-end test
 
