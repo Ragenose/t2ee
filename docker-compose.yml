@@ -56,7 +56,7 @@ services:
     depends_on:
       - database
       - rabbitmq
-      restart: on-failure
+    restart: on-failure
   
   callback:
     build:
