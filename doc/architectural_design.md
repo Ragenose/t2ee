@@ -53,3 +53,7 @@ The reason why choosing Angular:
 4. Angular CLI
 5. Built-in unit test and end-to-end test
 
+### 3. RESTful API
+
+This container utilizes Python Flask to provide RESTful API of controlling OpenStack.
+
