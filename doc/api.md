@@ -96,7 +96,10 @@ Used for user login authentication
 * **Success Response:**
 
   * **Code:** 200\
-    **Content:** `{ username : "example_username }`
+    **Content:** 
+    ```json
+    { username : "example_username }
+    ```
 
 * **Error Response:**
 
