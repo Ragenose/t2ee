@@ -55,7 +55,7 @@ def api_create_user():
             conn.close()
             return Response(
                 "Creating failed",
-                500
+                403
             )
         # Creation succeed, return 200
         else:
