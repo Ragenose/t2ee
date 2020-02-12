@@ -11,6 +11,7 @@ This document is to explain the architectural and system design of this project.
     - [2. Webpage](#2-webpage)
     - [3. RESTful API](#3-restful-api)
     - [4. RabbitMQ](#4-rabbitmq)
+    - [5. MQ Callback](#5-mq-callback)
   
 ## Block Diagram
 
@@ -73,3 +74,10 @@ This container utilizes Python Flask to provide RESTful API of controlling OpenS
 
 ### 4. RabbitMQ
 
+There are time consuming tasks such as creating virtual machines or creating a image from a virtual machine and it is not a good idea to keep the client waiting for the response while the RESTful API is performing those tasks. Instead, there is another container - *MQ Callback* - which is dedicated to perform those time consuming task.
+
+RabbitMQ is the message broker between RESTful API and Callback container. If there is no problem with the request, the RESTful API simply publishes a message to the message queue and responses to the client that *"OK, it is all set"*. Then the Callback container consumes the message, and performs the task with whatever the time it needs.
+
+### 5. MQ Callback
+
+This container will connect to the RabbitMQ and start to consume messages. It will perform time consuming tasks relates to instances and images.
