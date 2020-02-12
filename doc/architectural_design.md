@@ -1,6 +1,6 @@
 # Architectural Design
 
-This document is to explain the architectural and system design of this project.
+This document explains the architectural and system design of this project.
 
 **Table of Content:**
 
@@ -56,12 +56,12 @@ Nginx can also prevent *Cross-origin resource sharing (CORS)* which is requestin
 
 ### 2. Webpage
 
-The fron-end framework used in Webpage container is Angular.
+The front-end framework used in Webpage container is Angular.
 
 The reason why choosing Angular:
 
 1. Previous experience with AngularJS
-2. Component based
+2. Component-based
 3. Angular Material design
 4. Angular CLI
 5. Built-in unit test and end-to-end test
@@ -74,10 +74,10 @@ This container utilizes Python Flask to provide RESTful API of controlling OpenS
 
 ### 4. RabbitMQ
 
-There are time consuming tasks such as creating virtual machines or creating a image from a virtual machine and it is not a good idea to keep the client waiting for the response while the RESTful API is performing those tasks. Instead, there is another container - *MQ Callback* - which is dedicated to perform those time consuming task.
+There are time-consuming tasks such as creating virtual machines or creating an image from a virtual machine and it is not a good idea to keep the client waiting for the response while the RESTful API is performing those tasks. Instead, there is another container - *MQ Callback* - which is dedicated to performing those time-consuming tasks.
 
-RabbitMQ is the message broker between RESTful API and Callback container. If there is no problem with the request, the RESTful API simply publishes a message to the message queue and responses to the client that *"OK, it is all set"*. Then the Callback container consumes the message, and performs the task with whatever the time it needs.
+RabbitMQ is the message broker between RESTful API and Callback container. If there is no problem with the request, the RESTful API simply publishes a message to the message queue and responses to the client that *"OK, it is all set"*. Then the Callback container consumes the message and performs the task with whatever the time it needs.
 
 ### 5. MQ Callback
 
-This container will connect to the RabbitMQ and start to consume messages. It will perform time consuming tasks relates to instances and images.
+This container will connect to the RabbitMQ and start to consume messages. It will perform time-consuming tasks relates to instances and images.
