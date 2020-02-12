@@ -1,5 +1,17 @@
 # Architectural Design
 
+This document is to explain the architectural and system design of this project.
+
+**Table of Content:**
+
+- [Architectural Design](#architectural-design)
+  - [Block Diagram](#block-diagram)
+  - [System Design](#system-design)
+    - [1. Nginx](#1-nginx)
+    - [2. Webpage](#2-webpage)
+    - [3. RESTful API](#3-restful-api)
+    - [4. RabbitMQ](#4-rabbitmq)
+  
 ## Block Diagram
 
 ![Block Diagram](images/block_diagram.png?raw=true)
@@ -56,4 +68,8 @@ The reason why choosing Angular:
 ### 3. RESTful API
 
 This container utilizes Python Flask to provide RESTful API of controlling OpenStack.
+
+- [API Document](api.md)
+
+### 4. RabbitMQ
 
