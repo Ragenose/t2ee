@@ -1,6 +1,9 @@
-# Table of Content
+# RESTful API Document
 
-- [Table of Content](#table-of-content)
+Document of RESTful API call.
+
+**Table of Content:**
+- [RESTful API Document](#restful-api-document)
   - [User related](#user-related)
     - [Create User](#create-user)
     - [User login](#user-login)
