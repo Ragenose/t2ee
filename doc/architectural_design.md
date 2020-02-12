@@ -12,6 +12,8 @@ This document explains the architectural and system design of this project.
     - [3. RESTful API](#3-restful-api)
     - [4. RabbitMQ](#4-rabbitmq)
     - [5. MQ Callback](#5-mq-callback)
+    - [6. MongoDB](#6-mongodb)
+    - [7. OpenStack](#7-openstack)
   
 ## Block Diagram
 
@@ -81,3 +83,11 @@ RabbitMQ is the message broker between RESTful API and Callback container. If th
 ### 5. MQ Callback
 
 This container will connect to the RabbitMQ and start to consume messages. It will perform time-consuming tasks relates to instances and images.
+
+### 6. MongoDB
+
+This container runs MongoDB that contains customized data for this project to provide additional feature including virtual machines ownership and customized image information and ownership.
+
+### 7. OpenStack
+
+OpenStack is installed and configured on two physical used PCs. One is the controller node including roles like public facing API, web interface, scheduler, database, message queue, etc. The other one is the compute node which runs hypervisor and runs actually virtual machines. The project has the configuration file in `/api/config/openstack.yaml` to define OpenStack controller node's public facing APIs and authentication. The two python containers - api and callback - use `openstacksdk` package to communicate with OpenStack. 
