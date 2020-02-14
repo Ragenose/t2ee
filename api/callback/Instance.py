@@ -58,6 +58,7 @@ def mq_create_instance(username, instance_name, image, flavor, root_password):
         time.sleep(30)
         # Try to set the root password if it fails
         for i in range(0,10):
+            time.sleep(10)
             while True:
                 try:
                     conn.compute.change_server_password(instance, root_password)
