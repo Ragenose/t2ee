@@ -15,6 +15,10 @@ import {
   MatSelectModule 
 } from '@angular/material';
 
+import {
+  TextFieldModule
+} from '@angular/cdk/text-field';
+
 @NgModule({
   imports: [
     MatToolbarModule,
@@ -28,7 +32,8 @@ import {
     MatTabsModule,
     MatCardModule,
     MatMenuModule,
-    MatSelectModule 
+    MatSelectModule,
+    TextFieldModule
   ],
   exports: [
     MatToolbarModule,
@@ -42,7 +47,8 @@ import {
     MatTabsModule,
     MatCardModule,
     MatMenuModule,
-    MatSelectModule 
+    MatSelectModule,
+    TextFieldModule
   ]
 })
 export class MaterialModule { }
