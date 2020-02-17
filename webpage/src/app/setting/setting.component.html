@@ -10,9 +10,15 @@
             Update
         </button>
     </form>
-
-    <!-- <h2>Change Password</h2>
-    <form [formGroup]="passwordForm">
-        
-    </form> -->
+    <br><br><br>
+    <h2>Change Password</h2>
+    <form [formGroup]="passwordForm" (ngSubmit)="onPasswordSubmit()">
+        <mat-form-field>
+            <input matInput formControlName="password" type="password">
+        </mat-form-field>
+        <br>
+        <button mat-raised-button color="primary" [disabled]="loading">
+            Update
+        </button>
+    </form>
 </div>

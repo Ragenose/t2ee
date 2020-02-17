@@ -47,6 +47,9 @@ export class SettingComponent implements OnInit {
       .subscribe(
         data => {
           alert("Successful Updated");
+        },
+        error=>{
+          alert("Failed");
         }
       )
   }
@@ -62,6 +65,9 @@ export class SettingComponent implements OnInit {
           alert("Successful Updated");
           this.authenticationService.logout();
           this.router.navigate(['/login']);
+        },
+        error=>{
+          alert("Failed");
         }
       )
   }
