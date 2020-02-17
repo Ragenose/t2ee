@@ -75,7 +75,11 @@ def api_update_user(field):
             404
         )
     # Check if the username and password in authorization is correct
-    check_user_credential(request)
+    if(check_user_credential(request) is False):
+        return Response(
+            "Invalid Credential",
+            401
+        )
     content = request.get_json()
     # Update email
     if(field == "email"):
