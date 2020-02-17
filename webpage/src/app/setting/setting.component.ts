@@ -21,27 +21,48 @@ export class SettingComponent implements OnInit {
     private settingService: SettingService
   ) { }
 
-  get pubkeyFormControl(){
+  get pubkeyFormControl() {
     return this.pubkeyForm.controls;
+  }
+
+  get passwordFormControl() {
+    return this.passwordForm.controls;
   }
 
   ngOnInit() {
     this.pubkeyForm = this.formBuilder.group({
       pubkey: ['', Validators.required]
     })
+    this.passwordForm = this.formBuilder.group({
+      password: ['', Validators.required]
+    })
   }
 
-  onPubkeySubmit(){
-    if(this.pubkeyForm.invalid){
+  onPubkeySubmit() {
+    if (this.pubkeyForm.invalid) {
       return;
     }
 
     this.settingService.updatePubkey(this.pubkeyFormControl.pubkey.value)
-    .subscribe(
-      data=>{
-        alert("Successful Updated");
-      }
-    )
-    
+      .subscribe(
+        data => {
+          alert("Successful Updated");
+        }
+      )
+  }
+
+  onPasswordSubmit() {
+    if (this.passwordForm.invalid) {
+      return;
+    }
+
+    this.settingService.updatePassword(this.passwordFormControl.password.value)
+      .subscribe(
+        data => {
+          alert("Successful Updated");
+          this.authenticationService.logout();
+          this.router.navigate(['/login']);
+        }
+      )
   }
 }
