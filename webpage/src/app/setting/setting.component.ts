@@ -1,6 +1,7 @@
+import { SettingService } from './../services/setting.service';
 import { AuthenticationService } from './../services/authentication.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { FormGroup, FormBuilder } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -13,13 +14,34 @@ export class SettingComponent implements OnInit {
   passwordForm: FormGroup;
 
   constructor(
-    private formBuild: FormBuilder,
+    private formBuilder: FormBuilder,
     private route: ActivatedRoute,
     private router: Router,
-    private authenticationService: AuthenticationService
+    private authenticationService: AuthenticationService,
+    private settingService: SettingService
   ) { }
 
-  ngOnInit() {
+  get pubkeyFormControl(){
+    return this.pubkeyForm.controls;
   }
 
+  ngOnInit() {
+    this.pubkeyForm = this.formBuilder.group({
+      pubkey: ['', Validators.required]
+    })
+  }
+
+  onPubkeySubmit(){
+    if(this.pubkeyForm.invalid){
+      return;
+    }
+
+    this.settingService.updatePubkey(this.pubkeyFormControl.pubkey.value)
+    .subscribe(
+      data=>{
+        alert("Successful Updated");
+      }
+    )
+    
+  }
 }
