@@ -325,11 +325,11 @@ def api_instance_lifecycle(type, instance_name):
     else:
         return Response(
             "Invalid operation",
-            500
+            400
         )
     return Response(
         "Failed",
-        500
+        400
     )
 
 
