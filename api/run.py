@@ -115,8 +115,8 @@ def api_update_user(field):
             conn = create_connection_from_config()
             if(update_user_password(conn, username, password) is True):
                 return Response(
-                    "OK",
-                    200
+                    response=json.dumps({"status": "OK"}),
+                    status=200
                 )
             else:
                 return Response(
@@ -279,6 +279,7 @@ def api_delete_instance(instance_name):
         status=200
     )
 
+
 @app.route('/api/instance/lifecycle/<string:type>/<string:instance_name>', methods=['POST'])
 def api_instance_lifecycle(type, instance_name):
     if(check_user_credential(request) is False):
@@ -288,7 +289,7 @@ def api_instance_lifecycle(type, instance_name):
         )
     username = request.authorization.get('username')
     if(check_instance_ownership(username, instance_name) is False):
-         return Response(
+        return Response(
             "Invalid Credential",
             401
         )
@@ -298,25 +299,25 @@ def api_instance_lifecycle(type, instance_name):
         if(start_instance(conn, instance_name) is True):
             conn.close()
             return Response(
-            response=json.dumps({"status": "OK"}),
-            status=200
-        )
+                response=json.dumps({"status": "OK"}),
+                status=200
+            )
     elif(type == "shutdown"):
         conn = create_connection_from_config()
         if(shut_off_instance(conn, instance_name) is True):
             conn.close()
             return Response(
-            response=json.dumps({"status": "OK"}),
-            status=200
-        )
+                response=json.dumps({"status": "OK"}),
+                status=200
+            )
     elif(type == "reboot"):
         conn = create_connection_from_config()
         if(reboot_instance(conn, instance_name) is True):
             conn.close()
             return Response(
-            response=json.dumps({"status": "OK"}),
-            status=200
-        )
+                response=json.dumps({"status": "OK"}),
+                status=200
+            )
     else:
         return Response(
             "Invalid operation",
@@ -326,6 +327,7 @@ def api_instance_lifecycle(type, instance_name):
         "Failed",
         500
     )
+
 
 @app.route('/api/image/create', methods=['POST'])
 def api_create_image():
