@@ -7,6 +7,8 @@ Document of RESTful API call.
   - [User related](#user-related)
     - [Create User](#create-user)
     - [User login](#user-login)
+    - [Update User Password](#update-user-password)
+    - [Update User Key Pair](#update-user-key-pair)
 
 ## User related
 
@@ -76,8 +78,6 @@ Used for user login authentication
   `/api/user/login`
 
 * **Method:**
-  
-  <_The request type_>
 
   `POST`
 
@@ -107,3 +107,105 @@ Used for user login authentication
 
   * **Code:** 401 UNAUTHORIZED\
     **Content:** `Invalid Credential`
+
+### Update User Password
+
+Update the user's password
+
+* **URL**
+
+  `/api/user/update/password`
+
+* **Method:**
+
+  `POST`
+
+* **Header Params**
+
+    `Authorization: Basic <credentials>`
+
+* **URL Params**
+
+   None
+
+* **Data Params**
+
+  ```json
+  {
+    password: "example_password"
+  }
+  ```
+
+* **Success Response:**
+
+  * **Code:** 200\
+    **Content:** 
+    ```json
+    { status : "OK" }
+    ```
+
+* **Error Response:**
+* 
+  When authentication failed.
+
+  * **Code:** 401 UNAUTHORIZED\
+    **Content:** `Invalid Credential`
+    
+  When password data has the wrong type
+
+  * **Code:** 400 BAD REQUEST\
+    **Content:** `Bad Request, insufficient data`
+  
+  When update password failed
+  
+  * **Code:** 400 BAD REQUEST\
+    **Content:** `Update password failed`
+
+### Update User Key Pair
+
+Update the user's key pair
+
+* **URL**
+
+  `/api/user/keypair/update`
+
+* **Method:**
+
+  `POST`
+
+* **Header Params**
+
+    `Authorization: Basic <credentials>`
+
+* **URL Params**
+
+   None
+
+* **Data Params**
+
+  ```json
+  {
+    pubkey: "example_pubkey"
+  }
+  ```
+
+* **Success Response:**
+
+  * **Code:** 200\
+    **Content:** 
+    ```json
+    { status : "OK" }
+    ```
+
+* **Error Response:**
+* 
+  When authentication failed.
+
+  * **Code:** 401 UNAUTHORIZED\
+    **Content:** `Invalid Credential`
+    
+  When password data has the wrong type
+
+  * **Code:** 400 BAD REQUEST\
+    **Content:** `Bad Request, insufficient data`
+  
