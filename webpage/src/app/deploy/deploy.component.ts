@@ -34,9 +34,9 @@ export class DeployComponent implements OnInit {
   onDeploySubmit() {
     console.log(this.f.image.value);
     // stop here if form is invalid
-    // if (this.deployForm.invalid) {
-    //   return;
-    // }
+    if (this.deployForm.invalid) {
+      return;
+    }
     this.vmService.deployInstance(
       this.f.instance_name.value,
       this.f.root_password.value,
