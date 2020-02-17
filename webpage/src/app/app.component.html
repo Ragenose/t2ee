@@ -13,7 +13,7 @@
                 <mat-icon aria-hidden="false" svgIcon="account" class="account-icon"></mat-icon>
             </button>
             <mat-menu #menu="matMenu">
-                <button mat-menu-item>
+                <button mat-menu-item [routerLink]="['setting']">
                   <span>Settings</span>
                 </button>
                 <button mat-menu-item (click)="logout()">
