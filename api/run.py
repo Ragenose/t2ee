@@ -69,7 +69,7 @@ def api_create_user():
 @app.route('/api/user/update/<string:field>', methods=['POST'])
 def api_update_user(field):
     # If the variable is not email or password, return 404
-    if(field != ("email" or "password")):
+    if(field != ("email" and "password")):
         return Response(
             "URL not found",
             404
