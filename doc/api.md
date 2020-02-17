@@ -6,9 +6,13 @@ Document of RESTful API call.
 - [RESTful API Document](#restful-api-document)
   - [User related](#user-related)
     - [Create User](#create-user)
-    - [User login](#user-login)
+    - [User Login](#user-login)
     - [Update User Password](#update-user-password)
     - [Update User Key Pair](#update-user-key-pair)
+  - [Instance related](#instance-related)
+    - [Create Instance](#create-instance)
+    - [Delete Instance](#delete-instance)
+    - [Change Instance Lifecycle](#change-instance-lifecycle)
 
 ## User related
 
@@ -68,8 +72,10 @@ Used for user signup.
 * **Notes:**
 
   The password should be hashed from the front-end.
-  
-### User login
+
+---
+
+### User Login
 
 Used for user login authentication
 
@@ -107,6 +113,8 @@ Used for user login authentication
 
   * **Code:** 401 UNAUTHORIZED\
     **Content:** `Invalid Credential`
+
+---
 
 ### Update User Password
 
@@ -161,6 +169,8 @@ Update the user's password
   * **Code:** 400 BAD REQUEST\
     **Content:** `Update password failed`
 
+---
+
 ### Update User Key Pair
 
 Update the user's key pair
@@ -208,4 +218,150 @@ Update the user's key pair
 
   * **Code:** 400 BAD REQUEST\
     **Content:** `Bad Request, insufficient data`
-  
+
+## Instance related
+
+### Create Instance
+
+Deploy an Instance
+
+* **URL**
+
+  `/api/instance/create`
+
+* **Method:**
+
+  `POST`
+
+* **Header Params**
+
+    `Authorization: Basic <credentials>`
+
+* **URL Params**
+
+   None
+
+* **Data Params**
+
+  ```json
+  {
+    flavor: "example_flavor",
+    instance_name: "example_instance_name",
+    image: "example_image",
+    root_password: "example_root_password"
+  }
+  ```
+
+* **Success Response:**
+
+  * **Code:** 200\
+    **Content:** 
+    ```json
+    { status : "OK" }
+    ```
+
+* **Error Response:**
+* 
+  When authentication failed.
+
+  * **Code:** 401 UNAUTHORIZED\
+    **Content:** `Invalid Credential`
+    
+  When insufficient data provided
+
+  * **Code:** 400 BAD REQUEST\
+    **Content:** `Bad Request, insufficient data`
+
+---
+
+### Delete Instance
+
+Delete an Instance
+
+* **URL**
+
+  `/api/instance/delete/<instance_name>`
+
+* **Method:**
+
+  `DELETE`
+
+* **Header Params**
+
+    `Authorization: Basic <credentials>`
+
+* **URL Params**
+
+   None
+
+* **Data Params**
+
+None
+
+* **Success Response:**
+
+  * **Code:** 200\
+    **Content:** 
+    ```json
+    { status : "OK" }
+    ```
+
+* **Error Response:**
+* 
+  When authentication failed.
+
+  * **Code:** 401 UNAUTHORIZED\
+    **Content:** `Invalid Credential`
+
+---
+
+### Change Instance Lifecycle
+
+Change instance lifecycle (start/shutdown/reboot)
+
+* **URL**
+
+  `/api/instance/lifecycle/<type>/<instance_name>`
+
+* **Method:**
+
+  `POST`
+
+* **Header Params**
+
+    `Authorization: Basic <credentials>`
+
+* **URL Params**
+
+   None
+
+* **Data Params**
+
+    None
+
+* **Success Response:**
+
+  * **Code:** 200\
+    **Content:** 
+    ```json
+    { status : "OK" }
+    ```
+
+* **Error Response:**
+* 
+  When authentication failed.
+
+  * **Code:** 401 UNAUTHORIZED\
+    **Content:** `Invalid Credential`
+    
+  When invalid type on the URL
+
+  * **Code:** 400 UNAUTHORIZED\
+    **Content:** `Invalid operation`
+
+  When operation failed
+
+  * **Code:** 400 BAD REQUEST\
+    **Content:** `Failed`
+
+---
