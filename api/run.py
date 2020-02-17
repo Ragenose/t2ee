@@ -168,8 +168,8 @@ def api_update_keypair():
     else:
         update_keypair(username, pubkey)
         return Response(
-            "OK",
-            200
+            response=json.dumps({"status": "OK"}),
+            status=200
         )
 
 
