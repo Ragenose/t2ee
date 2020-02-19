@@ -12,7 +12,7 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { BasicAuthInterceptor } from './helpers/basic-auth.interceptor';
 import { ErrorInterceptor } from './helpers/error.interceptor';
 import { HomeComponent } from './home/home.component';
-import { InstanceComponent } from './instance/instance.component';
+import { InstanceComponent, DialogImageCreate } from './instance/instance.component';
 import { HomeDirective } from './home/home.directive';
 import { DeployComponent } from './deploy/deploy.component';
 import { SettingComponent } from './setting/setting.component';
@@ -25,7 +25,8 @@ import { SettingComponent } from './setting/setting.component';
     InstanceComponent,
     HomeDirective,
     DeployComponent,
-    SettingComponent
+    SettingComponent,
+    DialogImageCreate
   ],
   imports: [
     BrowserModule,
@@ -33,7 +34,8 @@ import { SettingComponent } from './setting/setting.component';
     BrowserAnimationsModule,
     MaterialModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    FormsModule
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: BasicAuthInterceptor, multi: true },
@@ -41,6 +43,6 @@ import { SettingComponent } from './setting/setting.component';
 
   ],
   bootstrap: [AppComponent],
-  entryComponents: [ HomeComponent, InstanceComponent ]
+  entryComponents: [ HomeComponent, InstanceComponent, DialogImageCreate ]
 })
 export class AppModule { }

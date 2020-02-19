@@ -1,3 +1,4 @@
+import { Instance } from './../models/instance';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
@@ -32,6 +33,16 @@ export class VmService {
       "flavor": flavor,
       "image": image,
       "root_password": root_password
+    }, {headers: httpHeaders});
+  }
+
+  createImage(instance_name: string, image_name: string, description: string){
+    let httpHeaders = new HttpHeaders;
+    httpHeaders = httpHeaders.append("Content-Type", "application/json");
+    return this.http.post("/api/image/create",{
+      "instance_name": instance_name,
+      "image_name": image_name,
+      "description": description
     }, {headers: httpHeaders});
   }
 }
