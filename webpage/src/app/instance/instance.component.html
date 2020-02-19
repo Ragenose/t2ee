@@ -1,6 +1,22 @@
 <mat-card class="instance-card">
     <mat-card-header>
-        <mat-card-title>{{instance.name}}</mat-card-title>
+        <mat-card-title>
+            <span>{{instance.name}}</span>
+        </mat-card-title>
+
+        <button mat-icon-button [matMenuTriggerFor]="menu">
+            <mat-icon>more_vert</mat-icon>
+        </button>
+
+        <mat-menu #menu="matMenu">
+            <button mat-menu-item>
+                <span>Transfer</span>
+            </button>
+            <button mat-menu-item>
+                <span>Create Image</span>
+            </button>
+        </mat-menu>
+
     </mat-card-header>
     <br>
     <mat-card-content>
