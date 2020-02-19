@@ -2,7 +2,7 @@ import { UserinfoService } from './../services/userinfo.service';
 import { HttpClient } from '@angular/common/http';
 import { Instance } from './../models/instance';
 import { Component, OnInit, ComponentFactoryResolver, ViewContainerRef, ViewChild, ComponentRef, OnDestroy } from '@angular/core';
-import { InstanceComponent } from '@app/instance/instance.component';
+import { InstanceComponent } from '@app/home/instance/instance.component';
 import { HomeDirective } from './home.directive';
 
 @Component({

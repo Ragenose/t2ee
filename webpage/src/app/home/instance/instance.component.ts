@@ -1,5 +1,5 @@
-import { VmService } from './../services/vm.service';
-import { Instance } from './../models/instance';
+import { VmService } from '../../services/vm.service';
+import { Instance } from '../../models/instance';
 import { Component, OnInit, Input, Inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
