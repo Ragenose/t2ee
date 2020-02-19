@@ -12,7 +12,7 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { BasicAuthInterceptor } from './helpers/basic-auth.interceptor';
 import { ErrorInterceptor } from './helpers/error.interceptor';
 import { HomeComponent } from './home/home.component';
-import { InstanceComponent, DialogImageCreate } from './instance/instance.component';
+import { InstanceComponent, DialogImageCreate } from './home/instance/instance.component';
 import { HomeDirective } from './home/home.directive';
 import { DeployComponent } from './deploy/deploy.component';
 import { SettingComponent } from './setting/setting.component';
