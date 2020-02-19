@@ -368,8 +368,8 @@ def api_create_image():
                               ))
         channel.close()
         return Response(
-            "OK",
-            200
+            response=json.dumps({"status": "OK"}),
+            status=200
         )
 
 
