@@ -1,1 +1,28 @@
-<p>{{image.name}}</p>
+<mat-card class="image-card">
+    <mat-card-header>
+        <mat-card-title>
+            {{image.name}}
+        </mat-card-title>
+        <mat-card-subtitle>
+            {{image.baseImage}}
+        </mat-card-subtitle>
+
+    </mat-card-header>
+    <br>
+    <mat-card-content>
+        <h3>
+            Creator:
+        </h3>
+        <p>{{image.username}}</p>
+        <h3>
+            Description:
+        </h3>
+        <p>{{image.description}}</p>
+    </mat-card-content>
+    <br>
+    <mat-card-actions>
+        <section layout="row">
+            <button mat-button (click)="start()">Start</button>
+        </section>
+    </mat-card-actions>
+</mat-card>
