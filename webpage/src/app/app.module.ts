@@ -18,7 +18,7 @@ import { DeployComponent } from './deploy/deploy.component';
 import { SettingComponent } from './setting/setting.component';
 import { ImageComponent } from './image/image.component';
 import { ImageDirective } from './image/image.directive';
-import { ImageItemComponent } from './image/image-item/image-item.component';
+import { ImageItemComponent, DialogImageDeploy } from './image/image-item/image-item.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +32,8 @@ import { ImageItemComponent } from './image/image-item/image-item.component';
     DialogImageCreate,
     ImageComponent,
     ImageDirective,
-    ImageItemComponent
+    ImageItemComponent,
+    DialogImageDeploy
   ],
   imports: [
     BrowserModule,
@@ -49,6 +50,6 @@ import { ImageItemComponent } from './image/image-item/image-item.component';
 
   ],
   bootstrap: [AppComponent],
-  entryComponents: [ HomeComponent, InstanceComponent, DialogImageCreate, ImageComponent, ImageItemComponent ]
+  entryComponents: [ HomeComponent, InstanceComponent, DialogImageCreate, ImageComponent, ImageItemComponent, DialogImageDeploy ]
 })
 export class AppModule { }

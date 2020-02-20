@@ -1,0 +1,25 @@
+<h1 mat-dialog-title>Enter Instance name</h1>
+<div mat-dialog-content>
+    <mat-form-field>
+        <mat-label>Instance name</mat-label>
+        <input matInput [(ngModel)]="data.instance_name">
+    </mat-form-field>
+    <br>
+    <mat-form-field>
+        <label for="flavor">Flavor</label>
+        <mat-select  [(ngModel)]="data.flavor">
+            <mat-option *ngFor="let flavor of flavors" [(value)]="flavor">
+                {{flavor}}
+            </mat-option>
+        </mat-select>
+    </mat-form-field>
+    <br>
+    <mat-form-field>
+        <label for="root_password">root_password Name</label>
+        <input matInput type="password" [(ngModel)]="data.root_password">
+    </mat-form-field>
+</div>
+<div mat-dialog-actions>
+    <button mat-button (click)="onNoClick()">Cancel</button>
+    <button mat-button [mat-dialog-close]="data" cdkFocusInitial>Ok</button>
+</div>

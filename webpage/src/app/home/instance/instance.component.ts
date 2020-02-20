@@ -3,6 +3,7 @@ import { Instance } from '../../models/instance';
 import { Component, OnInit, Input, Inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
+import { isDefined } from '@angular/compiler/src/util';
 
 export interface ImageData {
   name: string;
@@ -79,13 +80,16 @@ export class InstanceComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       this.imageData = result;
       console.log(this.imageData);
-      this.vmService.createImage(this.instance.name, this.imageData.name, this.imageData.description)
+      if(isDefined(this.imageData)){
+        this.vmService.createImage(this.instance.name, this.imageData.name, this.imageData.description)
       .subscribe(
         data=>{
           alert("Successful Created");
         },
         error=>alert("Failed")
       )
+      }
+      
     });
   }
   
