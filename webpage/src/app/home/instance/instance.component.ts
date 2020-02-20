@@ -79,7 +79,6 @@ export class InstanceComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       this.imageData = result;
-      console.log(this.imageData);
       if(isDefined(this.imageData)){
         this.vmService.createImage(this.instance.name, this.imageData.name, this.imageData.description)
       .subscribe(

@@ -37,7 +37,6 @@ export class ImageItemComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       this.imageDeploy = result;
-      console.log(this.imageDeploy);
       if(isDefined(this.imageDeploy)){
         this.vmService.deployInstance(
           this.imageDeploy.instance_name, 
