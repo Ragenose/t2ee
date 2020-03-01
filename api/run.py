@@ -373,8 +373,8 @@ def api_instance_transfer():
                 "Instance not exist",
                 400
             )
-        add_instance_to_user(new_owner, instance_name, instance.id)
         remove_instance_from_user(username, instance_name)
+        add_instance_to_user(new_owner, instance_name, instance.id)
         return Response(
             response=json.dumps({"status": "OK"}),
             status=200
