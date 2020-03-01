@@ -13,6 +13,7 @@
                 <mat-icon aria-hidden="false" svgIcon="account" class="account-icon"></mat-icon>
             </button>
             <mat-menu #menu="matMenu">
+                <div *ngIf="isLoggedin" style="text-align: center;">Hello <b>{{username}}</b> !</div>
                 <button mat-menu-item [routerLink]="['setting']">
                   <span>Settings</span>
                 </button>
