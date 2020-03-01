@@ -4,7 +4,7 @@ from CreateDatabase import update_database_config
 from lib.ConnectionUtilities import create_connection_from_config
 from lib.CredentialUtilities import create_user, update_user_email, update_user_password, check_credential
 from lib.SecretUtilities import update_keypair
-from lib.DatabaseUtilities import add_root_password_to_user, get_images, get_user_info
+from lib.DatabaseUtilities import add_root_password_to_user, get_images, get_user_info, add_instance_to_user, remove_instance_from_user
 from lib.StatusUtilites import get_instance_status, get_instance_address
 from lib.LifecycleUtilities import start_instance, shut_off_instance, reboot_instance
 from lib.InstanceUtilities import check_instance_ownership
@@ -265,6 +265,11 @@ def api_delete_instance(instance_name):
             401
         )
     username = request.authorization.get('username')
+    if(check_instance_ownership(username, instance_name) is False):
+        return Response(
+            "Invalid Credential",
+            401
+        )
     payload = {
         'method': 'delete',
         'name': username,
@@ -332,6 +337,48 @@ def api_instance_lifecycle(type, instance_name):
         400
     )
 
+@app.route('/api/instance/transfer', methods=['POST'])
+def api_instance_transfer():
+    if(check_user_credential(request) is False):
+        return Response(
+            "Invalid Credential",
+            401
+        )
+    
+    content = request.get_json()
+    try:
+        username = request.authorization.get('username')
+        instance_name = content['instance_name']
+        new_owner = content['new_owner']
+    except KeyError:
+        return Response(
+            "Bad Request, insufficient data",
+            400
+        )
+    else:
+        if(check_instance_ownership(username, instance_name) is False):
+            return Response(
+                "Invalid Credential",
+                401
+            )
+        if(get_user_info(new_owner) is None):
+            return Response(
+                "New owner not exist",
+                400
+            )
+        conn = create_connection_from_config()
+        instance = conn.compute.find_server(instance_name)
+        if(instance is None):
+            return Response(
+                "Instance not exist",
+                400
+            )
+        add_instance_to_user(new_owner, instance_name, instance.id)
+        remove_instance_from_user(username, instance_name)
+        return Response(
+            response=json.dumps({"status": "OK"}),
+            status=200
+        )
 
 @app.route('/api/image/create', methods=['POST'])
 def api_create_image():
