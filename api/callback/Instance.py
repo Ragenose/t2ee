@@ -54,6 +54,7 @@ def mq_create_instance(username, instance_name, image, flavor, root_password):
         keypair = get_keypair(username)
         instance = create_instance(conn, image, flavor, get_network_name(), instance_name, root_password=root_password, keypair=keypair)
         add_instance_to_user(username, instance_name, instance.id)
+        conn.compute.wait_for_server(instance, status='ACTIVE', wait=60)
         # Wait for 30 second to let instance boot up
         time.sleep(30)
         # Try to set the root password if it fails

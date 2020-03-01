@@ -45,7 +45,6 @@ export class DeployComponent implements OnInit {
     ).subscribe(
       data=>{
         alert("Successful Deployed");
-        this.router.navigate([""]);
       }
     )
     
