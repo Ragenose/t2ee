@@ -19,7 +19,8 @@ export class InstanceComponent implements OnInit {
   @Input() instance: Instance;
 
   imageData: ImageData;
-
+  new_owner: string;
+  
   constructor(
     private vmService: VmService,
     public dialog: MatDialog) { }
@@ -92,6 +93,27 @@ export class InstanceComponent implements OnInit {
     });
   }
   
+  openTransferDialog(): void {
+    const dialogRef = this.dialog.open(DialogTransfer, {
+      width: '250px',
+      data: ""
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      this.new_owner = result;
+      if(isDefined(this.new_owner)){
+        this.vmService.transfer(this.instance.name, this.new_owner)
+      .subscribe(
+        data=>{
+          alert("Successful Transferred");
+          location.reload();
+        },
+        error=>alert("Failed")
+      )
+      }
+      
+    });
+  }
 }
 
 
@@ -103,6 +125,20 @@ export class DialogImageCreate{
   constructor(
     public dialogRef: MatDialogRef<DialogImageCreate>,
     @Inject(MAT_DIALOG_DATA) public data: ImageData) {}
+
+  onNoClick(): void {
+    this.dialogRef.close();
+  }
+}
+
+@Component({
+  selector: 'dialog-transfer-ownership',
+  templateUrl: 'transfer-ownership.html'
+})
+export class DialogTransfer{
+  constructor(
+    public dialogRef: MatDialogRef<DialogImageCreate>,
+    @Inject(MAT_DIALOG_DATA) public data: string) {}
 
   onNoClick(): void {
     this.dialogRef.close();

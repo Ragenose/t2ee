@@ -12,7 +12,7 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { BasicAuthInterceptor } from './helpers/basic-auth.interceptor';
 import { ErrorInterceptor } from './helpers/error.interceptor';
 import { HomeComponent } from './home/home.component';
-import { InstanceComponent, DialogImageCreate } from './home/instance/instance.component';
+import { InstanceComponent, DialogImageCreate, DialogTransfer } from './home/instance/instance.component';
 import { HomeDirective } from './home/home.directive';
 import { DeployComponent } from './deploy/deploy.component';
 import { SettingComponent } from './setting/setting.component';
@@ -33,7 +33,8 @@ import { ImageItemComponent, DialogImageDeploy } from './image/image-item/image-
     ImageComponent,
     ImageDirective,
     ImageItemComponent,
-    DialogImageDeploy
+    DialogImageDeploy,
+    DialogTransfer
   ],
   imports: [
     BrowserModule,
@@ -50,6 +51,6 @@ import { ImageItemComponent, DialogImageDeploy } from './image/image-item/image-
 
   ],
   bootstrap: [AppComponent],
-  entryComponents: [ HomeComponent, InstanceComponent, DialogImageCreate, ImageComponent, ImageItemComponent, DialogImageDeploy ]
+  entryComponents: [ HomeComponent, InstanceComponent, DialogImageCreate, ImageComponent, ImageItemComponent, DialogImageDeploy, DialogTransfer ]
 })
 export class AppModule { }

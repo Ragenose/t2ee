@@ -9,7 +9,7 @@
         </button>
 
         <mat-menu #menu="matMenu">
-            <button mat-menu-item>
+            <button mat-menu-item (click)="openTransferDialog()">
                 <span>Transfer</span>
             </button>
             <button mat-menu-item (click)="openImageDialog()">

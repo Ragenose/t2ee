@@ -45,4 +45,15 @@ export class VmService {
       "description": description
     }, {headers: httpHeaders});
   }
+
+  transfer(instance_name: string, new_owner: string){
+    let httpHeaders = new HttpHeaders;
+    httpHeaders = httpHeaders.append("Content-Type", "application/json");
+    return this.http.post("/api/instance/transfer",{
+      "instance_name": instance_name,
+      "new_owner": new_owner
+    }, {headers: httpHeaders});
+  }
 }
+
+
