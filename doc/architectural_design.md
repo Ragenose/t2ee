@@ -14,6 +14,7 @@ This document explains the architectural and system design of this project.
     - [5. MQ Callback](#5-mq-callback)
     - [6. MongoDB](#6-mongodb)
     - [7. OpenStack](#7-openstack)
+    - [8. Apache Guacamole](#8-apache-guacamole)
   
 ## Block Diagram
 
@@ -86,8 +87,12 @@ This container will connect to the RabbitMQ and start to consume messages. It wi
 
 ### 6. MongoDB
 
-This container runs MongoDB that contains customized data for this project to provide additional feature including virtual machines ownership and customized image information and ownership.
+This container runs MongoDB that contains customized data for this project to provide additional features including virtual machine ownership and customized image information and ownership.
 
 ### 7. OpenStack
 
-OpenStack is installed and configured on two physical used PCs. One is the controller node including roles like public facing API, web interface, scheduler, database, message queue, etc. The other one is the compute node which runs hypervisor and runs actually virtual machines. The project has the configuration file in `/api/config/openstack.yaml` to define OpenStack controller node's public facing APIs and authentication. The two python containers - api and callback - use `openstacksdk` package to communicate with OpenStack. 
+OpenStack is installed and configured on two physical used PCs. One is the controller node including roles like public-facing API, web interface, scheduler, database, message queue, etc. The other one is the compute node which runs hypervisor and runs actually virtual machines. The project has the configuration file in `/api/config/openstack.yaml` to define the OpenStack controller node's public-facing APIs and authentication. The two python containers - api and callback - use `openstacksdk` package to communicate with OpenStack.
+
+### 8. Apache Guacamole
+
+Apache Guacamole is a clientless remote protocol gateway running on browsers. It was originally designedned to SSH connection via one button on the instance cards. But due to time constraints, Guacamole will not be integrated into the project instead it will just run as a standalone container to open SSH or VNC connection.
