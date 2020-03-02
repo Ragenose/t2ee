@@ -95,4 +95,4 @@ OpenStack is installed and configured on two physical used PCs. One is the contr
 
 ### 8. Apache Guacamole
 
-Apache Guacamole is a clientless remote protocol gateway running on browsers. It was originally designedned to SSH connection via one button on the instance cards. But due to time constraints, Guacamole will not be integrated into the project instead it will just run as a standalone container to open SSH or VNC connection.
+Apache Guacamole is a clientless remote protocol gateway running on browsers. It was originally designed to open SSH/VNC connection via one button on the instance cards. But due to time constraints, Guacamole will not be integrated into the project instead it will just run as a standalone container to open SSH or VNC connection.
