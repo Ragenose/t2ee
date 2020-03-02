@@ -40,6 +40,17 @@ services:
     depends_on: 
       - api
       - webpage
+      
+  guacamole:
+    image: "oznu/guacamole"
+    hostname: "guacamole"
+    container_name: "guacamole"
+    environment: 
+      - EXTENSIONS=auth-quickconnect
+    ports:
+      - "5001:8080"
+    volumes: 
+      - ./data/guacamole:/config
 
   api:
     build: 
