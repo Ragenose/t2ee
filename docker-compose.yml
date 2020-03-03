@@ -61,7 +61,7 @@ services:
     volumes:
       - ./api:/code
     extra_hosts:
-      - "t2ee:192.168.0.133"
+      - "t2ee:142.3.190.29"
     ports:
       - "5000:5000"
     depends_on:
@@ -76,7 +76,7 @@ services:
     volumes:
       - ./api:/code
     extra_hosts:
-      - "t2ee:192.168.0.133"
+      - "t2ee:142.3.190.29"
     depends_on: 
       - database
       - rabbitmq
