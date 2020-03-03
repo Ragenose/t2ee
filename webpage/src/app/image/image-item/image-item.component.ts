@@ -2,7 +2,7 @@ import { Image } from './../image.component';
 import { Component, OnInit, Input, Inject } from '@angular/core';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import { VmService } from '@app/services/vm.service';
-import { isDefined } from '@angular/compiler/src/util';
+// import { isDefined } from '@angular/compiler/src/util';
 
 export interface ImageDeploy{
   instance_name: string,
@@ -37,7 +37,7 @@ export class ImageItemComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       this.imageDeploy = result;
-      if(isDefined(this.imageDeploy)){
+      if(this.imageDeploy === undefined){
         this.vmService.deployInstance(
           this.imageDeploy.instance_name, 
           this.imageDeploy.root_password,

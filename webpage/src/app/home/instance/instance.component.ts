@@ -3,7 +3,7 @@ import { Instance } from '../../models/instance';
 import { Component, OnInit, Input, Inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
-import { isDefined } from '@angular/compiler/src/util';
+// import { isDefined } from '@angular/compiler/src/util';
 
 export interface ImageData {
   name: string;
@@ -80,7 +80,7 @@ export class InstanceComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       this.imageData = result;
-      if(isDefined(this.imageData)){
+      if(this.imageData === undefined){
         this.vmService.createImage(this.instance.name, this.imageData.name, this.imageData.description)
       .subscribe(
         data=>{
@@ -101,7 +101,7 @@ export class InstanceComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       this.new_owner = result;
-      if(isDefined(this.new_owner)){
+      if(this.new_owner === undefined){
         this.vmService.transfer(this.instance.name, this.new_owner)
       .subscribe(
         data=>{
