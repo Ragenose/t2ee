@@ -80,7 +80,8 @@ export class InstanceComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       this.imageData = result;
-      if(this.imageData !== undefined){
+      console.log(this.imageData);
+      if(this.imageData.name != "" && this.imageData.description != ""){
         this.vmService.createImage(this.instance.name, this.imageData.name, this.imageData.description)
       .subscribe(
         data=>{
@@ -101,7 +102,7 @@ export class InstanceComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       this.new_owner = result;
-      if(this.new_owner !== undefined){
+      if(this.new_owner != ""){
         this.vmService.transfer(this.instance.name, this.new_owner)
       .subscribe(
         data=>{
