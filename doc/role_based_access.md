@@ -34,6 +34,22 @@ The administrators can also use MongoDB clients (MongoDB Compass is used as an e
 
 The administrators can connect to the database based on the username, password and port number defined in the [Docker Compose File](../docker-compose.yml)
 
+```yaml
+...
+ database:
+    image: 'mongo:4.2.2'
+    hostname: "mongo"
+    container_name: "mongo"
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=example_admin_name
+      - MONGO_INITDB_ROOT_PASSWORD=example_admin_password
+    ports:
+      - "27017:27017"
+    volumes:
+      - "./data/mongodb:/data/db"
+...
+```
+
 #### User Documents
 
 The user documents store user data including username, password, email, and instances and images owned. These data are not part of but associate with OpenStack.
