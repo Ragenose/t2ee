@@ -218,11 +218,20 @@ def remove_image_from_user(user, image_name):
     )
     client.close()
 
+# Function: remove_image_from_image_database
+# Date: 2020/03/06
+# Purpose: Remove image in image databse
+# Parameters:
+#     image_name: Image name
+# Return value:
+#     None
+
 def remove_image_from_image_database(image_name):
     client = create_db_connection()
     image_col = client["t2ee"]["image"]
     image_col.delete_one({"image_name": image_name})
     client.close()
+    
 # Function: add_keypair_to_user
 # Date: 2020/01/11
 # Purpose: Add keypair under user's name
