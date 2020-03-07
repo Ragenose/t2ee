@@ -10,7 +10,8 @@ from lib.DatabaseUtilities import\
     create_db_connection,\
     create_image_document,\
     add_image_to_user,\
-    remove_image_from_user
+    remove_image_from_user,\
+    remove_image_from_image_database
 
 def mq_image(ch, method, properties, body):
     payload = json.loads(body.decode("utf-8"))
@@ -35,5 +36,6 @@ def mq_create_image(username, image_name, instance_name, description):
 def mq_delete_image(username, image_name):
     conn = create_connection_from_config()
     remove_image_from_user(username, image_name)
+    remove_image_from_image_database(image_name)
     delete_image(conn, image_name)
     conn.close()
