@@ -2,6 +2,7 @@ import { Image } from './../image.component';
 import { Component, OnInit, Input, Inject } from '@angular/core';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import { VmService } from '@app/services/vm.service';
+import { ImageService } from '@app/services/image.service';
 // import { isDefined } from '@angular/compiler/src/util';
 
 export interface ImageDeploy{
@@ -23,6 +24,7 @@ export class ImageItemComponent implements OnInit {
 
   constructor(
     private vmService: VmService,
+    private imageService: ImageService,
     public dialog: MatDialog
   ) { }
 
@@ -57,6 +59,19 @@ export class ImageItemComponent implements OnInit {
         error=>alert("Failed"))
       }
     });
+  }
+
+  delete(){
+    this.imageService.deleteImage(this.image.name)
+    .subscribe(
+      data=>{
+        alert("Successful Deleted");
+        location.reload();
+      },
+      error=>{
+        alert("Failed");
+      }
+    )
   }
 }
 

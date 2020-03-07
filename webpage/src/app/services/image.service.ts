@@ -11,4 +11,8 @@ export class ImageService {
   getImageList(){
     return this.http.get("/api/image/list");
   }
+
+  deleteImage(image_name: string){
+    return this.http.delete("/api/image/delete/"+image_name)
+  }
 }
