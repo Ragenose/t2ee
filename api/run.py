@@ -442,8 +442,8 @@ def api_delete_image(image_name):
                           ))
     channel.close()
     return Response(
-        "OK",
-        200
+        response=json.dumps({"status": "OK"}),
+        status=200
     )
 
 
