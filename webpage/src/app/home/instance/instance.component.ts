@@ -61,15 +61,17 @@ export class InstanceComponent implements OnInit {
     )
   }
 
-  delete(){
-    this.vmService.deleteInstance(this.instance.name)
-    .subscribe(
-      data=>{
-        alert("Successful Deleted");
-        location.reload();
-      },
-      error=>console.log(error)
-    )
+  delete() {
+    if (confirm("Are you sure to delete " + this.instance.name)) {
+      this.vmService.deleteInstance(this.instance.name)
+        .subscribe(
+          data => {
+            alert("Successful Deleted");
+            location.reload();
+          },
+          error => console.log(error)
+        )
+    }
   }
 
   openImageDialog(): void {
