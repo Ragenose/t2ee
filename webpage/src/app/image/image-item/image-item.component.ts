@@ -18,7 +18,7 @@ export interface ImageDeploy{
 export class ImageItemComponent implements OnInit {
   @Input() image: Image;
   imageDeploy: ImageDeploy;
-
+  deletable: boolean;
   
 
   constructor(
@@ -27,6 +27,12 @@ export class ImageItemComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    if(JSON.parse(localStorage.getItem('currentUser'))["username"] == this.image.username){
+      this.deletable = true;
+    }
+    else{
+      this.deletable = false;
+    }
   }
 
   openImageDialog(): void {
