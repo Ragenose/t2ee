@@ -18,6 +18,8 @@ def mq_image(ch, method, properties, body):
     try:
         if(payload['method'] == "create"):
             mq_create_image(payload['name'], payload['image_name'], payload['instance_name'], payload['description'])
+        if(payload['method'] == "delete"):
+            mq_delete_image(payload['name'], payload['image_name'])
     except KeyError:
         print("KeyError")
 
@@ -28,4 +30,10 @@ def mq_create_image(username, image_name, instance_name, description):
         image = create_image_from_instance(conn, instance_name, image_name, description)
         create_image_document(username, image_name, instance_name, description)
         add_image_to_user(username, image_name, image.id)
+    conn.close()
+
+def mq_delete_image(username, image_name):
+    conn = create_connection_from_config()
+    remove_image_from_user(username, image_name)
+    delete_image(conn, image_name)
     conn.close()
