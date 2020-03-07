@@ -80,7 +80,6 @@ export class InstanceComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       this.imageData = result;
-      console.log(this.imageData);
       if(this.imageData.name != "" && this.imageData.description != ""){
         this.vmService.createImage(this.instance.name, this.imageData.name, this.imageData.description)
       .subscribe(
@@ -102,7 +101,8 @@ export class InstanceComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       this.new_owner = result;
-      if(this.new_owner != ""){
+      console.log(this.new_owner);
+      if(this.new_owner != "" && this.new_owner !== undefined){
         this.vmService.transfer(this.instance.name, this.new_owner)
       .subscribe(
         data=>{
@@ -138,7 +138,7 @@ export class DialogImageCreate{
 })
 export class DialogTransfer{
   constructor(
-    public dialogRef: MatDialogRef<DialogImageCreate>,
+    public dialogRef: MatDialogRef<DialogTransfer>,
     @Inject(MAT_DIALOG_DATA) public data: string) {}
 
   onNoClick(): void {
