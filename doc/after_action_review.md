@@ -13,6 +13,7 @@ This document talks about the overall project experience.
     - [Intented Outcomes](#intented-outcomes)
     - [Expected Barriers](#expected-barriers)
   - [What Actually Occurred](#what-actually-occurred)
+    - [Real Timeline](#real-timeline)
     - [The Good Part](#the-good-part)
     - [The Bad Part](#the-bad-part)
       - [Password Validation](#password-validation)
@@ -63,24 +64,33 @@ The expected barriers are learning different new technologies including OpenStac
 
 ## What Actually Occurred
 
+### Real Timeline
+
+The real timeline was:
+
+1. Setup the physical server by the end of Christmas break
+2. Finished backend service in the middle of January
+3. Finished coding part of the project by the end of February
+4. Moved the physical servers on campus at the beginning  of March
+
 ### The Good Part
 
 ![System Design](images/block_diagram.png)
 
 The entire project is separated into seven docker containers serving different functionalities. The Nginx container is used as the gateway and reverse proxy for the front-end and back-end services.
 
-The webpage container hosts front-end. The API container hosts RESTful API for controlling OpenStack and sends message into RabbitMQ. The RabbitMQ is used to for fast response time of time-consuming tasks. The callback container is used to consume messages from RabbitMQ and performs time-consuming tasks. The MongoDB container is used to store customized data from this project and not part of OpenStack. The Apache Guacamole is used as remote control protocols gateway including SSH, VNC, RDP and Telnet.
+The webpage container hosts the front-end. The API container hosts RESTful API for controlling OpenStack and sends messages into RabbitMQ. The RabbitMQ is used for the faster response time of time-consuming tasks. The callback container is used to consume messages from RabbitMQ and performs time-consuming tasks. The MongoDB container is used to store customized data from this project and not part of OpenStack. The Apache Guacamole is used as remote control protocols gateway including SSH, VNC, RDP, and Telnet.
 
 ### The Bad Part
 
 #### Password Validation
 
-There is no password validation on sign up page and root password validation on deployment page.
+There is no password validation on the signup page and root password validation on the deployment page.
 
 ![password validation](images/password_validation.png)
 ![root password validation](images/root_password_validation.png)
 
-Without password validation, the user has a chance of entering wrong password without acknowledgement.
+Without password validation, the user has a chance of entering the wrong password without acknowledgment.
 
 #### User Alert
 
@@ -96,31 +106,31 @@ Moreover, the failure message pop is also done by alert and with very little inf
 
 ### Successful Step
 
-The most important step taken towards achieving the objective is move from pure KVM to OpenStack. There is nothing wrong with the original plan which is using KVM to host virtual machines and writing own KVM managing services by Python. I can have more control, freedom and flexibility of what I want to achieve and what functionality I need. However, this capstone project is going along with other courses and has limited development time, it will be super hard and stressful to follow the original plan and it might be able to complete on time.
+The most important step taken towards achieving the objective is to move from pure KVM to OpenStack. There is nothing wrong with the original plan which is using KVM to host virtual machines and writing own KVM managing services by Python. I can have more control, freedom, and flexibility of what I want to achieve and what functionality I need. However, this capstone project is going along with other courses and has limited development time, it will be super hard and stressful to follow the original plan and it might be able to complete on time.
 
 ### Learning OpenStack
 
-Although OpenStack is a huge project separated into smaller pieces, there are large communities and official support documents to find answers of problems I was facing, and the whole installation and setup steps were going mostly flawlessly. Furthermore, the OpenStack SDK’s document is mostly straight forward and easy to read. Nevertheless, questions or problems can be easily found on Google or Stack Overflow.
+Although OpenStack is a huge project separated into smaller pieces, there are large communities and official support documents to find answers to problems I was facing, and the whole installation and setup steps were going mostly flawlessly. Furthermore, the OpenStack SDK’s document is mostly straight forward and easy to read. Nevertheless, questions or problems can be easily found on Google or Stack Overflow.
 
 ### Front-end
 
-The front-end went well, too. Although Angular has a steep learning curve, once have gotten used to it, it is easy to develop the interface and logic under the hood.
+The front-end went well, too. Although Angular has a steep learning curve, once it has gotten used to it, it is easy to develop the interface and logic under the hood.
 
 ## What Can be Improved and Why
 
-There are many little user experience details can be improved in this project.
+Many little user experience details can be improved in this project.
 
 There can be a loading animation during loading your instances and images information. This can indicate when the loading is finished and if there are any instances under the user’s name.
 
-There can be password validations on both sign up page and deploy page. This can make sure the user entered the desired password without typos.
+There can be password validations on both the signup page and the deploy page. This can make sure the user entered the desired password without typos.
 
-The Apache Guacamole can be integrated into the project instead of a separate service running independent to the project.
+The Apache Guacamole can be integrated into the project instead of a separate service running independently of the project.
 
 ## What Did I learn
 
 ### Software Development Cycle
 
-I have learned that I should not skip the problem definition and requirements listing and jump into prototyping during software development cycle. I was having trouble with explain the purpose, the stakeholders, and the rationale of this project and after sitting down, stopping coding and working on the requirement document, I had a better insight of this project: What is it? What is it for? Who is the customer? Planning and designing are as important as coding and testing.
+I have learned that I should not skip the problem definition and requirements listing and jump into prototyping during the software development cycle. I was having trouble with explaining the purpose, the stakeholders, and the rationale of this project and after sitting down, stopping coding and working on the requirement document, I had a better insight into this project: What is it? What is it for? Who is the customer? Planning and designing are as important as coding and testing.
 
 ### Compromises
 
