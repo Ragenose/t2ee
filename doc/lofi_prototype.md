@@ -8,6 +8,7 @@ This document is to present Lo-Fi prototypes and wireframes of this project
   - [Deploy an Instance](#deploy-an-instance)
   - [Manage Instances](#manage-instances)
   - [Create Image](#create-image)
+  - [Transfer Ownership](#transfer-ownership)
 
 ## Deploy an Instance
 
@@ -30,3 +31,9 @@ The user can convert their instances into images (templates that can save other 
 In the your instance page, beside the instance name, there is more icon. There is an create image menu item that will open a dialog for entering sufficient information to create the image.
 
 ![Create Image](images/create_image.png)
+
+## Transfer Ownership
+
+The user can transfer their virtual machine to another user. This will not change any credentials inside the virtual machine rather a change in the database.
+
+![Transfer Ownership](images/transfer.png)
