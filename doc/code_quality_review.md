@@ -9,10 +9,12 @@ This document reviews the code quality of this project.
   - [Architecture](#architecture)
     - [Backend](#backend)
     - [Front-end](#front-end)
+  - [Coding Best Practices](#coding-best-practices)
+    - [Hard Coding/Constants](#hard-codingconstants)
 
 ## Code Formatting
 
-The Snake Case is used for both functions and variables in Python codes. The reason why choosing the Snake Case is to match OpenStack SDK's code format.
+The **Snake Case** is used for both functions and variables in Python codes. The reason why choosing the Snake Case is to match OpenStack SDK's code format.
 
 Examples:
 
@@ -31,7 +33,7 @@ def start_instance(conn, instance_name):
         return True
 ```
 
-The Camel Case is used in Angular (TypeScript).
+The **Camel Case** is used in Angular (TypeScript).
 
 Examples:
 
@@ -59,7 +61,7 @@ All codes are properly aligned and have proper white space indentation. All code
 
 ## Architecture
 
-The design pattern used for both front-end and backend is the module. The module pattern is to organize code into components that accomplish a particular function.
+The design pattern used for both front-end and backend is the **module**. The module pattern is to organize code into components that accomplish a particular function.
 
 ### Backend
 
@@ -155,7 +157,7 @@ def mq_create_instance(username, instance_name, image, flavor, root_password):
 
 ### Front-end
 
-Angular apps are modular, the front-end webpage is split into different components that define the screen elements and use services to provide specific functionality not directly related to views.
+Angular apps are **modular**, the front-end webpage is split into different components that define the screen elements and use services to provide specific functionality not directly related to views.
 
 ```.
 src
@@ -241,4 +243,43 @@ src
 ├── polyfills.ts
 ├── styles.css
 └── test.ts
+```
+
+## Coding Best Practices
+
+### Hard Coding/Constants
+
+There is no hard coding and all constants like URL, IP addresses are stored in configuration files.
+
+For example: The information needed to connect to OpenStack is stored in `api/config/openstack.yaml`.
+
+```yaml
+region_name: RegionOne
+auth:
+    auth_url: http://t2ee:5000/v3/
+    username: admin
+    password: t2ee
+    project_name: t2ee
+    user_domain_name: Default
+    project_domain_name: Default
+    identity_api_version: 3
+    image_api_version: 2
+```
+
+Then the `create_connection_from_config` function can read from the configuration file and create the OpenStack connection.
+
+```python
+def create_connection_from_config(file="config/openstack.yaml"):
+    opts = options(file)
+    return openstack.connection.Connection(
+        auth_url = opts.auth_url,
+        username = opts.username,
+        password = opts.password,
+        project_name = opts.project_name,
+        region_name = opts.region_name,
+        project_domain_name = opts.project_domain_name,
+        user_domain_name = opts.user_domain_name,
+        identity_api_version = opts.identity_api_version,
+        image_api_version = opts.image_api_version
+    )
 ```
