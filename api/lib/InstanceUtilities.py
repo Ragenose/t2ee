@@ -46,7 +46,6 @@ def create_instance(conn, image_name, flavor_name, network_name, instance_name, 
             name = instance_name, image_id = image.id, flavor_id = flavor.id,
             networks = [{"uuid": network.id}])
         return instance
-    #instance = conn.compute.wait_for_server(instance)
     return None
 
 
