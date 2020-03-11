@@ -8,6 +8,7 @@ This document reviews the code quality of this project.
   - [Code Formatting](#code-formatting)
   - [Architecture](#architecture)
     - [Backend](#backend)
+    - [Front-end](#front-end)
 
 ## Code Formatting
 
@@ -58,11 +59,11 @@ All codes are properly aligned and have proper white space indentation. All code
 
 ## Architecture
 
-The design pattern used for both front-end and backend is module. Module pattern is to organize code into components that accomplish a particular function.
+The design pattern used for both front-end and backend is the module. The module pattern is to organize code into components that accomplish a particular function.
 
 ### Backend
 
-The backend python codes are split into multiple layers including custom library of different utilities, configuration files, and testing files.
+The backend python codes are split into multiple layers including the custom library of different utilities, configuration files, and testing files.
 
 ```.
 api/
@@ -102,7 +103,7 @@ api/
     └── test_user.py
 ```
 
-In the lib directory, there are modules that handles different tasks for controlling OpenStack.
+In the lib directory, there are modules that handle different tasks for controlling OpenStack.
 
 For example: This `create_instance` function can create the instance based on the parameters and return `None` or an OpenStack Instance object.
 
@@ -150,4 +151,94 @@ def mq_create_instance(username, instance_name, image, flavor, root_password):
             else:
                 break
     conn.close()
+```
+
+### Front-end
+
+Angular apps are modular, the front-end webpage is split into different components that define the screen elements and use services to provide specific functionality not directly related to views.
+
+```.
+src
+├── app
+│   ├── app-routing.module.ts
+│   ├── app.component.css
+│   ├── app.component.html
+│   ├── app.component.spec.ts
+│   ├── app.component.ts
+│   ├── app.module.ts
+│   ├── deploy
+│   │   ├── deploy.component.css
+│   │   ├── deploy.component.html
+│   │   ├── deploy.component.spec.ts
+│   │   └── deploy.component.ts
+│   ├── helpers
+│   │   ├── auth.guard.spec.ts
+│   │   ├── auth.guard.ts
+│   │   ├── basic-auth.interceptor.ts
+│   │   └── error.interceptor.ts
+│   ├── home
+│   │   ├── home.component.css
+│   │   ├── home.component.html
+│   │   ├── home.component.spec.ts
+│   │   ├── home.component.ts
+│   │   ├── home.directive.spec.ts
+│   │   ├── home.directive.ts
+│   │   └── instance
+│   │       ├── image-create.html
+│   │       ├── instance.component.css
+│   │       ├── instance.component.html
+│   │       ├── instance.component.spec.ts
+│   │       ├── instance.component.ts
+│   │       └── transfer-ownership.html
+│   ├── image
+│   │   ├── image-item
+│   │   │   ├── image-deploy.html
+│   │   │   ├── image-item.component.css
+│   │   │   ├── image-item.component.html
+│   │   │   ├── image-item.component.spec.ts
+│   │   │   └── image-item.component.ts
+│   │   ├── image.component.css
+│   │   ├── image.component.html
+│   │   ├── image.component.spec.ts
+│   │   ├── image.component.ts
+│   │   ├── image.directive.spec.ts
+│   │   └── image.directive.ts
+│   ├── login
+│   │   ├── login.component.css
+│   │   ├── login.component.html
+│   │   ├── login.component.spec.ts
+│   │   └── login.component.ts
+│   ├── material.ts
+│   ├── models
+│   │   ├── instance.ts
+│   │   ├── user.spec.ts
+│   │   └── user.ts
+│   ├── services
+│   │   ├── authentication.service.spec.ts
+│   │   ├── authentication.service.ts
+│   │   ├── image.service.spec.ts
+│   │   ├── image.service.ts
+│   │   ├── setting.service.spec.ts
+│   │   ├── setting.service.ts
+│   │   ├── userinfo.service.spec.ts
+│   │   ├── userinfo.service.ts
+│   │   ├── vm.service.spec.ts
+│   │   └── vm.service.ts
+│   └── setting
+│       ├── setting.component.css
+│       ├── setting.component.html
+│       ├── setting.component.spec.ts
+│       └── setting.component.ts
+├── assets
+│   └── img
+│       └── account_circle-24px.svg
+├── environments
+│   ├── environment.prod.ts
+│   └── environment.ts
+├── favicon.ico
+├── index.html
+├── main.ts
+├── polyfills.ts
+├── styles.css
+└── test.ts
 ```
