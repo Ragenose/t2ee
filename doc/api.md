@@ -14,6 +14,8 @@ Document of RESTful API call.
     - [Delete Instance](#delete-instance)
     - [Change Instance Lifecycle](#change-instance-lifecycle)
     - [Transfer Instance Ownership](#transfer-instance-ownership)
+  - [Image related](#image-related)
+    - [Create Image](#create-image)
 
 ## User related
 
@@ -426,3 +428,58 @@ Transfer instance's ownership
   * **Code:** 400 BAD REQUEST\
     **Content:** `Instance not exist`
 ---
+
+## Image related
+
+### Create Image
+
+Create an image from an instance
+
+* **URL**
+
+  `/api/image/create`
+
+* **Method:**
+
+  `POST`
+
+* **Header Params**
+
+    `Authorization: Basic <credentials>`
+
+* **URL Params**
+
+   None
+
+* **Data Params**
+
+  ```json
+  {
+    instance_name: "example_instance_name",
+    image_name: "example_image_name",
+    description: "example_description"
+  }
+  ```
+
+* **Success Response:**
+
+  * **Code:** 200\
+    **Content:** 
+    ```json
+    { status : "OK" }
+    ```
+
+* **Error Response:**
+* 
+  When authentication failed.
+
+  * **Code:** 401 UNAUTHORIZED\
+    **Content:** `Invalid Credential`
+    
+  When insufficient data provided
+
+  * **Code:** 400 BAD REQUEST\
+    **Content:** `Bad Request, insufficient data`
+
+---
+
