@@ -13,6 +13,14 @@ from lib.DatabaseUtilities import\
     remove_image_from_user,\
     remove_image_from_image_database
 
+# Function: mq_image
+# Date: 2020/01/08
+# Purpose: Multiplexing image requests from message
+# Parameters:
+#     ch, method, properties, body: RabbitMQ parameters
+# Return value:
+#     None
+
 def mq_image(ch, method, properties, body):
     payload = json.loads(body.decode("utf-8"))
     logging.warning(payload)
@@ -24,6 +32,16 @@ def mq_image(ch, method, properties, body):
     except KeyError:
         print("KeyError")
 
+# Function: mq_create_image
+# Date: 2020/01/09
+# Purpose: Create image
+# Parameters:
+#     username
+#     image_name
+#     instance_name
+#     description
+# Return value:
+#     None
 
 def mq_create_image(username, image_name, instance_name, description):
     conn = create_connection_from_config()
@@ -32,6 +50,15 @@ def mq_create_image(username, image_name, instance_name, description):
         create_image_document(username, image_name, instance_name, description)
         add_image_to_user(username, image_name, image.id)
     conn.close()
+
+# Function: mq_delete_image
+# Date: 2020/03/10
+# Purpose: Delete image
+# Parameters:
+#     username
+#     image_name
+# Return value:
+#     None
 
 def mq_delete_image(username, image_name):
     conn = create_connection_from_config()
