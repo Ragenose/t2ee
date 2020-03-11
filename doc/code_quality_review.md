@@ -10,7 +10,6 @@ This document reviews the code quality of this project.
     - [Backend](#backend)
     - [Front-end](#front-end)
   - [Coding Best Practices](#coding-best-practices)
-    - [Hard Coding/Constants](#hard-codingconstants)
 
 ## Code Formatting
 
@@ -247,8 +246,6 @@ src
 
 ## Coding Best Practices
 
-### Hard Coding/Constants
-
 There is no hard coding and all constants like URL, IP addresses are stored in configuration files.
 
 For example: The information needed to connect to OpenStack is stored in `api/config/openstack.yaml`.
@@ -283,3 +280,9 @@ def create_connection_from_config(file="config/openstack.yaml"):
         image_api_version = opts.image_api_version
     )
 ```
+
+There are function comment headers for Python custom library to explain what it does and what are the parameters and return values. However, there are not a lot of in-line comments that explain why I am doing this.
+
+There are not multiple if/else blocks.
+
+The project tries to use as much framework features (both OpenStack SDK and Angular) as possible to avoid writing custom code.
