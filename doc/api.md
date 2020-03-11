@@ -16,6 +16,7 @@ Document of RESTful API call.
     - [Transfer Instance Ownership](#transfer-instance-ownership)
   - [Image related](#image-related)
     - [Create Image](#create-image)
+    - [Delete Image](#delete-image)
 
 ## User related
 
@@ -295,11 +296,11 @@ Delete an Instance
 
 * **URL Params**
 
-   None
+   instance_name
 
 * **Data Params**
 
-None
+  None
 
 * **Success Response:**
 
@@ -483,3 +484,43 @@ Create an image from an instance
 
 ---
 
+### Delete Image
+
+Delete an image
+
+* **URL**
+
+  `/api/image/delete/<string:image_name>`
+
+* **Method:**
+
+  `DELETE`
+
+* **Header Params**
+
+    `Authorization: Basic <credentials>`
+
+* **URL Params**
+
+   Image name
+
+* **Data Params**
+
+  None
+
+* **Success Response:**
+
+  * **Code:** 200\
+    **Content:** 
+    ```json
+    { status : "OK" }
+    ```
+
+* **Error Response:**
+* 
+  When authentication failed.
+
+  * **Code:** 401 UNAUTHORIZED\
+    **Content:** `Invalid Credential`
+
+---
