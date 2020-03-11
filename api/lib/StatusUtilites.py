@@ -16,9 +16,26 @@ def get_instance_status(conn: openstack.connection.Connection, instance_name):
     state = conn.compute.get_server(instance).power_state
     return return_power_state(state)
 
+# Function: get_instance_address
+# Date: 2020/01/13
+# Purpose: Get instance addresses
+# Parameters:
+#     conn: OpenStack connection
+#     instance_name: The instance that needs to be started
+# Return value:
+#     IP addresses
+
 def get_instance_address(conn: openstack.connection.Connection, instance_name):
     instance = conn.compute.find_server(instance_name)
     return conn.compute.get_server(instance).addresses
+
+# Function: return_power_state
+# Date: 2020/01/13
+# Purpose: convert status code into actual state
+# Parameters:
+#     status code from OpenStack
+# Return value:
+#     power state
 
 def return_power_state(code):
     state = [
