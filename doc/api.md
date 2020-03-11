@@ -13,6 +13,7 @@ Document of RESTful API call.
     - [Create Instance](#create-instance)
     - [Delete Instance](#delete-instance)
     - [Change Instance Lifecycle](#change-instance-lifecycle)
+    - [Transfer Instance Ownership](#transfer-instance-ownership)
 
 ## User related
 
@@ -356,7 +357,7 @@ Change instance lifecycle (start/shutdown/reboot)
     
   When invalid type on the URL
 
-  * **Code:** 400 UNAUTHORIZED\
+  * **Code:** 400 BAD REQUEST\
     **Content:** `Invalid operation`
 
   When operation failed
@@ -364,4 +365,64 @@ Change instance lifecycle (start/shutdown/reboot)
   * **Code:** 400 BAD REQUEST\
     **Content:** `Failed`
 
+---
+
+### Transfer Instance Ownership
+
+Transfer instance's ownership
+
+* **URL**
+
+  `/api/instance/transfer`
+
+* **Method:**
+
+  `POST`
+
+* **Header Params**
+
+    `Authorization: Basic <credentials>`
+
+* **URL Params**
+
+   None
+
+* **Data Params**
+
+  ```json
+  {
+    instance_name: "example_instance_name",
+    new_owner: "example_new_owner_name"
+  }
+  ```
+
+* **Success Response:**
+
+  * **Code:** 200\
+    **Content:** 
+    ```json
+    { status : "OK" }
+    ```
+
+* **Error Response:**
+* 
+  When authentication failed.
+
+  * **Code:** 401 UNAUTHORIZED\
+    **Content:** `Invalid Credential`
+    
+  When insufficient data provided
+
+  * **Code:** 400 BAD REQUEST\
+    **Content:** `Bad Request, insufficient data`
+
+  When the new owner does not exist
+
+  * **Code:** 400 BAD REQUEST\
+    **Content:** `New owner not exist`
+
+  When the instance does not exist
+
+  * **Code:** 400 BAD REQUEST\
+    **Content:** `Instance not exist`
 ---
