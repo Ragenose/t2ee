@@ -1,6 +1,22 @@
-# Introduction
+# Requirement Document
 
-A self-service virtual machine deployment platform which is a web portal that utilizes OpenStack API and services
+This document explains problems and requirements prerequisites.
+
+**Table of Contents:**
+
+- [Requirement Document](#requirement-document)
+  - [1. Purpose](#1-purpose)
+  - [2. Scope](#2-scope)
+    - [2.1. Project Goal](#21-project-goal)
+    - [2.2. Deliverable](#22-deliverable)
+    - [2.3. Features](#23-features)
+    - [2.4. Functionality](#24-functionality)
+    - [2.5. Milestones](#25-milestones)
+  - [3. Background](#3-background)
+  - [4. Rationale](#4-rationale)
+  - [5. Assumption](#5-assumption)
+  - [6. Constraint](#6-constraint)
+  - [7. Stakeholder](#7-stakeholder)
 
 ## 1. Purpose
 
