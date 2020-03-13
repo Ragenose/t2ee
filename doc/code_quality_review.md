@@ -17,6 +17,8 @@ This document reviews the code quality of this project.
       - [Debuggability](#debuggability)
       - [Configurability](#configurability)
     - [Reusability](#reusability)
+    - [Reliability](#reliability)
+    - [Security](#security)
 
 ## Code Formatting
 
@@ -317,3 +319,19 @@ The configurable values are stored in separate YAML files or in Docker file whic
 ### Reusability
 
 The same code is not repeated more than twice. Generic functions and services are reused over different components.
+
+### Reliability
+
+Try and catch code block is used for error handling.
+
+```python
+try:
+    conn.compute.wait_for_server(instance, status='SHUTOFF',wait=10)
+except conn.compute.ResourceTimeout:
+    return False
+else:
+    return True
+```
+
+### Security
+
