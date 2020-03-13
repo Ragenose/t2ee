@@ -16,6 +16,7 @@ This document reviews the code quality of this project.
       - [Testability](#testability)
       - [Debuggability](#debuggability)
       - [Configurability](#configurability)
+    - [Reusability](#reusability)
 
 ## Code Formatting
 
@@ -312,3 +313,7 @@ There is no log used to keep track of any failures happen on runtime. Debugging 
 #### Configurability
 
 The configurable values are stored in separate YAML files or in Docker file which require no change in the code.
+
+### Reusability
+
+The same code is not repeated more than twice. Generic functions and services are reused over different components.
