@@ -348,3 +348,7 @@ password : "962012d09b8170d912f0669f6d7d9d07"
 ```
 
 Even the database is compromised, it will be extremely difficult to retrieve the original password.
+
+However, using local storage in the browser to store session information is not the best practice. It is not designed to store sensitive information and the information is **insecure**.
+
+![Local Storage](images/local_storage.png)
