@@ -10,6 +10,12 @@ This document reviews the code quality of this project.
     - [Backend](#backend)
     - [Front-end](#front-end)
   - [Coding Best Practices](#coding-best-practices)
+  - [Non Functional Requirements](#non-functional-requirements)
+    - [Maintainability](#maintainability)
+      - [Readability](#readability)
+      - [Testability](#testability)
+      - [Debuggability](#debuggability)
+      - [Configurability](#configurability)
 
 ## Code Formatting
 
@@ -286,3 +292,23 @@ There are function comment headers for Python custom library to explain what it 
 There are not multiple if/else blocks.
 
 The project tries to use as much framework features (both OpenStack SDK and Angular) as possible to avoid writing custom code.
+
+## Non Functional Requirements
+
+### Maintainability
+
+#### Readability
+
+The code is short and uses as much framework features as possible. However, the lack of inline comments may reduce overall readability.
+
+#### Testability
+
+The Python custome library are designed to be testable. The library is written into small functions that aim to accompulish specific tasks and is easy to perform **unit test**. However, the front-end code might not be as testable as the Python code. But it can still be easily tested on components.
+
+#### Debuggability
+
+There is no log used to keep track of any failures happen on runtime. Debugging will rely on error message which is not the best practice.
+
+#### Configurability
+
+The configurable values are stored in separate YAML files or in Docker file which require no change in the code.
