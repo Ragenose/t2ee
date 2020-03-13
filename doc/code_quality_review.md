@@ -335,3 +335,16 @@ else:
 
 ### Security
 
+The password is hashed and will not be stored in plain text.
+
+```typescript
+let hashedPassword = Md5.hashStr(password);
+```
+
+The password is stored in the database like the following.
+
+```json
+password : "962012d09b8170d912f0669f6d7d9d07"
+```
+
+Even the database is compromised, it will be extremely difficult to retrieve the original password.
