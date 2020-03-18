@@ -9,6 +9,7 @@ This document describes the intended test activities.
   - [Scope](#scope)
   - [Testing Strategy](#testing-strategy)
     - [Unit Testing](#unit-testing)
+    - [Black Box Testing](#black-box-testing)
 
 ## Objective
 
@@ -29,3 +30,6 @@ All requirements will be tested under this plan.
 
 The Python library will be tested by unit testing. The unit test cases are located in [Unit Tests](../api/test). The **unittest** framework is used to create test cases.
 
+### Black Box Testing
+
+After the Python source code is tested, the black box testing will be used to test the RESTful API. 
