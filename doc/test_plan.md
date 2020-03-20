@@ -12,6 +12,7 @@ This document describes the intended test activities.
     - [Functional Testing](#functional-testing)
     - [Black Box Testing](#black-box-testing)
     - [Exploratory Testing](#exploratory-testing)
+  - [Test Result](#test-result)
 
 ## Objective
 
@@ -42,7 +43,7 @@ The functional test will be conducted by using the Postman which is a platform f
 
 It will be used to test every API used in this project defined [here](api.md).
 
-With pre-defined headers, parameters and urls, I can check if I get the expected output.
+With pre-defined headers, parameters and URLs, I can check if I get the expected output.
 
 ### Black Box Testing
 
@@ -50,4 +51,8 @@ Then the black box testing will be used to test if the front-end interface sends
 
 ### Exploratory Testing
 
-Finally the exploratory testing will be used to explore the application, look for things that might be wrong or behavior that is unexpected.
+Finally, the exploratory testing will be used to explore the application, look for things that might be wrong or behavior that is unexpected.
+
+## Test Result
+
+All unit test cases are passed. RESTful APIs are functioning correctly. The front-end interface interacts properly.
