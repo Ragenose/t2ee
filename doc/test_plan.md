@@ -9,7 +9,9 @@ This document describes the intended test activities.
   - [Scope](#scope)
   - [Testing Strategy](#testing-strategy)
     - [Unit Testing](#unit-testing)
+    - [Functional Testing](#functional-testing)
     - [Black Box Testing](#black-box-testing)
+    - [Exploratory Testing](#exploratory-testing)
 
 ## Objective
 
@@ -30,6 +32,22 @@ All requirements will be tested under this plan.
 
 The Python library will be tested by unit testing. The unit test cases are located in [Unit Tests](../api/test). The **unittest** framework is used to create test cases.
 
+### Functional Testing
+
+After the Python source code is tested, the functional testing will be used to test the RESTful API.
+
+The functional test will be conducted by using the Postman which is a platform for API development.
+
+![Postman](images/postman.png)
+
+It will be used to test every API used in this project defined [here](api.md).
+
+With pre-defined headers, parameters and urls, I can check if I get the expected output.
+
 ### Black Box Testing
 
-After the Python source code is tested, the black box testing will be used to test the RESTful API. 
+Then the black box testing will be used to test if the front-end interface sends correct API calls and display the response data properly.
+
+### Exploratory Testing
+
+Finally the exploratory testing will be used to explore the application, look for things that might be wrong or behavior that is unexpected.
