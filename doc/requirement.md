@@ -20,7 +20,7 @@ This document explains problems and requirements prerequisites.
 
 ## 1. Purpose
 
-The t2ee provides private servers available to students and staff so that students can learn more about Linux and utilize the potential of Linux servers with their project, and professors can create templates to have a different approach to teaching.
+The Yet Another VPS provides private servers available to students and staff so that students can learn more about Linux and utilize the potential of Linux servers with their project, and professors can create templates to have a different approach to teaching.
 
 ## 2. Scope
 
