@@ -1,39 +1,59 @@
-<form class="Deploy-form" [formGroup]="deployForm" (ngSubmit)="onDeploySubmit()">
-    <mat-form-field>
-        <label for="image">Image</label>
-        <mat-select formControlName="image">
-            <mat-option *ngFor="let image of images" [value]="image">
-                {{image}}
-            </mat-option>
-        </mat-select>
-    </mat-form-field>
-    <br>
-    <mat-form-field>
-        <label for="flavor">Flavor</label>
-        <mat-select formControlName="flavor">
-            <mat-option *ngFor="let flavor of flavors" [value]="flavor">
-                {{flavor}}
-            </mat-option>
-        </mat-select>
-    </mat-form-field>
-    <br>
-    <mat-form-field>
-        <label for="instance_name">Instance Name</label>
-        <input matInput type="text" formControlName="instance_name" class="form-control"
-            [ngClass]="{ 'is-invalid': submitted && f.instance_name.errors }" />
-        
-    </mat-form-field>
-    <br>
-    <mat-form-field>
-        <label for="root_password">root_password Name</label>
-        <input matInput type="password" formControlName="root_password" class="form-control"
-            [ngClass]="{ 'is-invalid': submitted && f.root_password.errors }" />
-        
-    </mat-form-field>
-    <br>
-    <button mat-raised-button color="primary" [disabled]="loading">
-        <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
-        Deploy
-    </button>
-    <div *ngIf="errorLogin" class="alert alert-danger mt-3 mb-0">{{errorLogin}}</div>
-</form>
+<mat-grid-list cols="2">
+    <mat-grid-tile>
+        <form class="Deploy-form" [formGroup]="deployForm" (ngSubmit)="onDeploySubmit()">
+            <mat-form-field>
+                <label for="image">Image</label>
+                <mat-select formControlName="image">
+                    <mat-option *ngFor="let image of images" [value]="image">
+                        {{image}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+            <br>
+            <mat-form-field>
+                <label for="flavor">Flavor</label>
+                <mat-select formControlName="flavor">
+                    <mat-option *ngFor="let flavor of flavors" [value]="flavor">
+                        {{flavor}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+            <br>
+            <mat-form-field>
+                <label for="instance_name">Instance Name</label>
+                <input matInput type="text" formControlName="instance_name" class="form-control"
+                    [ngClass]="{ 'is-invalid': submitted && f.instance_name.errors }" />
+
+            </mat-form-field>
+            <br>
+            <mat-form-field>
+                <label for="root_password">root_password Name</label>
+                <input matInput type="password" formControlName="root_password" class="form-control"
+                    [ngClass]="{ 'is-invalid': submitted && f.root_password.errors }" />
+
+            </mat-form-field>
+            <br>
+            <button mat-raised-button color="primary" [disabled]="loading">
+                <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+                Deploy
+            </button>
+            <div *ngIf="errorLogin" class="alert alert-danger mt-3 mb-0">{{errorLogin}}</div>
+        </form>
+    </mat-grid-tile>
+    <mat-grid-tile>
+        <div>
+            <h3>Image</h3>
+            <p>The base template images used are CentOS 7 and Ubuntu 16.04</p>
+            <h3>Flavor</h3>
+            <p>The specs are:<br>
+                small:  1 CPU 1GB RAM 20GB Hard Drive<br>
+                medium: 2 CPU 2GB RAM 30GB Hard Drive<br>
+                large:  4 CPU 4GB RAM 40GB Hard Drive
+            </p>
+            <h3>Instance Name</h3>
+            <p>The name and hostname of your virtual machine</p>
+            <h3>Root password</h3>
+            <p>The password you used to login as root</p>
+        </div>
+    </mat-grid-tile>
+</mat-grid-list>
