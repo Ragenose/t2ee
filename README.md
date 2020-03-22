@@ -7,6 +7,7 @@ Yet Another VPS is a web portal - a layer above OpenStack - that can utilize Ope
   - [Usage](#usage)
   - [Documents](#documents)
   - [Links](#links)
+    - [Quick Demo Video](#quick-demo-video)
 
 ## System Design
 
@@ -30,5 +31,6 @@ Documents [Here](doc)
 
 [Trello](https://trello.com/b/FHkfT7ZH/t2ee)
 
-Quick Demo Video
+### Quick Demo Video
+
 [![Demo video](http://img.youtube.com/vi/AP4eokqmSOM/0.jpg)](http://www.youtube.com/watch?v=AP4eokqmSOM)
