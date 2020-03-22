@@ -3,36 +3,24 @@
 Yet Another VPS is a web portal - a layer above OpenStack - that can utilize OpenStack API to add additional features including user self-service deployment ability, virtual machine ownership, etc.
 
 - [Yet Another VPS](#yet-another-vps)
+  - [System Design](#system-design)
   - [Usage](#usage)
-    - [Signup](#signup)
-    - [Create an instance](#create-an-instance)
-    - [Create from an image](#create-from-an-image)
-    - [Create image](#create-image)
-    - [Transfer instance ownership](#transfer-instance-ownership)
   - [Documents](#documents)
   - [Links](#links)
 
+## System Design
+
+![System Design](doc/images/block_diagram.png)
+
 ## Usage
 
-### Signup
+Clone the repo, configure all config file respectively, and....
 
-![Signup](doc/gifs/signup.gif)
+```bash
+docker-compose up
+```
 
-### Create an instance
-
-![Deploy Instance](doc/gifs/deploy.gif)
-
-### Create from an image
-
-![Deploy from image](doc/gifs/deploy&#32;from&#32;image.gif)
-
-### Create image
-
-![Create image](doc/gifs/create&#32;image.gif)
-
-### Transfer instance ownership
-
-![Transfer](doc/gifs/transfer.gif)
+![Docker Compose](doc/gifs/docker.gif)
 
 ## Documents
 
@@ -42,4 +30,5 @@ Documents [Here](doc)
 
 [Trello](https://trello.com/b/FHkfT7ZH/t2ee)
 
+Quick Demo Video
 [![Demo video](http://img.youtube.com/vi/AP4eokqmSOM/0.jpg)](http://www.youtube.com/watch?v=AP4eokqmSOM)
