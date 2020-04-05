@@ -122,6 +122,8 @@ Many little user experience details can be improved in this project.
 
 There can be a loading animation during loading your instances and images information. This can indicate when the loading is finished and if there are any instances under the user’s name.
 
+![Loading](gifs/loading.gif)
+
 There can be password validations on both the signup page and the deploy page. This can make sure the user entered the desired password without typos.
 
 The Apache Guacamole can be integrated into the project instead of a separate service running independently of the project.
