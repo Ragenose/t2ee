@@ -153,6 +153,8 @@ There can be password validations on both the signup page and the deploy page. T
 
 The Apache Guacamole can be integrated into the project instead of a separate service running independently of the project.
 
+Testing should be automated. The RESTful API can also be tested with unittest module in Python and the front-end can be tested with [Jasmine](https://jasmine.github.io/) and [Karma](https://karma-runner.github.io/latest/index.html).
+
 ## What Did I learn
 
 ### Software Development Cycle
