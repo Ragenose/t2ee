@@ -15,11 +15,11 @@ This document talks about the overall project experience.
   - [What Actually Occurred](#what-actually-occurred)
     - [Real Timeline](#real-timeline)
     - [The Good Part](#the-good-part)
-      - [Testing](#testing)
     - [The Bad Part](#the-bad-part)
+      - [Engineering Design Process](#engineering-design-process)
       - [Password Validation](#password-validation)
       - [User Alert](#user-alert)
-      - [Testing](#testing-1)
+      - [Testing](#testing)
   - [What Went Well and Why](#what-went-well-and-why)
     - [Successful Step](#successful-step)
     - [Learning OpenStack](#learning-openstack)
@@ -83,8 +83,6 @@ The entire project is separated into seven docker containers serving different f
 
 The webpage container hosts the front-end. The API container hosts RESTful API for controlling OpenStack and sends messages into RabbitMQ. The RabbitMQ is used for the faster response time of time-consuming tasks. The callback container is used to consume messages from RabbitMQ and performs time-consuming tasks. The MongoDB container is used to store customized data from this project and not part of OpenStack. The Apache Guacamole is used as remote control protocols gateway including SSH, VNC, RDP, and Telnet.
 
-#### Testing
-
 The customized Python library which controls the OpenStack has automated unit test developed with unittest module in Python.
 
 The following is an example of test cases which is testing create an instance.
@@ -92,11 +90,15 @@ The following is an example of test cases which is testing create an instance.
 ```python
 def test_creating(self):
         conn = create_connection_from_config()
-        create_instance(conn, "	Ubuntu16.04", "small", "provider1", "test")
+        create_instance(conn, "Ubuntu16.04", "small", "provider1", "test")
         self.assertFalse(check_instance_name_available(conn, "test"))
 ```
 
 ### The Bad Part
+
+#### Engineering Design Process
+
+I was following the Kanban design process using Trello Board. I jumped into the actual coding way too early and ignored the design processes e.g. problem definition, rationale, stakeholder, etc. That caused lose direction at the early stage and could not answer basic questions like why I want to do it and who is the user.
 
 #### Password Validation
 
@@ -142,6 +144,8 @@ Although OpenStack is a huge project separated into smaller pieces, there are la
 The front-end went well, too. Although Angular has a steep learning curve, once it has gotten used to it, it is easy to develop the interface and logic under the hood.
 
 ## What Can be Improved and Why
+
+Following the proper software design process. Think and plan before coding.
 
 Many little user experience details can be improved in this project.
 
