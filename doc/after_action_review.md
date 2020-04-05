@@ -15,9 +15,11 @@ This document talks about the overall project experience.
   - [What Actually Occurred](#what-actually-occurred)
     - [Real Timeline](#real-timeline)
     - [The Good Part](#the-good-part)
+      - [Testing](#testing)
     - [The Bad Part](#the-bad-part)
       - [Password Validation](#password-validation)
       - [User Alert](#user-alert)
+      - [Testing](#testing-1)
   - [What Went Well and Why](#what-went-well-and-why)
     - [Successful Step](#successful-step)
     - [Learning OpenStack](#learning-openstack)
@@ -81,6 +83,19 @@ The entire project is separated into seven docker containers serving different f
 
 The webpage container hosts the front-end. The API container hosts RESTful API for controlling OpenStack and sends messages into RabbitMQ. The RabbitMQ is used for the faster response time of time-consuming tasks. The callback container is used to consume messages from RabbitMQ and performs time-consuming tasks. The MongoDB container is used to store customized data from this project and not part of OpenStack. The Apache Guacamole is used as remote control protocols gateway including SSH, VNC, RDP, and Telnet.
 
+#### Testing
+
+The customized Python library which controls the OpenStack has automated unit test developed with unittest module in Python.
+
+The following is an example of test cases which is testing create an instance.
+
+```python
+def test_creating(self):
+        conn = create_connection_from_config()
+        create_instance(conn, "	Ubuntu16.04", "small", "provider1", "test")
+        self.assertFalse(check_instance_name_available(conn, "test"))
+```
+
 ### The Bad Part
 
 #### Password Validation
@@ -101,6 +116,16 @@ The success message popup is done by alert which is not a good user experience p
 Moreover, the failure message pop is also done by alert and with very little information about the failure.
 
 ![failure alert](images/failed_alert.png)
+
+#### Testing
+
+Testing are conducted mostly manually due to workload balancing reason. It is hard to learn and develop automated tests including unit test and end-user end while developing the main application and writing documents.
+
+The RESTful API is manually tested by Postman.
+
+![postman](images/postman.png)
+
+And the front-end is simply tested by manually exploring the webpage.
 
 ## What Went Well and Why
 
