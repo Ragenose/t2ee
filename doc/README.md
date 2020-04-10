@@ -9,4 +9,5 @@
 - [Code Quality Review](code_quality_review.md)
 - [Test Plan](test_plan.md)
 - [After Action Review Report](after_action_review.md)
+- [Presentation](https://www.youtube.com/watch?v=U3sPZsQAEJo&feature=youtu.be)
 - [Poster](Presentation/poster.pdf)
