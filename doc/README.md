@@ -8,3 +8,4 @@
 - [Code Quality Review](code_quality_review.md)
 - [Test Plan](test_plan.md)
 - [After Action Review Report](after_action_review.md)
+- [Poster](Presentation/poster.pdf)
