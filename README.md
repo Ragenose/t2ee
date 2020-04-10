@@ -4,6 +4,7 @@ Yet Another VPS is a web portal - a layer above OpenStack - that can utilize Ope
 
 - [Yet Another VPS](#yet-another-vps)
   - [System Design](#system-design)
+  - [Poster](#poster)
   - [Usage](#usage)
     - [Setup](#setup)
     - [Running Demo (For Faculty)](#running-demo-for-faculty)
@@ -16,6 +17,10 @@ Yet Another VPS is a web portal - a layer above OpenStack - that can utilize Ope
 ## System Design
 
 ![System Design](doc/images/block_diagram.png)
+
+## Poster
+
+![Poster](doc/images/poster.png)
 
 ## Usage
 
