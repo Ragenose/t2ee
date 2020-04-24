@@ -38,10 +38,6 @@ docker-compose up
 
 On-campus access to the project: [Here](http://142.3.190.142/)
 
-Off-campus access to the project: [Here](http://docker.hzyone.com:6001/)
-
-However, to access the virtual machines, you need to use the university [VPN](https://vpn.uregina.ca/) to jump back to the campus network.
-
 ## Documents
 
 Documents [Here](doc)
